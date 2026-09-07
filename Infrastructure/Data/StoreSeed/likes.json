@@ -1,0 +1,150 @@
+[
+  {
+    "ProductId": 1,
+    "UserId": "user1"
+  },
+  {
+    "ProductId": 1,
+    "UserId": "user2"
+  },
+  {
+    "ProductId": 1,
+    "UserId": "user3"
+  },
+  {
+    "ProductId": 2,
+    "UserId": "user4"
+  },
+  {
+    "ProductId": 2,
+    "UserId": "user5"
+  },
+  {
+    "ProductId": 2,
+    "UserId": "user1"
+  },
+  {
+    "ProductId": 3,
+    "UserId": "user2"
+  },
+  {
+    "ProductId": 3,
+    "UserId": "user3"
+  },
+  {
+    "ProductId": 3,
+    "UserId": "user1"
+  },
+  {
+    "ProductId": 3,
+    "UserId": "user2"
+  },
+  {
+    "ProductId": 4,
+    "UserId": "user4"
+  },
+  {
+    "ProductId": 4,
+    "UserId": "user1"
+  },
+  {
+    "ProductId": 4,
+    "UserId": "user3"
+  },
+  {
+    "ProductId": 5,
+    "UserId": "user5"
+  },
+  {
+    "ProductId": 5,
+    "UserId": "user1"
+  },
+  {
+    "ProductId": 5,
+    "UserId": "user2"
+  },
+  {
+    "ProductId": 6,
+    "UserId": "user3"
+  },
+  {
+    "ProductId": 5,
+    "UserId": "user1"
+  },
+  {
+    "ProductId": 8,
+    "UserId": "user4"
+  },
+  {
+    "ProductId": 7,
+    "UserId": "user5"
+  },
+  {
+    "ProductId": 7,
+    "UserId": "user5"
+  },
+  {
+    "ProductId": 8,
+    "UserId": "user5"
+  },
+  {
+    "ProductId": 9,
+    "UserId": "user5"
+  },
+  {
+    "ProductId": 9,
+    "UserId": "user5"
+  },
+  {
+    "ProductId": 10,
+    "UserId": "user5"
+  },
+  {
+    "ProductId": 11,
+    "UserId": "user5"
+  },
+  {
+    "ProductId": 12,
+    "UserId": "user5"
+  },
+  {
+    "ProductId": 12,
+    "UserId": "user5"
+  },
+  {
+    "ProductId": 13,
+    "UserId": "user5"
+  },
+  {
+    "ProductId": 13,
+    "UserId": "user5"
+  },
+  {
+    "ProductId": 14,
+    "UserId": "user5"
+  },
+  {
+    "ProductId": 15,
+    "UserId": "user5"
+  },
+  {
+    "ProductId": 16,
+    "UserId": "user5"
+  },
+  {
+    "ProductId": 17,
+    "UserId": "user5"
+  },
+  {
+    "ProductId": 18,
+    "UserId": "user5"
+  },
+  {
+    "ProductId": 18,
+    "UserId": "user5"
+  },
+  {
+    "ProductId": 18,
+    "UserId": "user5"
+  }
+]

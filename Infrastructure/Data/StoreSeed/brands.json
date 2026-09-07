@@ -1,0 +1,26 @@
+[
+  {
+    "Name": "Angular",
+    "ProductCategoryId":1
+  },
+  {
+    "Name": "NetCore",
+    "ProductCategoryId":2
+  },
+  {
+    "Name": "VS Code",
+    "ProductCategoryId":3
+  },
+  {
+    "Name": "React",
+    "ProductCategoryId":4
+  },
+  {
+    "Name": "Typescript",
+    "ProductCategoryId":5
+  },
+  {
+    "Name": "Redis",
+    "ProductCategoryId":6
+  }
+]

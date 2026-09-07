@@ -1,0 +1,182 @@
+[
+  {
+    "ProductId": 1,
+    "UserId": "user1",
+    "Comment": "This is a very good product with excellent quality"
+  },
+  {
+    "ProductId": 1,
+    "UserId": "user2",
+    "Comment": "I really like the design and performance of this product"
+  },
+  {
+    "ProductId": 2,
+    "UserId": "user1",
+    "Comment": "Very nice product and good quality"
+  },
+  {
+    "ProductId": 2,
+    "UserId": "user3",
+    "Comment": "The product is worth the money"
+  },
+  {
+    "ProductId": 3,
+    "UserId": "user2",
+    "Comment": "Excellent product for everyday use"
+  },
+  {
+    "ProductId": 3,
+    "UserId": "user4",
+    "Comment": "The quality is better than I expected"
+  },
+  {
+    "ProductId": 4,
+    "UserId": "user1",
+    "Comment": "Amazing product with great finishing"
+  },
+  {
+    "ProductId": 4,
+    "UserId": "user5",
+    "Comment": "Good value for the price"
+  },
+  {
+    "ProductId": 5,
+    "UserId": "user2",
+    "Comment": "The product is really comfortable and useful"
+  },
+  {
+    "ProductId": 5,
+    "UserId": "user3",
+    "Comment": "I liked the overall quality and design"
+  },
+  {
+    "ProductId": 6,
+    "UserId": "user1",
+    "Comment": "Nice product, I am satisfied with it"
+  },
+  {
+    "ProductId": 6,
+    "UserId": "user4",
+    "Comment": "The product works very well and looks great"
+  },
+  {
+    "ProductId": 7,
+    "UserId": "user2",
+    "Comment": "The product arrived in good condition"
+  },
+  {
+    "ProductId": 7,
+    "UserId": "user5",
+    "Comment": "I am happy with the quality of this product"
+  },
+  {
+    "ProductId": 8,
+    "UserId": "user1",
+    "Comment": "Really good quality and attractive design"
+  },
+  {
+    "ProductId": 8,
+    "UserId": "user3",
+    "Comment": "This product looks exactly as shown in the picture"
+  },
+  {
+    "ProductId": 9,
+    "UserId": "user2",
+    "Comment": "Overall a great product and good experience"
+  },
+  {
+    "ProductId": 9,
+    "UserId": "user4",
+    "Comment": "I would definitely recommend this product"
+  },
+  {
+    "ProductId": 10,
+    "UserId": "user1",
+    "Comment": "Great product with impressive quality"
+  },
+  {
+    "ProductId": 10,
+    "UserId": "user5",
+    "Comment": "The product is easy to use and very useful"
+  },
+  {
+    "ProductId": 11,
+    "UserId": "user2",
+    "Comment": "Excellent product and very easy to use"
+  },
+  {
+    "ProductId": 11,
+    "UserId": "user3",
+    "Comment": "I am very satisfied with this purchase"
+  },
+  {
+    "ProductId": 12,
+    "UserId": "user1",
+    "Comment": "Good quality product at a reasonable price"
+  },
+  {
+    "ProductId": 12,
+    "UserId": "user4",
+    "Comment": "The product performs better than expected"
+  },
+  {
+    "ProductId": 13,
+    "UserId": "user2",
+    "Comment": "I would definitely recommend this product"
+  },
+  {
+    "ProductId": 13,
+    "UserId": "user5",
+    "Comment": "The design and quality are both excellent"
+  },
+  {
+    "ProductId": 14,
+    "UserId": "user1",
+    "Comment": "The product is worth the money"
+  },
+  {
+    "ProductId": 14,
+    "UserId": "user3",
+    "Comment": "Very good product with reliable quality"
+  },
+  {
+    "ProductId": 15,
+    "UserId": "user2",
+    "Comment": "I liked the overall design and performance"
+  },
+  {
+    "ProductId": 15,
+    "UserId": "user4",
+    "Comment": "This is a useful product with good finishing"
+  },
+  {
+    "ProductId": 16,
+    "UserId": "user1",
+    "Comment": "Great product with impressive quality"
+  },
+  {
+    "ProductId": 16,
+    "UserId": "user5",
+    "Comment": "I am happy with the product and its performance"
+  },
+  {
+    "ProductId": 17,
+    "UserId": "user2",
+    "Comment": "Very satisfied with the purchase and product quality"
+  },
+  {
+    "ProductId": 17,
+    "UserId": "user3",
+    "Comment": "The product looks good and works perfectly"
+  },
+  {
+    "ProductId": 18,
+    "UserId": "user4",
+    "Comment": "Overall a great product and a good experience"
+  },
+  {
+    "ProductId": 18,
+    "UserId": "user5",
+    "Comment": "Excellent quality and I would recommend it to others"
+  }
+]
