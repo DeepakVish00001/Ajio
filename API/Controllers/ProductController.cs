@@ -27,27 +27,28 @@ namespace API.Controllers
                 QuantityInStock = product.QuantityInStock,
 
                 ProductBrand = product.ProductBrand!.Name,
-                ProductCategory=product.ProductBrand.ProductCategory!.Name
+                ProductCategory = product.ProductBrand.ProductCategory!.Name,
+                ImageUrl = product.ProductImages .Where(x => !x.IsPrimary)
+                .Select(x => x.PictureUrl).FirstOrDefault()
             }).ToList();
         }
         [HttpGet("{id:int}")]
-        public async Task<ActionResult<ProductToReturnDto>> GetProduct(int id)
+        public async Task<ActionResult<ProductDetailDto>> GetProduct(int id)
         {
             var spec = new ProductSpecification(id);
 
             var product = await repo.GetEntityWithSpec(spec);
             if (product == null) return NotFound("Sorry this product is not found");
-            return new ProductToReturnDto
+            return new ProductDetailDto
             {
                 Id = product!.Id,
                 Name = product.Name,
                 Description = product.Description,
                 Price = product.Price,
                 QuantityInStock = product.QuantityInStock,
-                //  IsActive = product.IsActive,
-                //IsDeleted = product.IsDeleted,
                 ProductBrand = product.ProductBrand!.Name,
-                ProductCategory=product.ProductBrand.ProductCategory!.Name
+                ProductCategory = product.ProductBrand.ProductCategory!.Name,
+                Picture = product.ProductImages.Select(x=>x.PictureUrl).ToList()
             };
         }
     }

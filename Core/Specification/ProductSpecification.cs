@@ -8,12 +8,15 @@ public class ProductSpecification : BaseSpecification<Product>
     {
         AddInclude(p => p.ProductBrand!);
         AddInclude(p => p.ProductBrand!.ProductCategory!);
+        AddInclude(p => p.ProductImages);
     }
     public ProductSpecification(int id) :
      base(x => x.Id == id && !x.IsDeleted && x.IsActive)
     {
         AddInclude(p => p.ProductBrand!);
         AddInclude(p => p.ProductBrand!.ProductCategory!);
+        AddInclude(p => p.ProductImages);
+
 
     }
 }
