@@ -15,6 +15,8 @@ builder.Services.AddDbContext<StoreContext>(opt =>
 });
 
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 var app = builder.Build();
 
 app.UseAuthorization();
