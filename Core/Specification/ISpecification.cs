@@ -1,6 +1,11 @@
-﻿namespace Core;
+﻿using System.Linq.Expressions;
 
-public interface ISpecification
+namespace Core.Specification;
+
+public interface ISpecification<T>
 {
+    Expression<Func<T, bool>>? Criteria { get; set; }
+    List<Expression<Func<T, object>>> Includes { get; set; }
 
+    
 }

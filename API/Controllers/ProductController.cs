@@ -2,6 +2,7 @@
 using API.Dtos;
 using Core.Entities;
 using Core.Interface;
+using Core.Specification;
 using Infrastructure.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -14,36 +15,40 @@ namespace API.Controllers
         [HttpGet]
         public async Task<ActionResult<IReadOnlyList<ProductToReturnDto>>> GetProducts()
         {
-            var products =await repo.GetListAynce();
-            return Ok(products);
-            // return products.Select(product=> new ProductToReturnDto
-            // {
-            //     Id = product!.Id,
-            //     Name = product.Name,
-            //     Description = product.Description,
-            //     Price = product.Price,
-            //     QuantityInStock = product.QuantityInStock,
-                
-            //     ProductBrand = product.ProductBrand!.Name
-            // }).ToList();
+            var spec = new ProductSpecification();
+            var products = await repo.ListAsync(spec);
+            //return Ok(products);
+            return products.Select(product => new ProductToReturnDto
+            {
+                Id = product!.Id,
+                Name = product.Name,
+                Description = product.Description,
+                Price = product.Price,
+                QuantityInStock = product.QuantityInStock,
+
+                ProductBrand = product.ProductBrand!.Name,
+                ProductCategory=product.ProductBrand.ProductCategory!.Name
+            }).ToList();
         }
         [HttpGet("{id:int}")]
         public async Task<ActionResult<ProductToReturnDto>> GetProduct(int id)
         {
-            var product = await repo.GetByIdAynce(id);
-            if(product ==null)return NotFound("Sorry this product is not found");
-            return Ok(product);
-            // return new ProductToReturnDto
-            // {
-            //     Id = product!.Id,
-            //     Name = product.Name,
-            //     Description = product.Description,
-            //     Price = product.Price,
-            //     QuantityInStock = product.QuantityInStock,
-            //   //  IsActive = product.IsActive,
-            //     //IsDeleted = product.IsDeleted,
-            //     ProductBrand = product.ProductBrand!.Name
-            // };
+            var spec = new ProductSpecification(id);
+
+            var product = await repo.GetEntityWithSpec(spec);
+            if (product == null) return NotFound("Sorry this product is not found");
+            return new ProductToReturnDto
+            {
+                Id = product!.Id,
+                Name = product.Name,
+                Description = product.Description,
+                Price = product.Price,
+                QuantityInStock = product.QuantityInStock,
+                //  IsActive = product.IsActive,
+                //IsDeleted = product.IsDeleted,
+                ProductBrand = product.ProductBrand!.Name,
+                ProductCategory=product.ProductBrand.ProductCategory!.Name
+            };
         }
     }
 }
