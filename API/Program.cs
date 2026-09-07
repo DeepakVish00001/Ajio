@@ -19,6 +19,7 @@ builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepositor
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 var app = builder.Build();
 
+app.UseStaticFiles();
 app.UseAuthorization();
 
 app.MapControllers();
