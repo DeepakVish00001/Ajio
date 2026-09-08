@@ -9,5 +9,8 @@ public class ProductDetailDto
     public int QuantityInStock { get; set; }
     public string? ProductBrand { get; set; }
     public string? ProductCategory { get; set; }
+    public int Likes { get; set; }
+
     public List<string> Picture { get; set; } = new();
+
 }

@@ -41,5 +41,13 @@ public class StoreContextSeed
             await context.ProductImages.AddRangeAsync(images);
             await context.SaveChangesAsync();
         }
+        if (!context.ProductLikes.Any())
+        {
+            var likeData = await File.ReadAllTextAsync("../Infrastructure/Data/StoreSeed/likes.json");
+            var likes = JsonSerializer.Deserialize<List<ProductLike>>(likeData);
+            if (likes == null || likes.Count == 0) return;
+            await context.ProductLikes.AddRangeAsync(likes);
+            await context.SaveChangesAsync();
+        }
     }
 }

@@ -4,21 +4,22 @@ namespace Core.Specification;
 
 public class ProductSpecification : BaseSpecification<Product>
 {
-    public ProductSpecification(ProductSpecPrams specPrams) 
+    public ProductSpecification(ProductSpecPrams specPrams)
     : base(x => !x.IsDeleted && x.IsActive &&
-        (string.IsNullOrEmpty(specPrams.Search) || x.Name.ToLower().Contains(specPrams.Search))&&
-        (!specPrams.BrandId.HasValue || x.ProductBrandId==specPrams.BrandId)&&
-        (!specPrams.CategoryId.HasValue || x.ProductBrand!.ProductCategoryId==specPrams.CategoryId)&&
-        (!specPrams.MinPrice.HasValue || x.Price >= specPrams.MinPrice.Value)&&
+        (string.IsNullOrEmpty(specPrams.Search) || x.Name.ToLower().Contains(specPrams.Search)) &&
+        (!specPrams.BrandId.HasValue || x.ProductBrandId == specPrams.BrandId) &&
+        (!specPrams.CategoryId.HasValue || x.ProductBrand!.ProductCategoryId == specPrams.CategoryId) &&
+        (!specPrams.MinPrice.HasValue || x.Price >= specPrams.MinPrice.Value) &&
         (!specPrams.MaxPrice.HasValue || x.Price <= specPrams.MaxPrice.Value)
     )
     {
         AddInclude(p => p.ProductBrand!);
         AddInclude(p => p.ProductBrand!.ProductCategory!);
         AddInclude(p => p.ProductImages);
+        AddInclude(l => l.ProductLikes);
         AddOrderBy(s => s.Name);
-        ApplyPaging(specPrams.PageSize * (specPrams.PageIndex-1),specPrams.PageSize);
-        
+        ApplyPaging(specPrams.PageSize * (specPrams.PageIndex - 1), specPrams.PageSize);
+
         if (!string.IsNullOrEmpty(specPrams.Sort))
         {
             switch (specPrams.Sort)
@@ -41,6 +42,8 @@ public class ProductSpecification : BaseSpecification<Product>
         AddInclude(p => p.ProductBrand!);
         AddInclude(p => p.ProductBrand!.ProductCategory!);
         AddInclude(p => p.ProductImages);
+        AddInclude(l => l.ProductLikes);
+
 
 
     }

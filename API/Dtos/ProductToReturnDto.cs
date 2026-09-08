@@ -10,5 +10,6 @@ public class ProductToReturnDto
     public string? ProductBrand { get; set; }
     public string? ProductCategory { get; set; }
     public string? ImageUrl { get; set; }
+    public int Likes { get; set; }
 
 }

@@ -16,6 +16,7 @@ public class Product : BaseEntity
     public int ProductBrandId { get; set; }
 
     public ICollection<ProductImage> ProductImages {get; set;} = new List<ProductImage>();
+    public ICollection<ProductLike> ProductLikes{get;set;}= new List<ProductLike>();
 
 
 }
