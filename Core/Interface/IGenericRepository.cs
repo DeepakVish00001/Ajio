@@ -4,9 +4,11 @@ namespace Core.Interface;
 
 public interface IGenericRepository<T>
 {
-    public Task<IReadOnlyList<T>> GetListAynce();
-    public Task<T?> GetByIdAynce(int id);
+    Task<IReadOnlyList<T>> GetListAynce();
+    Task<T?> GetByIdAynce(int id);
 
-    public Task<IReadOnlyList<T>> ListAsync(ISpecification<T> spec);
-    public Task<T?> GetEntityWithSpec(ISpecification<T> spec);
+    Task<IReadOnlyList<T>> ListAsync(ISpecification<T> spec);
+    Task<T?> GetEntityWithSpec(ISpecification<T> spec);
+
+    Task<int> CountAsync(ISpecification<T> spec);
 }

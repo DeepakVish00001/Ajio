@@ -1,5 +1,6 @@
 
 using API.Dtos;
+using API.Helpers;
 using AutoMapper;
 using Core.Entities;
 using Core.Interface;
@@ -12,12 +13,18 @@ namespace API.Controllers
     public class ProductController(IGenericRepository<Product> repo, IMapper mapper) : BaseApiController
     {
         [HttpGet]
-        public async Task<ActionResult<IReadOnlyList<ProductToReturnDto>>> GetProducts(
-         [FromQuery]   ProductSpecPrams specPrams )
+        public async Task<ActionResult<Pagination<ProductToReturnDto>>> GetProducts(
+         [FromQuery] ProductSpecPrams specPrams)
         {
             var spec = new ProductSpecification(specPrams);
+            var countSpec = new ProductFilterWithBrandCateSpec(specPrams);
+
+
+            var totalItems = await repo.CountAsync(countSpec);
+
             var products = await repo.ListAsync(spec);
-            return Ok(mapper.Map<IReadOnlyList<Product>,IReadOnlyList<ProductToReturnDto>>(products));
+            var data = mapper.Map<IReadOnlyList<Product>, IReadOnlyList<ProductToReturnDto>>(products);
+            return Ok(new Pagination<ProductToReturnDto>(specPrams.PageIndex, specPrams.PageSize, totalItems, data));
         }
         [HttpGet("{id:int}")]
         public async Task<ActionResult<ProductDetailDto>> GetProduct(int id)
@@ -26,7 +33,7 @@ namespace API.Controllers
 
             var product = await repo.GetEntityWithSpec(spec);
             if (product == null) return NotFound("Sorry this product is not found");
-            return mapper.Map<Product,ProductDetailDto>(product);
+            return mapper.Map<Product, ProductDetailDto>(product);
         }
     }
 }
