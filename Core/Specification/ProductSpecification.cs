@@ -4,10 +4,12 @@ namespace Core.Specification;
 
 public class ProductSpecification : BaseSpecification<Product>
 {
-    public ProductSpecification(string? sort,int? brandId, int? cateId) 
+    public ProductSpecification(ProductSpecPrams specPrams) 
     : base(x => !x.IsDeleted && x.IsActive &&
-        (!brandId.HasValue || x.ProductBrandId==brandId)&&
-        (!cateId.HasValue || x.ProductBrand!.ProductCategoryId==cateId)
+        (!specPrams.BrandId.HasValue || x.ProductBrandId==specPrams.BrandId)&&
+        (!specPrams.CategoryId.HasValue || x.ProductBrand!.ProductCategoryId==specPrams.CategoryId)&&
+        (!specPrams.MinPrice.HasValue || x.Price >= specPrams.MinPrice.Value)&&
+        (!specPrams.MaxPrice.HasValue || x.Price <= specPrams.MaxPrice.Value)
     )
     {
         AddInclude(p => p.ProductBrand!);
@@ -15,9 +17,9 @@ public class ProductSpecification : BaseSpecification<Product>
         AddInclude(p => p.ProductImages);
         AddOrderBy(s => s.Name);
         
-        if (!string.IsNullOrEmpty(sort))
+        if (!string.IsNullOrEmpty(specPrams.Sort))
         {
-            switch (sort)
+            switch (specPrams.Sort)
             {
                 case "priceAsc":
                     AddOrderBy(x => x.Price);
