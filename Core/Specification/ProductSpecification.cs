@@ -16,6 +16,7 @@ public class ProductSpecification : BaseSpecification<Product>
         AddInclude(p => p.ProductBrand!.ProductCategory!);
         AddInclude(p => p.ProductImages);
         AddOrderBy(s => s.Name);
+        ApplyPaging(specPrams.PageSize * (specPrams.PageIndex-1),specPrams.PageSize);
         
         if (!string.IsNullOrEmpty(specPrams.Sort))
         {
