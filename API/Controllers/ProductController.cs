@@ -12,9 +12,10 @@ namespace API.Controllers
     public class ProductController(IGenericRepository<Product> repo, IMapper mapper) : BaseApiController
     {
         [HttpGet]
-        public async Task<ActionResult<IReadOnlyList<ProductToReturnDto>>> GetProducts(string? sort)
+        public async Task<ActionResult<IReadOnlyList<ProductToReturnDto>>> GetProducts(
+            string? sort,int? brandId, int? cateId )
         {
-            var spec = new ProductSpecification(sort);
+            var spec = new ProductSpecification(sort,brandId,cateId);
             var products = await repo.ListAsync(spec);
             return Ok(mapper.Map<IReadOnlyList<Product>,IReadOnlyList<ProductToReturnDto>>(products));
         }
