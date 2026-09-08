@@ -6,6 +6,7 @@ public class ProductFilterWithBrandCateSpec : BaseSpecification<Product>
 {
     public ProductFilterWithBrandCateSpec(ProductSpecPrams specPrams)
     : base(x => !x.IsDeleted && x.IsActive &&
+        (string.IsNullOrEmpty(specPrams.Search) || x.Name.ToLower().Contains(specPrams.Search))&&
         (!specPrams.BrandId.HasValue || x.ProductBrandId == specPrams.BrandId) &&
         (!specPrams.CategoryId.HasValue || x.ProductBrand!.ProductCategoryId == specPrams.CategoryId) &&
         (!specPrams.MinPrice.HasValue || x.Price >= specPrams.MinPrice.Value) &&
