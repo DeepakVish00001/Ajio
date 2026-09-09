@@ -10,6 +10,7 @@ public class ProductDetailDto
     public decimal DiscountPercentage { get; set; }
 
     public int QuantityInStock { get; set; }
+     public string StockStatus { get; set; } = string.Empty;
     public string? ProductBrand { get; set; }
     public string? ProductCategory { get; set; }
     public decimal Rating { get; set; }

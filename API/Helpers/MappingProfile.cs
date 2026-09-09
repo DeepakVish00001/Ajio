@@ -24,6 +24,8 @@ public class MappingProfile : Profile
             .ForMember(x => x.ProductCategory, o => o.MapFrom(x => x.ProductBrand!.ProductCategory!.Name))
             .ForMember(x => x.Picture, o => o.MapFrom<ProductDetailsImageUrlResolver>())
 
+            .ForMember(x => x.StockStatus, o => o
+                    .MapFrom(x => x.QuantityInStock > 0 ? "InStock" : "OutOfStock"))
 
             .ForMember(x => x.DiscountPercentage,
                     o => o.MapFrom(x => x.OriginalPrice > 0
