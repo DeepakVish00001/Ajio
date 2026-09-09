@@ -24,6 +24,15 @@ public class MappingProfile : Profile
             .ForMember(x => x.ProductCategory, o => o.MapFrom(x => x.ProductBrand!.ProductCategory!.Name))
             .ForMember(x => x.Picture, o => o.MapFrom<ProductDetailsImageUrlResolver>())
 
+
+            .ForMember(x => x.DiscountPercentage,
+                    o => o.MapFrom(x => x.OriginalPrice > 0
+                        ? Math.Round(
+                             ((x.OriginalPrice - x.Price) / x.OriginalPrice) * 100,
+                             2)
+                        : 0))
+
+
             .ForMember(r => r.TotalReviews, o => o.MapFrom(r => r.ProductComments.Count()))
             .ForMember(r => r.Rating, o => o
                 .MapFrom(r => r.ProductComments.Where(x => x.Rating.HasValue)
