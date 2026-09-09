@@ -43,6 +43,7 @@ public class ProductSpecification : BaseSpecification<Product>
         AddInclude(p => p.ProductBrand!.ProductCategory!);
         AddInclude(p => p.ProductImages);
         AddInclude(l => l.ProductLikes);
+        AddInclude(x => x.ProductComments);
 
 
 

@@ -16,6 +16,7 @@ public class StoreContext:DbContext
     public DbSet<ProductCategory> ProductCategories { get; set; }
     public DbSet<ProductImage> ProductImages { get; set; }
     public DbSet<ProductLike> ProductLikes { get; set; }
+    public DbSet<ProductComment> ProductComments { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

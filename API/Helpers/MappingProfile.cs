@@ -18,10 +18,13 @@ public class MappingProfile : Profile
 
 
         //product to detail image
+        CreateMap<ProductComment, ProductCommentDto>();
         CreateMap<Product, ProductDetailDto>()
             .ForMember(x => x.ProductBrand, o => o.MapFrom(x => x.ProductBrand!.Name))
             .ForMember(x => x.ProductCategory, o => o.MapFrom(x => x.ProductBrand!.ProductCategory!.Name))
             .ForMember(x => x.Picture, o => o.MapFrom<ProductDetailsImageUrlResolver>())
-            .ForMember(l => l.Likes, o => o.MapFrom(l => l.ProductLikes.Count()));
+            .ForMember(l => l.Likes, o => o.MapFrom(l => l.ProductLikes.Count()))
+            .ForMember(c=>c.Comment,o=>o.MapFrom(c=>c.ProductComments));
+            
     }
 }

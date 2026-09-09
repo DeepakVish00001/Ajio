@@ -12,5 +12,7 @@ public class ProductDetailDto
     public int Likes { get; set; }
 
     public List<string> Picture { get; set; } = new();
+    public List<ProductCommentDto> Comment { get; set; } = new();
 
 }
+
