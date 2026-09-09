@@ -23,8 +23,14 @@ public class MappingProfile : Profile
             .ForMember(x => x.ProductBrand, o => o.MapFrom(x => x.ProductBrand!.Name))
             .ForMember(x => x.ProductCategory, o => o.MapFrom(x => x.ProductBrand!.ProductCategory!.Name))
             .ForMember(x => x.Picture, o => o.MapFrom<ProductDetailsImageUrlResolver>())
+
+            .ForMember(r => r.TotalReviews, o => o.MapFrom(r => r.ProductComments.Count()))
+            .ForMember(r => r.Rating, o => o
+                .MapFrom(r => r.ProductComments.Where(x => x.Rating.HasValue)
+                .Select(c => c.Rating!.Value).DefaultIfEmpty().Average()))
+
             .ForMember(l => l.Likes, o => o.MapFrom(l => l.ProductLikes.Count()))
-            .ForMember(c=>c.Comment,o=>o.MapFrom(c=>c.ProductComments));
-            
+            .ForMember(c => c.Comment, o => o.MapFrom(c => c.ProductComments));
+
     }
 }
