@@ -11,8 +11,16 @@ public class MappingProfile : Profile
         CreateMap<Product, ProductToReturnDto>()
             .ForMember(x => x.ProductBrand, o => o.MapFrom(x => x.ProductBrand!.Name))
             .ForMember(x => x.ProductCategory, o => o.MapFrom(x => x.ProductBrand!.ProductCategory!.Name))
-            .ForMember(x => x.ImageUrl, o => o.MapFrom<ProductImageUrlResolver>())
-            .ForMember(x => x.Likes, o => o.MapFrom(x => x.ProductLikes.Count()));
+            .ForMember(x => x.Likes, o => o.MapFrom(x => x.ProductLikes.Count()))
+
+            .ForMember(x => x.DiscountPercentage, o => o
+                    .MapFrom(x => x.OriginalPrice > 0
+                        ? Math.Round(
+                            ((x.OriginalPrice - x.Price) / x.OriginalPrice) * 100,
+                            2)
+                        : 0))
+            .ForMember(x => x.ImageUrl, o => o.MapFrom<ProductImageUrlResolver>());
+
 
 
 
