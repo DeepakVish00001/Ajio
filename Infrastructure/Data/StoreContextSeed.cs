@@ -62,7 +62,7 @@ public class StoreContextSeed
             var wishData = await File.ReadAllTextAsync("../Infrastructure/Data/StoreSeed/wishlist.json");
             var wishlists = JsonSerializer.Deserialize<List<ProductWishlist>>(wishData);
             if (wishlists == null || wishlists.Count == 0) return;
-            await context.ProductWishlists.AddRangeAsync();
+            await context.ProductWishlists.AddRangeAsync(wishlists);
             await context.SaveChangesAsync();
         }
     }

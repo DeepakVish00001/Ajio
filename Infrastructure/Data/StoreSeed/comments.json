@@ -2,181 +2,217 @@
   {
     "ProductId": 1,
     "UserId": "user1",
-    "Comment": "This is a very good product with excellent quality"
+    "Comment": "This is a very good product with excellent quality",
+    "Rating": 5
   },
   {
     "ProductId": 1,
     "UserId": "user2",
-    "Comment": "I really like the design and performance of this product"
+    "Comment": "I really like the design and performance of this product",
+    "Rating": 5
   },
   {
     "ProductId": 2,
     "UserId": "user1",
-    "Comment": "Very nice product and good quality"
+    "Comment": "Very nice product and good quality",
+    "Rating": 1
   },
   {
     "ProductId": 2,
     "UserId": "user3",
-    "Comment": "The product is worth the money"
+    "Comment": "The product is worth the money",
+    "Rating": 1
   },
   {
     "ProductId": 3,
     "UserId": "user2",
-    "Comment": "Excellent product for everyday use"
+    "Comment": "Excellent product for everyday use",
+    "Rating": 2
   },
   {
     "ProductId": 3,
     "UserId": "user4",
-    "Comment": "The quality is better than I expected"
+    "Comment": "The quality is better than I expected",
+    "Rating": 3
   },
   {
     "ProductId": 4,
     "UserId": "user1",
-    "Comment": "Amazing product with great finishing"
+    "Comment": "Amazing product with great finishing",
+    "Rating": 4
   },
   {
     "ProductId": 4,
     "UserId": "user5",
-    "Comment": "Good value for the price"
+    "Comment": "Good value for the price",
+    "Rating": 3
   },
   {
     "ProductId": 5,
     "UserId": "user2",
-    "Comment": "The product is really comfortable and useful"
+    "Comment": "The product is really comfortable and useful",
+    "Rating": 2
   },
   {
     "ProductId": 5,
     "UserId": "user3",
-    "Comment": "I liked the overall quality and design"
+    "Comment": "I liked the overall quality and design",
+    "Rating": 5
   },
   {
     "ProductId": 6,
     "UserId": "user1",
-    "Comment": "Nice product, I am satisfied with it"
+    "Comment": "Nice product, I am satisfied with it",
+    "Rating": 5
   },
   {
     "ProductId": 6,
     "UserId": "user4",
-    "Comment": "The product works very well and looks great"
+    "Comment": "The product works very well and looks great",
+    "Rating": 2
   },
   {
     "ProductId": 7,
     "UserId": "user2",
-    "Comment": "The product arrived in good condition"
+    "Comment": "The product arrived in good condition",
+    "Rating": 1
   },
   {
     "ProductId": 7,
     "UserId": "user5",
-    "Comment": "I am happy with the quality of this product"
+    "Comment": "I am happy with the quality of this product",
+    "Rating": 4
   },
   {
     "ProductId": 8,
     "UserId": "user1",
-    "Comment": "Really good quality and attractive design"
+    "Comment": "Really good quality and attractive design",
+    "Rating": 3
   },
   {
     "ProductId": 8,
     "UserId": "user3",
-    "Comment": "This product looks exactly as shown in the picture"
+    "Comment": "This product looks exactly as shown in the picture",
+    "Rating": 5
   },
   {
     "ProductId": 9,
     "UserId": "user2",
-    "Comment": "Overall a great product and good experience"
+    "Comment": "Overall a great product and good experience",
+    "Rating": 5
   },
   {
     "ProductId": 9,
     "UserId": "user4",
-    "Comment": "I would definitely recommend this product"
+    "Comment": "I would definitely recommend this product",
+    "Rating": 2
   },
   {
     "ProductId": 10,
     "UserId": "user1",
-    "Comment": "Great product with impressive quality"
+    "Comment": "Great product with impressive quality",
+    "Rating": 3
   },
   {
     "ProductId": 10,
     "UserId": "user5",
-    "Comment": "The product is easy to use and very useful"
+    "Comment": "The product is easy to use and very useful",
+    "Rating": 3
   },
   {
     "ProductId": 11,
     "UserId": "user2",
-    "Comment": "Excellent product and very easy to use"
+    "Comment": "Excellent product and very easy to use",
+    "Rating": 3
   },
   {
     "ProductId": 11,
     "UserId": "user3",
-    "Comment": "I am very satisfied with this purchase"
+    "Comment": "I am very satisfied with this purchase",
+    "Rating": 5
   },
   {
     "ProductId": 12,
     "UserId": "user1",
-    "Comment": "Good quality product at a reasonable price"
+    "Comment": "Good quality product at a reasonable price",
+    "Rating": 4
   },
   {
     "ProductId": 12,
     "UserId": "user4",
-    "Comment": "The product performs better than expected"
+    "Comment": "The product performs better than expected",
+    "Rating": 4
   },
   {
     "ProductId": 13,
     "UserId": "user2",
-    "Comment": "I would definitely recommend this product"
+    "Comment": "I would definitely recommend this product",
+    "Rating": 4
   },
   {
     "ProductId": 13,
     "UserId": "user5",
-    "Comment": "The design and quality are both excellent"
+    "Comment": "The design and quality are both excellent",
+    "Rating": 5
   },
   {
     "ProductId": 14,
     "UserId": "user1",
-    "Comment": "The product is worth the money"
+    "Comment": "The product is worth the money",
+    "Rating": 2
   },
   {
     "ProductId": 14,
     "UserId": "user3",
-    "Comment": "Very good product with reliable quality"
+    "Comment": "Very good product with reliable quality",
+    "Rating": 3
   },
   {
     "ProductId": 15,
     "UserId": "user2",
-    "Comment": "I liked the overall design and performance"
+    "Comment": "I liked the overall design and performance",
+    "Rating": 4
   },
   {
     "ProductId": 15,
     "UserId": "user4",
-    "Comment": "This is a useful product with good finishing"
+    "Comment": "This is a useful product with good finishing",
+    "Rating": 5
   },
   {
     "ProductId": 16,
     "UserId": "user1",
-    "Comment": "Great product with impressive quality"
+    "Comment": "Great product with impressive quality",
+    "Rating": 4
   },
   {
     "ProductId": 16,
     "UserId": "user5",
-    "Comment": "I am happy with the product and its performance"
+    "Comment": "I am happy with the product and its performance",
+    "Rating": 5
   },
   {
     "ProductId": 17,
     "UserId": "user2",
-    "Comment": "Very satisfied with the purchase and product quality"
+    "Comment": "Very satisfied with the purchase and product quality",
+    "Rating": 5
   },
   {
     "ProductId": 17,
     "UserId": "user3",
-    "Comment": "The product looks good and works perfectly"
+    "Comment": "The product looks good and works perfectly",
+    "Rating": 2
   },
   {
     "ProductId": 18,
     "UserId": "user4",
-    "Comment": "Overall a great product and a good experience"
+    "Comment": "Overall a great product and a good experience",
+    "Rating": 2
   },
   {
     "ProductId": 18,
     "UserId": "user5",
-    "Comment": "Excellent quality and I would recommend it to others"
+    "Comment": "Excellent quality and I would recommend it to others",
+    "Rating": 1
   }
 ]

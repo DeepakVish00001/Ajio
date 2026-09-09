@@ -9,7 +9,7 @@ public class Product : BaseEntity
     public decimal Price { get; set; }
     public decimal OriginalPrice { get; set; }
     public int QuantityInStock  { get; set; }
-    public bool IsActive { get; set; } = false;
+    public bool IsActive { get; set; } = true;
     public bool IsDeleted { get; set; } = false;
 
 
