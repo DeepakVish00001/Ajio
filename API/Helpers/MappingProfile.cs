@@ -19,6 +19,14 @@ public class MappingProfile : Profile
                             ((x.OriginalPrice - x.Price) / x.OriginalPrice) * 100,
                             2)
                         : 0))
+            
+
+            .ForMember(x=>x.Rating,o=>o
+                .MapFrom(x=>x.ProductComments.Where(x=>x.Rating.HasValue)
+                .Select(x=>x.Rating!.Value).DefaultIfEmpty().Average()))
+
+            .ForMember(r => r.TotalReviews, o => o.MapFrom(r => r.ProductComments.Count()))
+                
             .ForMember(x => x.ImageUrl, o => o.MapFrom<ProductImageUrlResolver>());
 
 
