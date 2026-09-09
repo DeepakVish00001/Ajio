@@ -16,6 +16,10 @@ public class ProductDetailDto
     public decimal Rating { get; set; }
     public int TotalReviews { get; set; }
     public int Likes { get; set; }
+    public bool IsLiked { get; set; }
+
+     public Dictionary<int, int> RatingBreakdown { get; set; }
+        = new();
 
     public List<string> Picture { get; set; } = new();
     public List<ProductCommentDto> Comment { get; set; } = new();
