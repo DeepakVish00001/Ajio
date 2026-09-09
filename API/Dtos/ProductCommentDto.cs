@@ -7,5 +7,5 @@ public class ProductCommentDto
     public int? Rating { get; set; }
 
     public string? UserId { get; set; }
-    public DateTime DateTime { get; set; }
+    public DateTime CreateAt { get; set; }
 }

@@ -11,5 +11,5 @@ public class ProductComment : BaseEntity
     public Product? Product { get; set; }
 
     public int ProductId { get; set; }
-    public DateTime DateTime { get; set; } = DateTime.UtcNow;
+    public DateTime CreateAt { get; set; } = DateTime.UtcNow;
 }
