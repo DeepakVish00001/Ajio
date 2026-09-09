@@ -1,5 +1,6 @@
 ﻿using API.Dtos;
 using AutoMapper;
+using Core.Entites;
 using Core.Entities;
 
 namespace API.Helpers;
@@ -8,6 +9,7 @@ public class MappingProfile : Profile
 {
     public MappingProfile()
     {
+        //get all product mapping
         CreateMap<Product, ProductToReturnDto>()
             .ForMember(x => x.ProductBrand, o => o.MapFrom(x => x.ProductBrand!.Name))
             .ForMember(x => x.ProductCategory, o => o.MapFrom(x => x.ProductBrand!.ProductCategory!.Name))
@@ -50,9 +52,6 @@ public class MappingProfile : Profile
                              2)
                         : 0))
 
-
-
-
             .ForMember(r => r.TotalReviews, o => o.MapFrom(r => r.ProductComments.Count()))
             .ForMember(r => r.Rating, o => o
                 .MapFrom(r => r.ProductComments.Where(x => x.Rating.HasValue)
@@ -66,6 +65,11 @@ public class MappingProfile : Profile
                                      rating => rating,
                                      rating => x.ProductComments.Count(c => c.
                                      Rating == rating))));
+            
+            //wishlist mapping
+            CreateMap<ProductWishlist,WishlistDto>()
+                .ForMember(x=>x.UserId,o=>o.MapFrom(x=>x.UserId))
+                .ForMember(x=>x.Product,o=>o.MapFrom(x=>x.Product));
 
     }
 }
