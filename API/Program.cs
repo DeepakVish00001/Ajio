@@ -17,10 +17,23 @@ builder.Services.AddDbContext<StoreContext>(opt =>
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAngular", policy =>
+    {
+        policy
+            .AllowAnyHeader()
+            .AllowAnyMethod()
+            .WithOrigins("http://localhost:4200");
+    });
+});
 var app = builder.Build();
 
+app.UseCors("AllowAngular");
 app.UseStaticFiles();
 app.UseAuthorization();
+app.UseAuthentication();
 
 app.MapControllers();
 
