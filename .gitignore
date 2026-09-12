@@ -22,6 +22,8 @@ node_modules/
 .angular/
 dist/
 .cache/
+.bin/
+.obj/
 
 # Environment / secrets
 appsettings.Development.json

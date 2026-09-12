@@ -14,6 +14,7 @@ public class MappingProfile : Profile
             .ForMember(x => x.ProductBrand, o => o.MapFrom(x => x.ProductBrand!.Name))
             .ForMember(x => x.ProductCategory, o => o.MapFrom(x => x.ProductBrand!.ProductCategory!.Name))
             .ForMember(x => x.Likes, o => o.MapFrom(x => x.ProductLikes.Count()))
+            .ForMember(x => x.ImageUrl, o => o.MapFrom<ProductImageUrlResolver>())
 
             .ForMember(x => x.DiscountPercentage, o => o
                     .MapFrom(x => x.OriginalPrice > 0
@@ -27,9 +28,8 @@ public class MappingProfile : Profile
                 .MapFrom(x=>x.ProductComments.Where(x=>x.Rating.HasValue)
                 .Select(x=>x.Rating!.Value).DefaultIfEmpty().Average()))
 
-            .ForMember(r => r.TotalReviews, o => o.MapFrom(r => r.ProductComments.Count()))
+            .ForMember(r => r.TotalReviews, o => o.MapFrom(r => r.ProductComments.Count()));
                 
-            .ForMember(x => x.ImageUrl, o => o.MapFrom<ProductImageUrlResolver>());
 
 
 
