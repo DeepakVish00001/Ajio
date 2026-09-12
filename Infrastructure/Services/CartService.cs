@@ -22,7 +22,7 @@ public class CartService(IConnectionMultiplexer redis) : ICartService
 
     public async Task<ShoppingCart?> SetCartAsync(ShoppingCart cart)
     {
-        var key = cart.Id.ToString();
+        var key = cart.Id;
         var created = await _database.StringSetAsync(key,
             JsonSerializer.Serialize(cart), TimeSpan.FromDays(30));
         if (!created) return null;
