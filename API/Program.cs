@@ -1,6 +1,7 @@
 using Core.Interface;
 using Infrastructure.Data;
 using Infrastructure.Implementation;
+using Infrastructure.Services;
 using Microsoft.EntityFrameworkCore;
 using StackExchange.Redis;
 
@@ -24,6 +25,8 @@ builder.Services.AddSingleton<IConnectionMultiplexer>(config =>
 });
 
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+
+builder.Services.AddSingleton<ICartService,CartService>();
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
