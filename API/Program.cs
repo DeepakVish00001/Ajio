@@ -1,3 +1,4 @@
+using API.Middeware;
 using Core.Interface;
 using Infrastructure.Data;
 using Infrastructure.Implementation;
@@ -47,6 +48,8 @@ app.UseStaticFiles();
 app.UseAuthorization();
 app.UseAuthentication();
 
+
+app.UseMiddleware<ExceptionMiddleware>();
 app.MapControllers();
 
 try
