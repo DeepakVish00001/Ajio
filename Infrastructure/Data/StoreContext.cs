@@ -18,6 +18,7 @@ public class StoreContext(DbContextOptions<StoreContext> options) :
     public DbSet<ProductLike> ProductLikes { get; set; }
     public DbSet<ProductComment> ProductComments { get; set; }
     public DbSet<ProductWishlist> ProductWishlists { get; set; }
+    public DbSet<Address> Addresses { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
