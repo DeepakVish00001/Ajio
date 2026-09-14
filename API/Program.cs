@@ -51,8 +51,10 @@ var app = builder.Build();
 
 app.UseCors("AllowAngular");
 app.UseStaticFiles();
-app.UseAuthorization();
 app.UseAuthentication();
+app.UseAuthorization();
+
+
 
 
 app.UseMiddleware<ExceptionMiddleware>();

@@ -1,12 +1,13 @@
 
 
+using System.Security.Claims;
 using API.Dtos;
-using Core.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
 {
-  
+
     public class BuggyController : BaseApiController
     {
         [HttpGet("unauthorized")]
@@ -15,30 +16,40 @@ namespace API.Controllers
             return Unauthorized();
         }
 
-         [HttpGet("badrequest")]
+        [HttpGet("badrequest")]
         public IActionResult GetBadrequest()
         {
             return BadRequest("Not a goot msg bad request");
         }
 
-         [HttpGet("notfound")]
+        [HttpGet("notfound")]
         public IActionResult GetNotFound()
         {
             return NotFound();
         }
 
 
-         [HttpGet("internalerror")]
+        [HttpGet("internalerror")]
         public IActionResult GetInternalError()
         {
             throw new Exception("This is a test exception");
         }
 
 
-         [HttpPost("validationerror")]
+        [HttpPost("validationerror")]
         public IActionResult GetValidationError(CreateProductDto product)
         {
             return Ok();
+        }
+
+        [Authorize]
+        [HttpGet("secret")]
+        public IActionResult GetSecret()
+        {
+            var name = User.FindFirst(ClaimTypes.Name)?.Value;
+            var id = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            return Ok("Hello" + name + "with the id of" + id);
         }
     }
 }
