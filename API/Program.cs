@@ -1,4 +1,5 @@
 using API.Middeware;
+using Core.Entities;
 using Core.Interface;
 using Infrastructure.Data;
 using Infrastructure.Implementation;
@@ -29,6 +30,11 @@ builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepositor
 
 builder.Services.AddSingleton<ICartService,CartService>();
 
+builder.Services.AddAuthorization();
+builder.Services.AddIdentityApiEndpoints<AppUser>()
+        .AddEntityFrameworkStores<StoreContext>();
+
+
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 builder.Services.AddCors(options =>
@@ -51,6 +57,8 @@ app.UseAuthentication();
 
 app.UseMiddleware<ExceptionMiddleware>();
 app.MapControllers();
+
+app.MapIdentityApi<AppUser>();
 
 try
 {
