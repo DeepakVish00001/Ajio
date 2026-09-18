@@ -14,12 +14,18 @@ import { ProductItemComponent } from './product-item/product-item.component';
 })
 export class ShopComponent implements OnInit {
   private shopServices = inject(ShopServices);
-  
+
 
   products: Product[] = [];
 
   ngOnInit(): void {
-    this.shopServices.getProducts().subscribe({
+   this.initializeShop()
+  }
+  initializeShop() {
+    this.shopServices.getCategories();
+    this.shopServices.getBrands();
+
+     this.shopServices.getProducts().subscribe({
       next: response => this.products = response.data,
       error: (error: any) => console.log(error)
     })
