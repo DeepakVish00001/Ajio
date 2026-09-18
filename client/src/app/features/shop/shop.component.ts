@@ -7,7 +7,6 @@ import { ProductItemComponent } from './product-item/product-item.component';
 @Component({
   selector: 'app-shop',
   imports: [
-    MatCard,
     ProductItemComponent
   ],
   templateUrl: './shop.component.html',
