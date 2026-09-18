@@ -1,6 +1,732 @@
 <app-header></app-header>
 
-<h1 class="text-2xl underline">Welcome to {{title}}</h1>
-<div class="container mt-4">
-    <app-shop></app-shop>
+<div class="mx-auto w-full max-w-screen-2xl px-3 py-4 sm:px-4 lg:px-6">
+
+    <!-- ================================================= -->
+    <!-- MOBILE FILTER BUTTON -->
+    <!-- ================================================= -->
+
+    <div class="mb-4 lg:hidden">
+
+        <button
+            type="button"
+            class="flex w-full items-center justify-center gap-2 rounded-lg bg-black px-4 py-3 text-sm font-semibold text-white">
+
+            <mat-icon class="!h-5 !w-5 !text-[20px]">
+                filter_list
+            </mat-icon>
+
+            FILTERS
+
+        </button>
+
+    </div>
+
+
+    <!-- ================================================= -->
+    <!-- MAIN LAYOUT -->
+    <!-- ================================================= -->
+
+    <div class="flex flex-col gap-5 lg:flex-row lg:gap-6">
+
+
+        <!-- ================================================= -->
+        <!-- SIDEBAR -->
+        <!-- ================================================= -->
+
+        <aside class="hidden w-full shrink-0 lg:block lg:w-64 xl:w-68">
+
+            <div class="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm">
+
+                <!-- FILTER HEADER -->
+                <div class="flex items-center justify-between border-b px-4 py-4 sm:px-5">
+
+                    <div>
+                        <h2 class="text-lg font-bold text-gray-900">
+                            Filters
+                        </h2>
+
+                        <p class="mt-0.5 text-xs text-gray-500">
+                            Refine your products
+                        </p>
+                    </div>
+
+                    <button
+                        type="button"
+                        class="text-xs font-semibold text-red-500 hover:text-red-600">
+                        CLEAR ALL
+                    </button>
+
+                </div>
+
+
+                <!-- ================================================= -->
+                <!-- SORT BY -->
+                <!-- ================================================= -->
+
+                <div class="border-b border-gray-100 px-4 py-5 sm:px-5">
+
+                    <h3 class="mb-4 text-sm font-bold uppercase tracking-wide text-gray-800">
+                        Sort By
+                    </h3>
+
+                    <div class="flex items-center rounded-md border border-gray-200 px-3 py-2">
+
+                        <select
+                            class="ml-1 w-full bg-transparent text-sm outline-none">
+
+                            <option value="">
+                                A to Z
+                            </option>
+
+                            <option value="priceAsc">
+                                Price: Low to High
+                            </option>
+
+                            <option value="priceDesc">
+                                Price: High to Low
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+
+                <!-- ================================================= -->
+                <!-- CATEGORY -->
+                <!-- ================================================= -->
+
+                <div class="border-b border-gray-100 px-4 py-5 sm:px-5">
+
+                    <div class="mb-4 flex items-center justify-between">
+
+                        <h3 class="text-sm font-bold uppercase tracking-wide text-gray-800">
+                            Category
+                        </h3>
+
+                        <mat-icon class="!h-5 !w-5 !text-[20px] text-gray-400">
+                            expand_less
+                        </mat-icon>
+
+                    </div>
+
+
+                    <div class="space-y-3">
+
+                        <!-- Mobile -->
+                        <label class="group flex cursor-pointer items-center justify-between">
+
+                            <div class="flex min-w-0 items-center gap-3">
+
+                                <input
+                                    type="checkbox"
+                                    class="h-4 w-4 shrink-0 cursor-pointer rounded border-gray-300 accent-black">
+
+                                <span class="truncate text-sm text-gray-600 group-hover:text-gray-900">
+                                    Mobile
+                                </span>
+
+                            </div>
+
+                            <span class="ml-2 shrink-0 text-xs text-gray-400">
+                                24
+                            </span>
+
+                        </label>
+
+
+                        <!-- Laptop -->
+                        <label class="group flex cursor-pointer items-center justify-between">
+
+                            <div class="flex min-w-0 items-center gap-3">
+
+                                <input
+                                    type="checkbox"
+                                    class="h-4 w-4 shrink-0 cursor-pointer rounded border-gray-300 accent-black">
+
+                                <span class="truncate text-sm text-gray-600 group-hover:text-gray-900">
+                                    Laptop
+                                </span>
+
+                            </div>
+
+                            <span class="ml-2 shrink-0 text-xs text-gray-400">
+                                18
+                            </span>
+
+                        </label>
+
+
+                        <!-- TV -->
+                        <label class="group flex cursor-pointer items-center justify-between">
+
+                            <div class="flex min-w-0 items-center gap-3">
+
+                                <input
+                                    type="checkbox"
+                                    class="h-4 w-4 shrink-0 cursor-pointer rounded border-gray-300 accent-black">
+
+                                <span class="truncate text-sm text-gray-600 group-hover:text-gray-900">
+                                    TV
+                                </span>
+
+                            </div>
+
+                            <span class="ml-2 shrink-0 text-xs text-gray-400">
+                                12
+                            </span>
+
+                        </label>
+
+
+                        <!-- Accessories -->
+                        <label class="group flex cursor-pointer items-center justify-between">
+
+                            <div class="flex min-w-0 items-center gap-3">
+
+                                <input
+                                    type="checkbox"
+                                    class="h-4 w-4 shrink-0 cursor-pointer rounded border-gray-300 accent-black">
+
+                                <span class="truncate text-sm text-gray-600 group-hover:text-gray-900">
+                                    Accessories
+                                </span>
+
+                            </div>
+
+                            <span class="ml-2 shrink-0 text-xs text-gray-400">
+                                32
+                            </span>
+
+                        </label>
+
+                    </div>
+
+                </div>
+
+
+                <!-- ================================================= -->
+                <!-- BRAND -->
+                <!-- ================================================= -->
+
+                <div class="border-b border-gray-100 px-4 py-5 sm:px-5">
+
+                    <div class="mb-4 flex items-center justify-between">
+
+                        <h3 class="text-sm font-bold uppercase tracking-wide text-gray-800">
+                            Brand
+                        </h3>
+
+                        <mat-icon class="!h-5 !w-5 !text-[20px] text-gray-400">
+                            expand_less
+                        </mat-icon>
+
+                    </div>
+
+
+                    <!-- Search Brand -->
+                    <div class="mb-4 flex items-center rounded-md border border-gray-200 px-3 py-2">
+
+                        <mat-icon class="!h-4 !w-4 !text-[18px] text-gray-400">
+                            search
+                        </mat-icon>
+
+                        <input
+                            type="text"
+                            placeholder="Search brand"
+                            class="ml-2 min-w-0 w-full bg-transparent text-sm outline-none placeholder:text-gray-400">
+
+                    </div>
+
+
+                    <div class="space-y-3">
+
+                        <!-- Apple -->
+                        <label class="group flex cursor-pointer items-center gap-3">
+
+                            <input
+                                type="checkbox"
+                                class="h-4 w-4 shrink-0 cursor-pointer rounded border-gray-300 accent-black">
+
+                            <span class="truncate text-sm text-gray-600 group-hover:text-gray-900">
+                                Apple
+                            </span>
+
+                        </label>
+
+
+                        <!-- Samsung -->
+                        <label class="group flex cursor-pointer items-center gap-3">
+
+                            <input
+                                type="checkbox"
+                                class="h-4 w-4 shrink-0 cursor-pointer rounded border-gray-300 accent-black">
+
+                            <span class="truncate text-sm text-gray-600 group-hover:text-gray-900">
+                                Samsung
+                            </span>
+
+                        </label>
+
+
+                        <!-- LG -->
+                        <label class="group flex cursor-pointer items-center gap-3">
+
+                            <input
+                                type="checkbox"
+                                class="h-4 w-4 shrink-0 cursor-pointer rounded border-gray-300 accent-black">
+
+                            <span class="truncate text-sm text-gray-600 group-hover:text-gray-900">
+                                LG
+                            </span>
+
+                        </label>
+
+
+                        <!-- Sony -->
+                        <label class="group flex cursor-pointer items-center gap-3">
+
+                            <input
+                                type="checkbox"
+                                class="h-4 w-4 shrink-0 cursor-pointer rounded border-gray-300 accent-black">
+
+                            <span class="truncate text-sm text-gray-600 group-hover:text-gray-900">
+                                Sony
+                            </span>
+
+                        </label>
+
+                    </div>
+
+
+                    <button
+                        type="button"
+                        class="mt-4 text-xs font-semibold text-gray-700 underline underline-offset-4">
+
+                        + 6 MORE
+
+                    </button>
+
+                </div>
+
+
+                <!-- ================================================= -->
+                <!-- PRICE -->
+                <!-- ================================================= -->
+
+                <div class="border-b border-gray-100 px-4 py-5 sm:px-5">
+
+                    <div class="mb-4 flex items-center justify-between">
+
+                        <h3 class="text-sm font-bold uppercase tracking-wide text-gray-800">
+                            Price
+                        </h3>
+
+                        <mat-icon class="!h-5 !w-5 !text-[20px] text-gray-400">
+                            expand_less
+                        </mat-icon>
+
+                    </div>
+
+
+                    <!-- Price Inputs -->
+                    <div class="flex items-center gap-2">
+
+                        <div class="relative min-w-0 flex-1">
+
+                            <span
+                                class="absolute left-3 top-1/2 -translate-y-1/2 text-xs text-gray-400">
+                                ₹
+                            </span>
+
+                            <input
+                                type="number"
+                                placeholder="Min"
+                                class="w-full rounded-md border border-gray-200 py-2 pl-7 pr-2 text-sm outline-none focus:border-gray-400">
+
+                        </div>
+
+
+                        <span class="shrink-0 text-gray-400">
+                            —
+                        </span>
+
+
+                        <div class="relative min-w-0 flex-1">
+
+                            <span
+                                class="absolute left-3 top-1/2 -translate-y-1/2 text-xs text-gray-400">
+                                ₹
+                            </span>
+
+                            <input
+                                type="number"
+                                placeholder="Max"
+                                class="w-full rounded-md border border-gray-200 py-2 pl-7 pr-2 text-sm outline-none focus:border-gray-400">
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Price Range -->
+                    <div class="mt-5">
+
+                        <input
+                            type="range"
+                            min="0"
+                            max="50000"
+                            class="w-full cursor-pointer accent-black">
+
+                        <div class="mt-2 flex justify-between text-xs text-gray-500">
+
+                            <span>
+                                ₹0
+                            </span>
+
+                            <span>
+                                ₹50,000+
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- ================================================= -->
+                <!-- CUSTOMER RATING -->
+                <!-- ================================================= -->
+
+                <div class="border-b border-gray-100">
+
+                    <div class="flex items-center justify-between px-4 py-4 sm:px-5">
+
+                        <span class="text-xs font-bold uppercase tracking-widest text-gray-800">
+                            Customer Rating
+                        </span>
+
+                        <mat-icon class="!h-5 !w-5 !text-[19px] text-gray-400">
+                            keyboard_arrow_up
+                        </mat-icon>
+
+                    </div>
+
+
+                    <div class="space-y-3 px-4 pb-5 sm:px-5">
+
+                        <!-- 5 Star -->
+                        <label class="flex cursor-pointer items-center gap-3">
+
+                            <input
+                                type="radio"
+                                name="rating"
+                                class="h-4 w-4 shrink-0 accent-black">
+
+                            <div class="flex min-w-0 items-center">
+
+                                <span class="whitespace-nowrap text-yellow-400">
+                                    ★★★★★
+                                </span>
+
+                                <span class="ml-2 text-xs text-gray-500">
+                                    & above
+                                </span>
+
+                            </div>
+
+                        </label>
+
+
+                        <!-- 4 Star -->
+                        <label class="flex cursor-pointer items-center gap-3">
+
+                            <input
+                                type="radio"
+                                name="rating"
+                                class="h-4 w-4 shrink-0 accent-black">
+
+                            <div class="flex min-w-0 items-center">
+
+                                <span class="whitespace-nowrap text-yellow-400">
+                                    ★★★★
+                                </span>
+
+                                <span class="whitespace-nowrap text-gray-300">
+                                    ★
+                                </span>
+
+                                <span class="ml-2 text-xs text-gray-500">
+                                    & above
+                                </span>
+
+                            </div>
+
+                        </label>
+
+
+                        <!-- 3 Star -->
+                        <label class="flex cursor-pointer items-center gap-3">
+
+                            <input
+                                type="radio"
+                                name="rating"
+                                class="h-4 w-4 shrink-0 accent-black">
+
+                            <div class="flex min-w-0 items-center">
+
+                                <span class="whitespace-nowrap text-yellow-400">
+                                    ★★★
+                                </span>
+
+                                <span class="whitespace-nowrap text-gray-300">
+                                    ★★
+                                </span>
+
+                                <span class="ml-2 text-xs text-gray-500">
+                                    & above
+                                </span>
+
+                            </div>
+
+                        </label>
+
+
+                        <!-- 2 Star -->
+                        <label class="flex cursor-pointer items-center gap-3">
+
+                            <input
+                                type="radio"
+                                name="rating"
+                                class="h-4 w-4 shrink-0 accent-black">
+
+                            <div class="flex min-w-0 items-center">
+
+                                <span class="whitespace-nowrap text-yellow-400">
+                                    ★★
+                                </span>
+
+                                <span class="whitespace-nowrap text-gray-300">
+                                    ★★★
+                                </span>
+
+                                <span class="ml-2 text-xs text-gray-500">
+                                    & above
+                                </span>
+
+                            </div>
+
+                        </label>
+
+                    </div>
+
+                </div>
+
+
+                <!-- ================================================= -->
+                <!-- APPLY FILTERS -->
+                <!-- ================================================= -->
+
+                <div class="border-t border-gray-100 p-4">
+
+                    <button
+                        type="button"
+                        class="w-full rounded-xl bg-black py-3 text-sm font-semibold tracking-wide text-white transition hover:bg-gray-800 active:scale-[0.98]">
+
+                        APPLY FILTERS
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </aside>
+
+
+        <!-- ================================================= -->
+        <!-- RIGHT PRODUCT AREA -->
+        <!-- ================================================= -->
+
+        <main class="min-w-0 flex-1">
+
+
+            <!-- ================================================= -->
+            <!-- TOP PAGINATION -->
+            <!-- ================================================= -->
+
+            <div
+                class="border-b border-gray-100 mb-5 flex flex-col gap-4  pb-4 sm:flex-row sm:items-center sm:justify-between">
+
+                <!-- PRODUCT COUNT -->
+                <div class="text-sm text-gray-500">
+
+                    <span class="font-medium text-gray-800">
+                        18
+                    </span>
+
+                    Products
+
+                    <span class="mx-2 text-gray-300">
+                        |
+                    </span>
+
+                    Page
+
+                    <span class="font-medium text-gray-800">
+                        1
+                    </span>
+
+                    of
+
+                    <span class="font-medium text-gray-800">
+                        3
+                    </span>
+
+                </div>
+
+
+                <!-- TOP PAGINATION -->
+                <div class="flex items-center gap-1.5 overflow-x-auto sm:gap-2">
+
+                    <!-- Previous -->
+                    <button
+                        class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-gray-200 text-gray-500 hover:bg-gray-100 sm:h-9 sm:w-9">
+
+                        <mat-icon class="!m-0 !h-5 !w-5 !text-[20px]">
+                            chevron_left
+                        </mat-icon>
+
+                    </button>
+
+
+                    <!-- Page 1 -->
+                    <button
+                        class="h-8 w-8 shrink-0 rounded-lg bg-black text-sm font-medium text-white sm:h-9 sm:w-9">
+                        1
+                    </button>
+
+
+                    <!-- Page 2 -->
+                    <button
+                        class="h-8 w-8 shrink-0 rounded-lg border border-gray-200 text-sm text-gray-700 hover:bg-gray-100 sm:h-9 sm:w-9">
+                        2
+                    </button>
+
+
+                    <!-- Page 3 -->
+                    <button
+                        class="h-8 w-8 shrink-0 rounded-lg border border-gray-200 text-sm text-gray-700 hover:bg-gray-100 sm:h-9 sm:w-9">
+                        3
+                    </button>
+
+
+                    <!-- Dots -->
+                    <span class="shrink-0 px-1 text-sm text-gray-400">
+                        ...
+                    </span>
+
+
+                    <!-- Page 10 -->
+                    <button
+                        class="h-8 w-8 shrink-0 rounded-lg border border-gray-200 text-sm text-gray-700 hover:bg-gray-100 sm:h-9 sm:w-9">
+                        10
+                    </button>
+
+
+                    <!-- Next -->
+                    <button
+                        class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-gray-200 text-gray-500 hover:bg-gray-100 sm:h-9 sm:w-9">
+
+                        <mat-icon class="!m-0 !h-5 !w-5 !text-[20px]">
+                            chevron_right
+                        </mat-icon>
+
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- ================================================= -->
+            <!-- PRODUCTS -->
+            <!-- ================================================= -->
+
+            <div class="w-full">
+                <app-shop></app-shop>
+            </div>
+
+
+            <!-- ================================================= -->
+            <!-- BOTTOM PAGINATION -->
+            <!-- ================================================= -->
+
+            <div
+                class="mt-8 flex items-center justify-center gap-1.5 overflow-x-auto sm:gap-2">
+
+                <!-- Previous -->
+                <button
+                    class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-gray-200 text-gray-500 hover:bg-gray-100 sm:h-9 sm:w-9">
+
+                    <mat-icon class="!m-0 !h-5 !w-5 !text-[20px]">
+                        chevron_left
+                    </mat-icon>
+
+                </button>
+
+
+                <!-- Page 1 -->
+                <button
+                    class="h-8 w-8 shrink-0 rounded-lg bg-black text-sm font-medium text-white sm:h-9 sm:w-9">
+                    1
+                </button>
+
+
+                <!-- Page 2 -->
+                <button
+                    class="h-8 w-8 shrink-0 rounded-lg border border-gray-200 text-sm text-gray-700 hover:bg-gray-100 sm:h-9 sm:w-9">
+                    2
+                </button>
+
+
+                <!-- Page 3 -->
+                <button
+                    class="h-8 w-8 shrink-0 rounded-lg border border-gray-200 text-sm text-gray-700 hover:bg-gray-100 sm:h-9 sm:w-9">
+                    3
+                </button>
+
+
+                <!-- Dots -->
+                <span class="shrink-0 px-1 text-sm text-gray-400">
+                    ...
+                </span>
+
+
+                <!-- Page 10 -->
+                <button
+                    class="h-8 w-8 shrink-0 rounded-lg border border-gray-200 text-sm text-gray-700 hover:bg-gray-100 sm:h-9 sm:w-9">
+                    10
+                </button>
+
+
+                <!-- Next -->
+                <button
+                    class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-gray-200 text-gray-500 hover:bg-gray-100 sm:h-9 sm:w-9">
+
+                    <mat-icon class="!m-0 !h-5 !w-5 !text-[20px]">
+                        chevron_right
+                    </mat-icon>
+
+                </button>
+
+            </div>
+
+        </main>
+
+    </div>
+
 </div>
