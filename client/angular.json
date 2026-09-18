@@ -11,7 +11,7 @@
       "projectType": "application",
       "schematics": {
         "@schematics/angular:application": {
-          "style": "scss"
+          "style": "css"
         },
         "@schematics/angular:service": {
           "type": "services"
@@ -32,7 +32,7 @@
                 "input": "public"
               }
             ],
-            "styles": ["src/material-theme.scss", "src/styles.scss"]
+            "styles": ["src/material-theme.scss", "src/styles.css"]
           },
           "configurations": {
             "production": {

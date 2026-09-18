@@ -1,0 +1,7 @@
+@import 'tailwindcss';
+
+@import '@angular/material/prebuilt-themes/indigo-pink.css';
+
+.container{
+    @apply mx-auto px-6
+}

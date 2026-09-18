@@ -15,9 +15,11 @@ export class AppComponent implements OnInit {
   private http = inject(HttpClient);
   title = 'client';
 
+  products: any[] = [];
+
   ngOnInit(): void {
-    this.http.get(this.baseUrl + 'product').subscribe({
-      next: (data: any) => console.log(data),
+    this.http.get<any>(this.baseUrl + 'product').subscribe({
+      next:response => this.products=response.data,
       error: (error: any) => console.log(error),
       complete: () => console.log('complete')
     })
