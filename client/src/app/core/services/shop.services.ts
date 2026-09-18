@@ -14,11 +14,12 @@ export class ShopServices {
 
 
 
-  getProducts(brandId?:number,categoryId?:number) {
+  getProducts(brandId?:number,categoryId?:number,sort?:string) {
     let params = new HttpParams();
 
     if(brandId) params = params.append('brandId',brandId);
     if(categoryId) params = params.append('categoryId',categoryId);
+    if(sort) params = params.append('sort',sort);
     return this.http.get<Pagination<Product>>(this.baseUrl + 'product',{params})
   }
 

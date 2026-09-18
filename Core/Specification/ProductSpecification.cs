@@ -33,7 +33,7 @@ public class ProductSpecification : BaseSpecification<Product>
                     AddOrderByDescending(x => x.Price);
                     break;
                 default:
-                    AddOrderBy(x => x.Price);
+                    AddOrderBy(x => x.Name);
                     break;
             }
         }

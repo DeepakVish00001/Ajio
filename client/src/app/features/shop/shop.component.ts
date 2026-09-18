@@ -20,47 +20,59 @@ export class ShopComponent implements OnInit {
 
 
   products: Product[] = [];
-  categories:Category[]=[];
-  brands:Brands[]=[];
+  categories: Category[] = [];
+  brands: Brands[] = [];
 
   brandIdSelected = 0;
-  categoryIdSelected=0;
+  categoryIdSelected = 0;
+
+  sortSelected='name';
+  sortOptions = [
+    { name: 'Alphabetical', value: 'name' },
+    { name: ' Price: Low to High', value: 'priceAsc' },
+    { name: ' Price: High to Low', value: 'priceDesc' },
+  ]
 
   ngOnInit(): void {
-   this.getBrands()
-   this.getCategories();
-   this.getProducts();
+    this.getBrands()
+    this.getCategories();
+    this.getProducts();
   }
 
 
-  getProducts(){
- this.shopServices.getProducts(this.brandIdSelected,this.categoryIdSelected).subscribe({
+  getProducts() {
+    this.shopServices.getProducts(this.brandIdSelected, this.categoryIdSelected,this.sortSelected).subscribe({
       next: response => this.products = response.data,
       error: (error: any) => console.log(error)
     })
   }
-  getCategories(){
-     this.shopServices.getCategories().subscribe({
-      next: response => this.categories = [{id:0,name:'All'},...response],
+  getCategories() {
+    this.shopServices.getCategories().subscribe({
+      next: response => this.categories = [{ id: 0, name: 'All' }, ...response],
       error: (error: any) => console.log(error)
     })
   }
 
-    getBrands(){
-     this.shopServices.getBrands().subscribe({
-      next: response => this.brands = [{id:0,name:'All'},...response],
+  getBrands() {
+    this.shopServices.getBrands().subscribe({
+      next: response => this.brands = [{ id: 0, name: 'All' }, ...response],
       error: (error: any) => console.log(error)
     })
   }
 
 
-  onBrandSelected(brandId:number){
-    this.brandIdSelected=brandId
+  onBrandSelected(brandId: number) {
+    this.brandIdSelected = brandId
     this.getProducts()
   }
 
-  onCategorySelected(categoryId:number){
-    this.categoryIdSelected=categoryId
+  onCategorySelected(categoryId: number) {
+    this.categoryIdSelected = categoryId
+    this.getProducts()
+  }
+
+  onSortSelected(event:any){
+    this.sortSelected=event.target.value
     this.getProducts()
   }
 }
