@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace API.Controllers
 {
 
-    public class ProductController(IGenericRepository<Product> repo, IMapper mapper) : BaseApiController
+    public class ProductController(IGenericRepository<Product> repo, IGenericRepository<ProductCategory> repoCate, IGenericRepository<ProductBrand> repoBrands, IMapper mapper) : BaseApiController
     {
         [HttpGet]
         public async Task<ActionResult<Pagination<ProductToReturnDto>>> GetProducts(
@@ -34,6 +34,30 @@ namespace API.Controllers
             var product = await repo.GetEntityWithSpec(spec);
             if (product == null) return NotFound("Sorry this product is not found");
             return mapper.Map<Product, ProductDetailDto>(product);
+        }
+
+        [HttpGet("category")]
+        public async Task<ActionResult<IReadOnlyList<ProductCategoryDto>>> GetCategory()
+        {
+            var category = await repoCate.GetListAynce();
+            var result = category.Select(x => new ProductCategoryDto
+            {
+                Id = x.Id,
+                Name = x.Name
+            }).ToList();
+            return Ok(result);
+        }
+
+        [HttpGet("brands")]
+        public async Task<ActionResult<IReadOnlyList<ProductBrandDto>>> GetBrands()
+        {
+            var brands = await repoBrands.GetListAynce();
+            var result = brands.Select(x => new ProductBrandDto
+            {
+                Id = x.Id,
+                Name = x.Name
+            }).ToList();
+            return Ok(result);
         }
     }
 }
