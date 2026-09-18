@@ -3,5 +3,5 @@
 @import '@angular/material/prebuilt-themes/indigo-pink.css';
 
 .container{
-    @apply mx-auto max-w-screen-2xl
+    @apply mx-auto mt-5
 }
