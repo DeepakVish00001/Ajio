@@ -1,0 +1,69 @@
+
+@if(product){
+<mat-card appearance="outlined" class="group overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm
+           transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
+
+    <div class="relative h-64 overflow-hidden bg-gray-100">
+
+        <img src="{{product.imageUrl || 'assets/images/placeholder.png'}}" alt="Image of {{product.name}}"
+            class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110" />
+
+        <!-- Stock Badge -->
+        @if (product.quantityInStock > 0) {
+        <span class="absolute right-3 top-3 rounded-full bg-green-100 px-3 py-1
+                 text-xs font-semibold text-green-700">
+            In Stock
+        </span>
+        } @else {
+        <span class="absolute right-3 top-3 rounded-full bg-red-100 px-3 py-1
+                 text-xs font-semibold text-red-700">
+            Out of Stock
+        </span>
+        }
+    </div>
+
+
+    <mat-card-content class="mt-2">
+        <h2 class="text-2 font-semibold uppercase">
+            {{product.name.length >20 ? (product.name | slice:0:20)+'...':product.name}}
+        </h2>
+        <!-- Rating -->
+        <div class="mt-2 mb-3 flex items-center gap-2">
+            <div class="flex items-center">
+                @for (star of [1,2,3,4,5]; track star) {
+                <mat-icon class="star-icon" [style.color]="star <= product.rating ? '#facc15' : '#d1d5db'">
+                    star
+                </mat-icon>
+                }
+            </div>
+
+            <span class="text-sm text-gray-400">
+                {{ product.rating }} ({{ product.totalReviews }})
+            </span>
+        </div>
+        <div class="mt-2 mb-4 flex items-center gap-3">
+            <span class="font-bold">
+                {{product.price | currency:'INR' : 'symbol':'1.0-0'}}</span>
+
+            @if (product.originalPrice > product.price) {
+            <span class="gap-5 text-sm text-gray-400 line-through">
+                {{ product.originalPrice | currency:'INR':'symbol':'1.0-0' }}
+            </span>
+            }
+
+            @if(product.discountPercentage > 0){
+            <span class="text-green-400 font-bold">
+                {{product.discountPercentage | number:'1.0-0'}}% off
+            </span>
+            }
+        </div>
+
+    </mat-card-content>
+    <mat-card-actions>
+        <button mat-stroked-button class="w-full button">
+            <mat-icon>add_shopping_cart</mat-icon>
+            Add to cart
+        </button>
+    </mat-card-actions>
+</mat-card>
+}
