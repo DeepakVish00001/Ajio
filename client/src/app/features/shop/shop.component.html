@@ -86,7 +86,7 @@
 
                     <div class="flex min-w-0 items-center gap-3">
 
-                        <input type="checkbox"
+                        <input type="checkbox" [value]="category.id" (click)="onCategorySelected(category.id)"
                             class="h-4 w-4 shrink-0 cursor-pointer rounded border-gray-300 accent-black">
 
                         <span class="truncate text-sm text-gray-600 group-hover:text-gray-900">
@@ -142,25 +142,14 @@
 
             <div class="space-y-3">
 
-                <!-- Apple -->
-                <label class="group flex cursor-pointer items-center gap-3">
 
-                    <input type="checkbox" class="h-4 w-4 shrink-0 cursor-pointer rounded border-gray-300 accent-black">
-
-                    <span class="truncate text-sm text-gray-600 group-hover:text-gray-900">
-                        Apple
-                    </span>
-
-                </label>
 
                 @for(brand of brands; track brand.id){
 
                 <label class="group flex cursor-pointer items-center gap-3">
 
-                    <input type="checkbox"
-                    [value]="brand.id"
-                    (change)="onBrandSelected(brand.id, $event)"
-                    class="h-4 w-4 shrink-0 cursor-pointer rounded border-gray-300 accent-black">
+                    <input type="checkbox" [value]="brand.id" (click)="onBrandSelected(brand.id)"
+                        class="h-4 w-4 shrink-0 cursor-pointer rounded border-gray-300 accent-black">
 
                     <span class="truncate text-sm text-gray-600 group-hover:text-gray-900">
                         {{brand.name}}
