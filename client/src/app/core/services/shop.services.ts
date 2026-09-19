@@ -15,13 +15,15 @@ export class ShopServices {
 
 
 
-  getProducts(shopParams:ShopParams) {
+  getProducts(shopParams: ShopParams) {
     let params = new HttpParams();
 
-    if(shopParams.brandsId) params = params.append('brandId',shopParams.brandsId);
-    if(shopParams.categoryId) params = params.append('categoryId',shopParams.categoryId);
-    if(shopParams.sort) params = params.append('sort',shopParams.sort);
-    return this.http.get<Pagination<Product>>(this.baseUrl + 'product',{params})
+    if (shopParams.brandsId) params = params.append('brandId', shopParams.brandsId);
+    if (shopParams.categoryId) params = params.append('categoryId', shopParams.categoryId);
+    params = params.append('sort', shopParams.sort);
+    params = params.append('pageSize', shopParams.pageSize);
+    params = params.append('pageIndex', shopParams.pageIndex)
+    return this.http.get<Pagination<Product>>(this.baseUrl + 'product', { params })
   }
 
   getCategories() {

@@ -6,12 +6,15 @@ import { MatIcon } from '@angular/material/icon';
 import { Category } from '../../shared/models/category';
 import { Brands } from '../../shared/models/brands';
 import { ShopParams } from '../../shared/models/shopParams';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { Pagination } from '../../shared/models/pagination';
 
 @Component({
   selector: 'app-shop',
   imports: [
     ProductItemComponent,
-    MatIcon
+    MatIcon,
+    MatPaginator
   ],
   templateUrl: './shop.component.html',
   styleUrl: './shop.component.css',
@@ -20,7 +23,7 @@ export class ShopComponent implements OnInit {
   private shopServices = inject(ShopServices);
 
 
-  products: Product[] = [];
+  products?: Pagination<Product>;
   categories: Category[] = [];
   brands: Brands[] = [];
 
@@ -33,7 +36,8 @@ export class ShopComponent implements OnInit {
     { name: ' Price: Low to High', value: 'priceAsc' },
     { name: ' Price: High to Low', value: 'priceDesc' },
   ]
-  shopParams= new ShopParams();
+  shopParams = new ShopParams();
+  pageSizeOptions = [5, 10, 15, 20]
   ngOnInit(): void {
     this.getBrands()
     this.getCategories();
@@ -43,7 +47,7 @@ export class ShopComponent implements OnInit {
 
   getProducts() {
     this.shopServices.getProducts(this.shopParams).subscribe({
-      next: response => this.products = response.data,
+      next: response => this.products = response,
       error: (error: any) => console.log(error)
     })
   }
@@ -72,8 +76,15 @@ export class ShopComponent implements OnInit {
     this.getProducts()
   }
 
-  onSortSelected(event:any){
-    this.shopParams.sort=event.target.value
+  onSortSelected(event: any) {
+    this.shopParams.sort = event.target.value
+    this.shopParams.pageIndex=1;
     this.getProducts()
+  }
+
+  handlePageEvent(event: PageEvent) {
+    this.shopParams.pageIndex = event.pageIndex + 1;
+    this.shopParams.pageSize = event.pageSize;
+    this.getProducts();
   }
 }
