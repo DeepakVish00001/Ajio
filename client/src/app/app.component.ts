@@ -4,6 +4,7 @@ import { HeaderComponent } from './layout/header/header.component';
 import { ShopComponent } from './features/shop/shop.component';
 import { MatIcon } from '@angular/material/icon';
 import { SidebarComonent } from './features/shop/sidebar/sidebar.comonent';
+import { PaginationComonent } from './features/shop/pagination/pagination.comonent';
 
 @Component({
   selector: 'app-root',
@@ -11,6 +12,7 @@ import { SidebarComonent } from './features/shop/sidebar/sidebar.comonent';
     RouterOutlet,
     HeaderComponent,
     SidebarComonent,
+    PaginationComonent,
     ShopComponent,
     MatIcon
   ],

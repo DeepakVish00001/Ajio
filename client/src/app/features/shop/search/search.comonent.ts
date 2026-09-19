@@ -9,4 +9,4 @@ import { MatIcon } from '@angular/material/icon';
   templateUrl: './search.comonent.html',
   styleUrl: './search.comonent.css',
 })
-export class SearchComonent {}
+export class SearchComonent { }
