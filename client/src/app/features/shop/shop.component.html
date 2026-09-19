@@ -18,7 +18,11 @@
   <!--main layout-->
   <div class="flex flex-col gap-5 lg:flex-row lg:gap-6">
     <!--sidebar-->
-    <app-sidebar (sortSelected)="onSortSelected($event)"></app-sidebar>
+    <app-sidebar 
+      (sortSelected)="onSortSelected($event)"
+      (categorySelected)="onCategorySelected($event)"
+      (brandSelected)="onBrandSelected($event)"
+      ></app-sidebar>
 
     <main class="min-w-0 flex-1">
       <!--top-pagination-->

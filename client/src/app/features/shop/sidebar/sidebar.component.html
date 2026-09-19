@@ -68,6 +68,8 @@
                     <div class="flex min-w-0 items-center gap-3">
                         <!-- [value]="category.id" (click)="onCategorySelected(category.id)" -->
                         <input type="checkbox"
+                            [checked]="category.id === 0"
+                            (click)="onCategorySelected(category.id)"  
                             class="h-4 w-4 shrink-0 cursor-pointer rounded border-gray-300 accent-black">
 
                         <span class="truncate text-sm text-gray-600 group-hover:text-gray-900">
@@ -125,7 +127,10 @@
 
                 <label class="group flex cursor-pointer items-center gap-3">
                     <!-- [value]="brand.id" (click)="onBrandSelected(brand.id)" -->
-                    <input type="checkbox" class="h-4 w-4 shrink-0 cursor-pointer rounded border-gray-300 accent-black">
+                    <input type="checkbox"
+                    [checked]="brand.id === 0"
+                    (click)="onBrandSelected(brand.id)"
+                    class="h-4 w-4 shrink-0 cursor-pointer rounded border-gray-300 accent-black">
 
                     <span class="truncate text-sm text-gray-600 group-hover:text-gray-900">
                         {{brand.name}}

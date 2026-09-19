@@ -136,11 +136,13 @@ export class ShopComponent implements OnInit, OnDestroy {
 
   onBrandSelected(brandId: number) {
     this.shopParams.brandsId = brandId
+    this.shopParams.pageIndex = 1;
     this.getProducts()
   }
 
   onCategorySelected(categoryId: number) {
     this.shopParams.categoryId = categoryId
+    this.shopParams.pageIndex = 1;
     this.getProducts()
   }
 

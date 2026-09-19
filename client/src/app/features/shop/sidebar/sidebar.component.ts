@@ -3,7 +3,6 @@ import { MatIcon } from '@angular/material/icon';
 import { ShopServices } from '../../../core/services/shop.services';
 import { Category } from '../../../shared/models/category';
 import { Brands } from '../../../shared/models/brands';
-import { ShopParams } from '../../../shared/models/shopParams';
 
 @Component({
   selector: 'app-sidebar',
@@ -25,9 +24,9 @@ export class SidebarComponent implements OnInit {
     { name: ' Price: High to Low', value: 'priceDesc' },
   ]
 
-  shopParams = new ShopParams();
-
   @Output() sortSelected = new EventEmitter<string>();
+  @Output() categorySelected = new EventEmitter<number>();
+  @Output() brandSelected=new EventEmitter<number>();
 
   ngOnInit(): void {
     this.getCategories();
@@ -51,10 +50,17 @@ export class SidebarComponent implements OnInit {
   onSortSelected(event: Event) {
 
     const select = event.target as HTMLSelectElement;
-    
-     // ⭐ Parent ko selected sort bhej do
+
+    // ⭐ Parent ko selected sort bhej do
     this.sortSelected.emit(select.value);
   }
 
+  onCategorySelected(categoryId: number) {
+    this.categorySelected.emit(categoryId);
+  }
+
+  onBrandSelected(brandId:number){
+    this.brandSelected.emit(brandId);
+  }
 
 }
