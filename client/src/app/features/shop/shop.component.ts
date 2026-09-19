@@ -27,17 +27,13 @@ export class ShopComponent implements OnInit {
   categories: Category[] = [];
   brands: Brands[] = [];
 
-  // brandIdSelected = 0;
-  // categoryIdSelected = 0;
-
-  // sortSelected='name';
   sortOptions = [
     { name: 'Alphabetical', value: 'name' },
     { name: ' Price: Low to High', value: 'priceAsc' },
     { name: ' Price: High to Low', value: 'priceDesc' },
   ]
   shopParams = new ShopParams();
-  pageSizeOptions = [5, 10, 15, 20]
+  pageSizeOptions = [5, 10, 15, 20, 50, 100]
   ngOnInit(): void {
     this.getBrands()
     this.getCategories();
@@ -78,7 +74,7 @@ export class ShopComponent implements OnInit {
 
   onSortSelected(event: any) {
     this.shopParams.sort = event.target.value
-    this.shopParams.pageIndex=1;
+    this.shopParams.pageIndex = 1;
     this.getProducts()
   }
 

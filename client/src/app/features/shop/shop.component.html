@@ -359,10 +359,12 @@
     </div>
 </div>
 
-<div class="mt-8 flex items-center justify-center gap-1.5 overflow-x-auto sm:gap-2">
+<div class="mt-6 flex justify-center">
     <mat-paginator 
+    #paginator
+  class="hidden"
         (page)="handlePageEvent($event)" 
-        [length]="products?.count" 
+        [length]="products?.count ?? 0" 
         [pageSize]="shopParams.pageSize"
         [showFirstLastButtons]="true" 
         [pageSizeOptions]="pageSizeOptions" 
