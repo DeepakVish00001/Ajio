@@ -11,10 +11,7 @@
             <!-- LOGO -->
             <a class="shrink-0 cursor-pointer">
 
-                <img
-                    src="/images/logo.png"
-                    alt="App Logo"
-                    class="h-11 w-auto object-contain sm:h-14">
+                <img src="/images/logo.png" alt="App Logo" class="h-11 w-auto object-contain sm:h-14">
 
             </a>
 
@@ -22,18 +19,15 @@
             <!-- DESKTOP NAVIGATION -->
             <nav class="hidden shrink-0 items-center gap-5 uppercase lg:flex xl:gap-7">
 
-                <a
-                    class="cursor-pointer text-sm font-medium text-gray-700 transition hover:text-black">
+                <a class="cursor-pointer text-sm font-medium text-gray-700 transition hover:text-black">
                     Home
                 </a>
 
-                <a
-                    class="cursor-pointer text-sm font-medium text-gray-700 transition hover:text-black">
+                <a class="cursor-pointer text-sm font-medium text-gray-700 transition hover:text-black">
                     Shop
                 </a>
 
-                <a
-                    class="cursor-pointer text-sm font-medium text-gray-700 transition hover:text-black">
+                <a class="cursor-pointer text-sm font-medium text-gray-700 transition hover:text-black">
                     Contact
                 </a>
 
@@ -41,23 +35,9 @@
 
 
             <!-- DESKTOP SEARCH -->
+            <!-- DESKTOP SEARCH -->
             <div class="mx-2 hidden max-w-lg flex-1 items-center lg:flex xl:mx-6">
-
-                <div
-                    class="flex w-full items-center rounded-lg border border-gray-200 bg-gray-50 px-3 py-2 transition focus-within:border-gray-400 focus-within:bg-white">
-
-                    <mat-icon
-                        class="!h-5 !w-5 !text-[20px] text-gray-400">
-                        search
-                    </mat-icon>
-
-                    <input
-                        type="text"
-                        placeholder="Search products..."
-                        class="ml-2 w-full bg-transparent text-sm text-gray-700 outline-none placeholder:text-gray-400">
-
-                </div>
-
+                <app-search class="block w-full"></app-search>
             </div>
 
 
@@ -65,14 +45,9 @@
             <div class="flex shrink-0 items-center gap-1 sm:gap-2">
 
                 <!-- CART -->
-                <button
-                    type="button"
-                    mat-icon-button
-                    class="!flex !items-center !justify-center">
+                <button type="button" mat-icon-button class="!flex !items-center !justify-center">
 
-                    <mat-icon
-                        matBadge="5"
-                        matBadgeSize="small">
+                    <mat-icon matBadge="5" matBadgeSize="small">
                         shopping_cart
                     </mat-icon>
 
@@ -80,26 +55,20 @@
 
 
                 <!-- LOGIN -->
-                <button
-                    mat-stroked-button
-                    class="!hidden !rounded-lg sm:!inline-flex sm:!px-4 md:!px-5">
+                <button mat-stroked-button class="!hidden !rounded-lg sm:!inline-flex sm:!px-4 md:!px-5">
                     Login
                 </button>
 
 
                 <!-- REGISTER -->
-                <button
-                    mat-flat-button
+                <button mat-flat-button
                     class="!hidden !rounded-lg !bg-black !px-4 !text-white hover:!bg-gray-800 md:!inline-flex md:!px-5">
                     Register
                 </button>
 
 
                 <!-- MOBILE MENU -->
-                <button
-                    type="button"
-                    mat-icon-button
-                    class="!flex lg:!hidden">
+                <button type="button" mat-icon-button class="!flex lg:!hidden">
 
                     <mat-icon>
                         menu
@@ -118,17 +87,13 @@
 
         <div class="pb-3 lg:hidden">
 
-            <div
-                class="flex w-full items-center rounded-lg border border-gray-200 bg-gray-50 px-3 py-2">
+            <div class="flex w-full items-center rounded-lg border border-gray-200 bg-gray-50 px-3 py-2">
 
-                <mat-icon
-                    class="!h-5 !w-5 !text-[20px] text-gray-400">
+                <mat-icon class="!h-5 !w-5 !text-[20px] text-gray-400">
                     search
                 </mat-icon>
 
-                <input
-                    type="text"
-                    placeholder="Search products..."
+                <input type="text" placeholder="Search products..."
                     class="ml-2 w-full bg-transparent text-sm text-gray-700 outline-none placeholder:text-gray-400">
 
             </div>
@@ -140,21 +105,17 @@
         <!-- MOBILE NAVIGATION -->
         <!-- ================================================= -->
 
-        <nav
-            class="flex items-center justify-center gap-6 overflow-x-auto pb-3 uppercase lg:hidden">
+        <nav class="flex items-center justify-center gap-6 overflow-x-auto pb-3 uppercase lg:hidden">
 
-            <a
-                class="shrink-0 cursor-pointer text-sm font-medium text-gray-700 hover:text-black">
+            <a class="shrink-0 cursor-pointer text-sm font-medium text-gray-700 hover:text-black">
                 Home
             </a>
 
-            <a
-                class="shrink-0 cursor-pointer text-sm font-medium text-gray-700 hover:text-black">
+            <a class="shrink-0 cursor-pointer text-sm font-medium text-gray-700 hover:text-black">
                 Shop
             </a>
 
-            <a
-                class="shrink-0 cursor-pointer text-sm font-medium text-gray-700 hover:text-black">
+            <a class="shrink-0 cursor-pointer text-sm font-medium text-gray-700 hover:text-black">
                 Contact
             </a>
 

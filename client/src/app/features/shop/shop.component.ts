@@ -10,12 +10,18 @@ import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { Pagination } from '../../shared/models/pagination';
 import { FormsModule } from '@angular/forms';
 import { Subject, debounceTime, distinctUntilChanged, switchMap, takeUntil } from 'rxjs';
+import { SearchComonent } from './search/search.comonent';
+import { SidebarComonent } from './sidebar/sidebar.comonent';
+import { PaginationComonent } from './pagination/pagination.comonent';
 
 
 @Component({
   selector: 'app-shop',
   imports: [
     ProductItemComponent,
+    SearchComonent,
+    SidebarComonent,
+    PaginationComonent,
     MatIcon,
     MatPaginator,
     FormsModule
