@@ -5,6 +5,7 @@ import { ShopComponent } from './features/shop/shop.component';
 import { MatIcon } from '@angular/material/icon';
 import { SidebarComonent } from './features/shop/sidebar/sidebar.comonent';
 import { PaginationComonent } from './features/shop/pagination/pagination.comonent';
+import { PaginationTwoComonent } from './features/shop/pagination-two/pagination-two.comonent';
 
 @Component({
   selector: 'app-root',
@@ -13,6 +14,7 @@ import { PaginationComonent } from './features/shop/pagination/pagination.comone
     HeaderComponent,
     SidebarComonent,
     PaginationComonent,
+    PaginationTwoComonent,
     ShopComponent,
     MatIcon
   ],
