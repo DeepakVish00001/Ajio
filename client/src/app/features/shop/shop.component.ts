@@ -8,13 +8,15 @@ import { Brands } from '../../shared/models/brands';
 import { ShopParams } from '../../shared/models/shopParams';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { Pagination } from '../../shared/models/pagination';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-shop',
   imports: [
     ProductItemComponent,
     MatIcon,
-    MatPaginator
+    MatPaginator,
+    FormsModule
   ],
   templateUrl: './shop.component.html',
   styleUrl: './shop.component.css',
@@ -61,6 +63,11 @@ export class ShopComponent implements OnInit {
     })
   }
 
+  onSearchChange() {
+    this.shopParams.search=this.shopParams.search.trim();
+    this.shopParams.pageIndex = 1;
+    this.getProducts();
+  }
 
   onBrandSelected(brandId: number) {
     this.shopParams.brandsId = brandId

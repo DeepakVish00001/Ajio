@@ -352,7 +352,17 @@
         </div>
 
     </aside>
+  
     <div class="grid grid-cols-4 gap-4">
+          <form #searchForm="ngForm"(ngSubmit)="onSearchChange()">
+        <input type="search" name="search" [(ngModel)]="shopParams.search">
+       <button
+        mat-icon-button
+        type="submit"
+        aria-label="Search">
+        <mat-icon>search</mat-icon>
+    </button>
+    </form>
         @for(product of products?.data; track product.id){
         <app-product-item [product]="product"></app-product-item>
         }
