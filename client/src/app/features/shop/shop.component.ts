@@ -5,17 +5,19 @@ import { ProductItemComponent } from './product-item/product-item.component';
 import { Category } from '../../shared/models/category';
 import { Brands } from '../../shared/models/brands';
 import { ShopParams } from '../../shared/models/shopParams';
-import { PageEvent } from '@angular/material/paginator';
 import { Pagination } from '../../shared/models/pagination';
 import { FormsModule } from '@angular/forms';
 import { Subject, debounceTime, distinctUntilChanged, switchMap, takeUntil } from 'rxjs';
+import { PageEvent } from '@angular/material/paginator';
+import { SidebarComponent } from './sidebar/sidebar.component';
 
 
 @Component({
   selector: 'app-shop',
   imports: [
     ProductItemComponent,
-    FormsModule
+    SidebarComponent,
+    FormsModule,
   ],
   templateUrl: './shop.component.html',
   styleUrl: './shop.component.css',

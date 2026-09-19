@@ -3,7 +3,7 @@ import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from './layout/header/header.component';
 import { ShopComponent } from './features/shop/shop.component';
 import { MatIcon } from '@angular/material/icon';
-import { SidebarComonent } from './features/shop/sidebar/sidebar.comonent';
+import { SidebarComponent } from './features/shop/sidebar/sidebar.component';
 import { PaginationComonent } from './features/shop/pagination/pagination.comonent';
 import { PaginationTwoComonent } from './features/shop/pagination-two/pagination-two.comonent';
 
@@ -12,7 +12,7 @@ import { PaginationTwoComonent } from './features/shop/pagination-two/pagination
   imports: [
     RouterOutlet,
     HeaderComponent,
-    SidebarComonent,
+    SidebarComponent,
     PaginationComonent,
     PaginationTwoComonent,
     ShopComponent,
