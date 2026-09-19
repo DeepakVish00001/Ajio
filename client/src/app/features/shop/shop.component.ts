@@ -2,28 +2,19 @@ import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { Product } from '../../shared/models/product';
 import { ShopServices } from '../../core/services/shop.services';
 import { ProductItemComponent } from './product-item/product-item.component';
-import { MatIcon } from '@angular/material/icon';
 import { Category } from '../../shared/models/category';
 import { Brands } from '../../shared/models/brands';
 import { ShopParams } from '../../shared/models/shopParams';
-import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { PageEvent } from '@angular/material/paginator';
 import { Pagination } from '../../shared/models/pagination';
 import { FormsModule } from '@angular/forms';
 import { Subject, debounceTime, distinctUntilChanged, switchMap, takeUntil } from 'rxjs';
-import { SearchComonent } from './search/search.comonent';
-import { SidebarComonent } from './sidebar/sidebar.comonent';
-import { PaginationComonent } from './pagination/pagination.comonent';
 
 
 @Component({
   selector: 'app-shop',
   imports: [
     ProductItemComponent,
-    SearchComonent,
-    SidebarComonent,
-    PaginationComonent,
-    MatIcon,
-    MatPaginator,
     FormsModule
   ],
   templateUrl: './shop.component.html',
