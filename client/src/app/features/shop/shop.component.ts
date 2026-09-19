@@ -5,6 +5,7 @@ import { ProductItemComponent } from './product-item/product-item.component';
 import { MatIcon } from '@angular/material/icon';
 import { Category } from '../../shared/models/category';
 import { Brands } from '../../shared/models/brands';
+import { ShopParams } from '../../shared/models/shopParams';
 
 @Component({
   selector: 'app-shop',
@@ -23,16 +24,16 @@ export class ShopComponent implements OnInit {
   categories: Category[] = [];
   brands: Brands[] = [];
 
-  brandIdSelected = 0;
-  categoryIdSelected = 0;
+  // brandIdSelected = 0;
+  // categoryIdSelected = 0;
 
-  sortSelected='name';
+  // sortSelected='name';
   sortOptions = [
     { name: 'Alphabetical', value: 'name' },
     { name: ' Price: Low to High', value: 'priceAsc' },
     { name: ' Price: High to Low', value: 'priceDesc' },
   ]
-
+  shopParams= new ShopParams();
   ngOnInit(): void {
     this.getBrands()
     this.getCategories();
@@ -41,7 +42,7 @@ export class ShopComponent implements OnInit {
 
 
   getProducts() {
-    this.shopServices.getProducts(this.brandIdSelected, this.categoryIdSelected,this.sortSelected).subscribe({
+    this.shopServices.getProducts(this.shopParams).subscribe({
       next: response => this.products = response.data,
       error: (error: any) => console.log(error)
     })
@@ -62,17 +63,17 @@ export class ShopComponent implements OnInit {
 
 
   onBrandSelected(brandId: number) {
-    this.brandIdSelected = brandId
+    this.shopParams.brandsId = brandId
     this.getProducts()
   }
 
   onCategorySelected(categoryId: number) {
-    this.categoryIdSelected = categoryId
+    this.shopParams.categoryId = categoryId
     this.getProducts()
   }
 
   onSortSelected(event:any){
-    this.sortSelected=event.target.value
+    this.shopParams.sort=event.target.value
     this.getProducts()
   }
 }
