@@ -3,11 +3,13 @@ import { MatIcon } from '@angular/material/icon';
 import { ShopServices } from '../../../core/services/shop.services';
 import { Category } from '../../../shared/models/category';
 import { Brands } from '../../../shared/models/brands';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-sidebar',
   imports: [
-    MatIcon
+    MatIcon,
+    FormsModule
   ],
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.css',
@@ -26,7 +28,14 @@ export class SidebarComponent implements OnInit {
 
   @Output() sortSelected = new EventEmitter<string>();
   @Output() categorySelected = new EventEmitter<number>();
-  @Output() brandSelected=new EventEmitter<number>();
+  @Output() brandSelected = new EventEmitter<number>();
+
+  minPrice = 0;
+  maxPrice = 50000;
+  @Output() priceSelected = new EventEmitter<{
+    minPrice: number,
+    maxPrice: number
+  }>();
 
   ngOnInit(): void {
     this.getCategories();
@@ -59,8 +68,31 @@ export class SidebarComponent implements OnInit {
     this.categorySelected.emit(categoryId);
   }
 
-  onBrandSelected(brandId:number){
+  onBrandSelected(brandId: number) {
     this.brandSelected.emit(brandId);
+  }
+
+  onMinPriceChange(event: Event) {
+    const input = event.target as HTMLInputElement;
+    this.minPrice = Number(input.value);
+  }
+
+  onMaxPriceChange(event: Event) {
+    const input = event.target as HTMLInputElement;
+    this.maxPrice = Number(input.value);
+
+  }
+
+  onPriceRangeChange(event: Event) {
+    const input = event.target as HTMLInputElement;
+    this.maxPrice = Number(input.value);
+  }
+
+  applyPrice() {
+    this.priceSelected.emit({
+      minPrice: this.minPrice,
+      maxPrice: this.maxPrice
+    });
   }
 
 }

@@ -153,6 +153,13 @@ export class ShopComponent implements OnInit, OnDestroy {
     this.getProducts();
   }
 
+  onPriceSelected(price: { minPrice: number; maxPrice: number }) {
+    this.shopParams.minPrice = price.minPrice;
+    this.shopParams.maxPrice = price.maxPrice;
+    this.shopParams.pageIndex = 1;
+    this.getProducts();
+  }
+
 
   handlePageEvent(event: PageEvent) {
     this.shopParams.pageIndex = event.pageIndex + 1;

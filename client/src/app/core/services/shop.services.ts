@@ -21,6 +21,13 @@ export class ShopServices {
     if (shopParams.brandsId) params = params.append('brandId', shopParams.brandsId);
     if (shopParams.categoryId) params = params.append('categoryId', shopParams.categoryId);
 
+    if (shopParams.minPrice > 0) {
+      params = params.append('minPrice', shopParams.minPrice);
+    }
+    if (shopParams.maxPrice > 0) {
+      params = params.append('maxPrice', shopParams.maxPrice);
+    }
+
     if (shopParams.search) {
       params = params.append('search', shopParams.search);
     }

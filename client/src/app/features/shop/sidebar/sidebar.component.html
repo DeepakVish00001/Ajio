@@ -152,30 +152,23 @@
 
 
         <div class="border-b border-gray-100 px-4 py-5 sm:px-5">
-
             <div class="mb-4 flex items-center justify-between">
-
                 <h3 class="text-sm font-bold uppercase tracking-wide text-gray-800">
                     Price
                 </h3>
-
                 <mat-icon class="text-gray-400">
                     expand_less
                 </mat-icon>
-
             </div>
 
-
-
             <div class="flex items-center gap-2">
-
                 <div class="relative min-w-0 flex-1">
-
                     <span class="absolute left-3 top-1/2 -translate-y-1/2 text-xs text-gray-400">
                         ₹
                     </span>
-
-                    <input type="number" placeholder="Min"
+                    <input type="number"
+                        placeholder="Min"
+                        [(ngModel)]="minPrice"
                         class="w-full rounded-md border border-gray-200 py-2 pl-7 pr-2 text-sm outline-none focus:border-gray-400">
 
                 </div>
@@ -192,7 +185,9 @@
                         ₹
                     </span>
 
-                    <input type="number" placeholder="Max"
+                    <input type="number" 
+                        placeholder="Max"
+                        [(ngModel)]="maxPrice"
                         class="w-full rounded-md border border-gray-200 py-2 pl-7 pr-2 text-sm outline-none focus:border-gray-400">
 
                 </div>
@@ -203,16 +198,21 @@
 
             <div class="mt-5">
 
-                <input type="range" min="0" max="50000" class="w-full cursor-pointer accent-black">
+                <input type="range"
+                     min="0" 
+                     max="50000" 
+                     [(ngModel)]="maxPrice"
+                     (input)="onPriceRangeChange($event)"
+                     class="w-full cursor-pointer accent-black">
 
                 <div class="mt-2 flex justify-between text-xs text-gray-500">
 
                     <span>
-                        ₹0
+                        ₹0{{minPrice}}
                     </span>
 
                     <span>
-                        ₹50,000+
+                        ₹{{maxPrice}}+
                     </span>
 
                 </div>
@@ -339,6 +339,7 @@
         <div class="border-t border-gray-100 p-4">
 
             <button type="button"
+                 (click)="applyPrice()"
                 class="w-full rounded-xl bg-black py-3 text-sm font-semibold tracking-wide text-white transition hover:bg-gray-800 active:scale-[0.98]">
 
                 APPLY FILTERS
