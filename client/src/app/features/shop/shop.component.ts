@@ -10,6 +10,9 @@ import { FormsModule } from '@angular/forms';
 import { Subject, debounceTime, distinctUntilChanged, switchMap, takeUntil } from 'rxjs';
 import { PageEvent } from '@angular/material/paginator';
 import { SidebarComponent } from './sidebar/sidebar.component';
+import { PaginationComonent } from './pagination/pagination.comonent';
+import { MatIcon } from '@angular/material/icon';
+import { PaginationTwoComonent } from './pagination-two/pagination-two.comonent';
 
 
 @Component({
@@ -17,6 +20,9 @@ import { SidebarComponent } from './sidebar/sidebar.component';
   imports: [
     ProductItemComponent,
     SidebarComponent,
+    PaginationComonent,
+    PaginationTwoComonent,
+    MatIcon,
     FormsModule,
   ],
   templateUrl: './shop.component.html',
@@ -112,6 +118,7 @@ export class ShopComponent implements OnInit, OnDestroy {
     this.getProducts();
 
   }
+
   clearSearch() {
 
     this.shopParams.search = '';
@@ -137,11 +144,13 @@ export class ShopComponent implements OnInit, OnDestroy {
     this.getProducts()
   }
 
-  onSortSelected(event: any) {
-    this.shopParams.sort = event.target.value
+  /*--Sort By Name & Price--*/
+  onSortSelected(sort: string) {
+    this.shopParams.sort = sort;
     this.shopParams.pageIndex = 1;
-    this.getProducts()
+    this.getProducts();
   }
+
 
   handlePageEvent(event: PageEvent) {
     this.shopParams.pageIndex = event.pageIndex + 1;

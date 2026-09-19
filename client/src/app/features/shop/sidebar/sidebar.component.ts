@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, EventEmitter, inject, OnInit, Output } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
 import { ShopServices } from '../../../core/services/shop.services';
 import { Category } from '../../../shared/models/category';
@@ -27,6 +27,8 @@ export class SidebarComponent implements OnInit {
 
   shopParams = new ShopParams();
 
+  @Output() sortSelected = new EventEmitter<string>();
+
   ngOnInit(): void {
     this.getCategories();
     this.getBrands();
@@ -46,9 +48,13 @@ export class SidebarComponent implements OnInit {
     })
   }
 
-  onSortSelected(event: any) {
-    this.shopParams.sort = event.target.value
-    this.shopParams.pageIndex = 1;
+  onSortSelected(event: Event) {
+
+    const select = event.target as HTMLSelectElement;
+    
+     // ⭐ Parent ko selected sort bhej do
+    this.sortSelected.emit(select.value);
   }
+
 
 }

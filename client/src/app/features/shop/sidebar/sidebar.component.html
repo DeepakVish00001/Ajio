@@ -29,7 +29,7 @@
 
             <div class="flex items-center rounded-md border border-gray-200 px-3 py-2">
 
-                <select class="ml-1 w-full bg-transparent text-sm outline-none">
+                <select (change)="onSortSelected($event)" class="ml-1 w-full bg-transparent text-sm outline-none">
                     <!-- /*(change)="onSortSelected($event)"*/ -->
                     @for (sort of sortOptions; track sort.name) {
                         <option [value]="sort.value">

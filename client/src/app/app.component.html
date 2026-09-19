@@ -1,43 +1,4 @@
 <app-header></app-header>
 
-<div class="mx-auto w-full max-w-screen-2xl px-3 py-4 sm:px-4 lg:px-6">
 
-    <!-- MOBILE FILTER BUTTON -->
-    <div class="mb-4 lg:hidden">
-
-        <button type="button"
-            class="flex w-full items-center justify-center gap-2 rounded-lg bg-black px-4 py-3 text-sm font-semibold text-white">
-
-            <mat-icon>
-                filter_list
-            </mat-icon>
-
-            FILTERS
-
-        </button>
-
-    </div>
-    <!--main layout-->
-    <div class="flex flex-col gap-5 lg:flex-row lg:gap-6">
-        <!--sidebar-->
-        <app-sidebar></app-sidebar>
-
-        <main class="min-w-0 flex-1">
-            <!--top-pagination-->
-            <div class="mb-5 border-b border-gray-100 pb-4">
-                <app-pagination></app-pagination>
-            </div>
-            <!--product display-->
-            <div class="w-full">
-                <app-shop></app-shop>
-            </div>
-            <!--footer-pagination-two-->
-            <div class="mt-8 flex items-center justify-center">
-                <app-pagination-two></app-pagination-two>
-            </div>
-
-        </main>
-
-    </div>
-
-</div>
+<app-shop></app-shop>

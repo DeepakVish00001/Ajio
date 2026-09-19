@@ -1,60 +1,46 @@
-    <div class="grid grid-cols-4 gap-4">
-          <!-- <form #searchForm="ngForm"(ngSubmit)="onSearchChange()">
-        <input type="search" name="search" [(ngModel)]="shopParams.search">
-       <button
-        mat-icon-button
-        type="submit"
-        aria-label="Search">
-        <mat-icon>search</mat-icon>
+<div class="mx-auto w-full max-w-screen-2xl px-3 py-4 sm:px-4 lg:px-6">
+
+  <!-- MOBILE FILTER BUTTON -->
+  <div class="mb-4 lg:hidden">
+
+    <button type="button"
+      class="flex w-full items-center justify-center gap-2 rounded-lg bg-black px-4 py-3 text-sm font-semibold text-white">
+
+      <mat-icon>
+        filter_list
+      </mat-icon>
+
+      FILTERS
+
     </button>
-    </form>
-    <form
-  #searchForm="ngForm"
-  (ngSubmit)="onSearchChange()"
-  class="flex w-full max-w-md items-center overflow-hidden rounded-lg border bg-white">
 
-  <input
-    type="search"
-    name="search"
-    [(ngModel)]="shopParams.search"
-    (ngModelChange)="onSearchInput($event)"
-    placeholder="Search products..."
-    autocomplete="off"
-    class="w-full px-4 py-2 outline-none"
-  />
+  </div>
+  <!--main layout-->
+  <div class="flex flex-col gap-5 lg:flex-row lg:gap-6">
+    <!--sidebar-->
+    <app-sidebar (sortSelected)="onSortSelected($event)"></app-sidebar>
 
-  @if (shopParams.search) {
-    <button
-      type="button"
-      mat-icon-button
-      (click)="clearSearch()">
-      <mat-icon>close</mat-icon>
-    </button>
-  }
+    <main class="min-w-0 flex-1">
+      <!--top-pagination-->
+      <div class="mb-5 border-b border-gray-100 pb-4">
+        <app-pagination></app-pagination>
+      </div>
+      <!--product display-->
+      <div class="w-full">
+        <div class="grid grid-cols-4 gap-4">
 
-  <button
-    type="submit"
-    mat-icon-button>
-    <mat-icon>search</mat-icon>
-  </button>
+          @for(product of products?.data; track product.id){
+          <app-product-item [product]="product"></app-product-item>
+          }
+        </div>
+      </div>
+      <!--footer-pagination-two-->
+      <div class="mt-8 flex items-center justify-center">
+        <app-pagination-two></app-pagination-two>
+      </div>
 
-</form> -->
-        @for(product of products?.data; track product.id){
-        <app-product-item [product]="product"></app-product-item>
-        }
-    </div>
+    </main>
 
-<!-- <div class="mt-6 flex justify-center">
-    <mat-paginator 
-    #paginator
-  class="hidden"
-        (page)="handlePageEvent($event)" 
-        [length]="products?.count ?? 0" 
-        [pageSize]="shopParams.pageSize"
-        [showFirstLastButtons]="true" 
-        [pageSizeOptions]="pageSizeOptions" 
-        [pageIndex]="shopParams.pageIndex-1"
-         aria-label="Select Page">
+  </div>
 
-    </mat-paginator>
-</div> -->
+</div>
