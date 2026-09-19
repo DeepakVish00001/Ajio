@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { Product } from '../../shared/models/product';
 import { ShopServices } from '../../core/services/shop.services';
 import { ProductItemComponent } from './product-item/product-item.component';
@@ -9,6 +9,8 @@ import { ShopParams } from '../../shared/models/shopParams';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { Pagination } from '../../shared/models/pagination';
 import { FormsModule } from '@angular/forms';
+import { Subject, debounceTime, distinctUntilChanged, switchMap, takeUntil } from 'rxjs';
+
 
 @Component({
   selector: 'app-shop',
@@ -21,10 +23,11 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './shop.component.html',
   styleUrl: './shop.component.css',
 })
-export class ShopComponent implements OnInit {
+export class ShopComponent implements OnInit, OnDestroy {
   private shopServices = inject(ShopServices);
 
-
+  private searchSubject = new Subject<string>();
+  private destroy$ = new Subject<void>();
   products?: Pagination<Product>;
   categories: Category[] = [];
   brands: Brands[] = [];
@@ -36,12 +39,44 @@ export class ShopComponent implements OnInit {
   ]
   shopParams = new ShopParams();
   pageSizeOptions = [5, 10, 15, 20, 50, 100]
+  // ngOnInit(): void {
+  //   this.getBrands()
+  //   this.getCategories();
+  //   this.getProducts();
+  // }
+
   ngOnInit(): void {
-    this.getBrands()
+
+    this.getBrands();
     this.getCategories();
     this.getProducts();
-  }
 
+    this.searchSubject.pipe(
+      debounceTime(400),
+      distinctUntilChanged(),
+      switchMap(search => {
+
+        this.shopParams.search = search;
+        this.shopParams.pageIndex = 1;
+
+        return this.shopServices.getProducts(this.shopParams);
+
+      }),
+      takeUntil(this.destroy$)
+    ).subscribe({
+      next: response => {
+        this.products = response;
+      },
+      error: error => {
+        console.log(error);
+      }
+    });
+  }
+  onSearchInput(search: string) {
+
+    this.searchSubject.next(search.trim());
+
+  }
 
   getProducts() {
     this.shopServices.getProducts(this.shopParams).subscribe({
@@ -63,10 +98,34 @@ export class ShopComponent implements OnInit {
     })
   }
 
+  // onSearchChange() {
+  //   this.shopParams.search=this.shopParams.search.trim();
+  //   this.shopParams.pageIndex = 1;
+  //   this.getProducts();
+  // }
   onSearchChange() {
-    this.shopParams.search=this.shopParams.search.trim();
+
+    this.shopParams.search =
+      this.shopParams.search.trim();
+
     this.shopParams.pageIndex = 1;
+
     this.getProducts();
+
+  }
+  clearSearch() {
+
+    this.shopParams.search = '';
+    this.shopParams.pageIndex = 1;
+
+    this.getProducts();
+
+  }
+  ngOnDestroy(): void {
+
+    this.destroy$.next();
+    this.destroy$.complete();
+
   }
 
   onBrandSelected(brandId: number) {

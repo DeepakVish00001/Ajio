@@ -363,6 +363,37 @@
         <mat-icon>search</mat-icon>
     </button>
     </form>
+    <form
+  #searchForm="ngForm"
+  (ngSubmit)="onSearchChange()"
+  class="flex w-full max-w-md items-center overflow-hidden rounded-lg border bg-white">
+
+  <input
+    type="search"
+    name="search"
+    [(ngModel)]="shopParams.search"
+    (ngModelChange)="onSearchInput($event)"
+    placeholder="Search products..."
+    autocomplete="off"
+    class="w-full px-4 py-2 outline-none"
+  />
+
+  @if (shopParams.search) {
+    <button
+      type="button"
+      mat-icon-button
+      (click)="clearSearch()">
+      <mat-icon>close</mat-icon>
+    </button>
+  }
+
+  <button
+    type="submit"
+    mat-icon-button>
+    <mat-icon>search</mat-icon>
+  </button>
+
+</form>
         @for(product of products?.data; track product.id){
         <app-product-item [product]="product"></app-product-item>
         }
