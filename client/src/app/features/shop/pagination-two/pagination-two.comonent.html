@@ -1,44 +1,10 @@
-<div class="flex items-center justify-center gap-1.5 sm:gap-2">
 
-    <!-- Previous -->
-    <button type="button"
-        class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-gray-200 text-gray-500 hover:bg-gray-100 sm:h-9 sm:w-9">
-
-        <mat-icon>
-            chevron_left
-        </mat-icon>
-
-    </button>
-
-
-    <!-- Page 1 -->
-    <button type="button" class="h-8 w-8 shrink-0 rounded-lg bg-black text-sm font-medium text-white sm:h-9 sm:w-9">
-        1
-    </button>
-
-
-    <!-- Page 2 -->
-    <button type="button"
-        class="h-8 w-8 shrink-0 rounded-lg border border-gray-200 text-sm text-gray-700 hover:bg-gray-100 sm:h-9 sm:w-9">
-        2
-    </button>
-
-
-    <!-- Page 3 -->
-    <button type="button"
-        class="h-8 w-8 shrink-0 rounded-lg border border-gray-200 text-sm text-gray-700 hover:bg-gray-100 sm:h-9 sm:w-9">
-        3
-    </button>
-
-
-    <!-- Next -->
-    <button type="button"
-        class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-gray-200 text-gray-500 hover:bg-gray-100 sm:h-9 sm:w-9">
-
-        <mat-icon>
-            chevron_right
-        </mat-icon>
-
-    </button>
-
-</div>
+<mat-paginator
+    [length]="length"
+    [pageSize]="pageSize"
+    [pageIndex]="pageIndex"
+    [pageSizeOptions]="pageSizeOptions"
+    [showFirstLastButtons]="true"
+    (page)="handlePageEvent($event)"
+    aria-label="Select page">
+</mat-paginator>

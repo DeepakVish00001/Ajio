@@ -72,14 +72,22 @@ export class SidebarComponent implements OnInit {
     this.brandSelected.emit(brandId);
   }
 
-  onMinPriceChange(event: Event) {
-    const input = event.target as HTMLInputElement;
-    this.minPrice = Number(input.value);
+  onMinPriceChange() {
+    // const input = event.target as HTMLInputElement;
+    // this.minPrice = Number(input.value);
+    this.priceSelected.emit({
+      minPrice: this.minPrice,
+      maxPrice: this.maxPrice
+    });
   }
 
-  onMaxPriceChange(event: Event) {
-    const input = event.target as HTMLInputElement;
-    this.maxPrice = Number(input.value);
+  onMaxPriceChange() {
+    // const input = event.target as HTMLInputElement;
+    // this.maxPrice = Number(input.value);
+    this.priceSelected.emit({
+      minPrice: this.minPrice,
+      maxPrice: this.maxPrice
+    });
 
   }
 
@@ -87,6 +95,7 @@ export class SidebarComponent implements OnInit {
     const input = event.target as HTMLInputElement;
     this.maxPrice = Number(input.value);
   }
+
 
   applyPrice() {
     this.priceSelected.emit({

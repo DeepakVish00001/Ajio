@@ -41,7 +41,13 @@
       </div>
       <!--footer-pagination-two-->
       <div class="mt-8 flex items-center justify-center">
-        <app-pagination-two></app-pagination-two>
+          <app-pagination-two
+            [length]="products?.count ?? 0"
+            [pageSize]="shopParams.pageSize"
+            [pageIndex]="shopParams.pageIndex - 1"
+            [pageSizeOptions]="pageSizeOptions"
+            (pageChanged)="handlePageEvent($event)">
+        </app-pagination-two>
       </div>
 
     </main>

@@ -200,12 +200,25 @@
                     </div>
 
                     <!-- Min -->
-                    <input type="range" min="0" max="50000" step="100" [(ngModel)]="minPrice" [max]="maxPrice"
+                    <input 
+                        type="range" 
+                        min="0" 
+                        max="50000" 
+                        step="100" 
+                        [(ngModel)]="minPrice" 
+                        [max]="maxPrice"
+                        (input)="onMaxPriceChange()"
                         class="range-slider">
 
                     <!-- Max -->
-                    <input type="range" min="0" max="50000" step="100" [(ngModel)]="maxPrice"
-                        (input)="onPriceRangeChange($event)" [min]="minPrice" class="range-slider">
+                    <input 
+                        type="range" 
+                        min="0" 
+                        max="50000" 
+                        step="100" 
+                        [(ngModel)]="maxPrice"
+                        (input)="onMinPriceChange()"
+                        [min]="minPrice" class="range-slider">
 
                 </div>
             </div>

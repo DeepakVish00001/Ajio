@@ -43,7 +43,8 @@ export class ShopComponent implements OnInit, OnDestroy {
     { name: ' Price: High to Low', value: 'priceDesc' },
   ]
   shopParams = new ShopParams();
-  pageSizeOptions = [5, 10, 15, 20, 50, 100]
+  pageSizeOptions= [5, 10, 15, 20, 50, 100]
+  
   // ngOnInit(): void {
   //   this.getBrands()
   //   this.getCategories();
@@ -134,12 +135,14 @@ export class ShopComponent implements OnInit, OnDestroy {
 
   }
 
+  /*--- Brands Filter---*/
   onBrandSelected(brandId: number) {
     this.shopParams.brandsId = brandId
     this.shopParams.pageIndex = 1;
     this.getProducts()
   }
 
+  /*--- Category Filter---*/
   onCategorySelected(categoryId: number) {
     this.shopParams.categoryId = categoryId
     this.shopParams.pageIndex = 1;
@@ -153,6 +156,7 @@ export class ShopComponent implements OnInit, OnDestroy {
     this.getProducts();
   }
 
+  /*---MinPrice & MaxPrice Filter---*/
   onPriceSelected(price: { minPrice: number; maxPrice: number }) {
     this.shopParams.minPrice = price.minPrice;
     this.shopParams.maxPrice = price.maxPrice;
@@ -161,6 +165,7 @@ export class ShopComponent implements OnInit, OnDestroy {
   }
 
 
+  /*-- Pagination Event --*/
   handlePageEvent(event: PageEvent) {
     this.shopParams.pageIndex = event.pageIndex + 1;
     this.shopParams.pageSize = event.pageSize;
