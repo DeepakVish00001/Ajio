@@ -1,12 +1,10 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
-import { MatPaginator, PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-pagination',
   imports: [
     MatIcon,
-    MatPaginator
   ],
   templateUrl: './pagination.comonent.html',
   styleUrl: './pagination.comonent.css',
