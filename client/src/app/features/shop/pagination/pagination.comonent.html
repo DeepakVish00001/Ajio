@@ -4,7 +4,7 @@
     <div class="shrink-0 text-sm text-gray-500">
 
         <span class="font-medium text-gray-800">
-            18
+            {{length}}
         </span>
 
         Products
@@ -16,13 +16,13 @@
         Page
 
         <span class="font-medium text-gray-800">
-            1
+            {{pageIndex + 1}}
         </span>
 
         of
 
         <span class="font-medium text-gray-800">
-            3
+            {{ totalPages }}
         </span>
 
     </div>
@@ -32,7 +32,10 @@
     <div class="flex items-center gap-1.5">
 
         <!-- Previous -->
-        <button type="button"
+        <button 
+             type="button"
+            (click)="previousPage()"
+            [disabled]="pageIndex === 0"
             class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-gray-200 text-gray-500 hover:bg-gray-100 sm:h-9 sm:w-9">
 
             <mat-icon>
@@ -41,29 +44,43 @@
 
         </button>
 
+        @for(page of pages; track page){
 
         <!-- Page 1 -->
-        <button type="button" class="h-8 w-8 shrink-0 rounded-lg bg-black text-sm font-medium text-white sm:h-9 sm:w-9">
-            1
+        <button 
+            type="button" 
+            class="h-8 w-8 shrink-0 rounded-lg bg-black text-sm font-medium text-white sm:h-9 sm:w-9"
+            (click)="goToPage(page)"
+            [class.bg-black]="pageIndex + 1 === page"
+            [class.text-white]="pageIndex + 1 === page"
+            [class.border]="pageIndex + 1 !== page"
+            [class.border-gray-200]="pageIndex + 1 !== page"
+            [class.text-gray-700]="pageIndex + 1 !== page"
+            [class.hover:bg-gray-100]="pageIndex + 1 !== page"
+            >
+            {{page}}
         </button>
-
+    }
 
         <!-- Page 2 -->
-        <button type="button"
+        <!-- <button type="button"
             class="h-8 w-8 shrink-0 rounded-lg border border-gray-200 text-sm text-gray-700 hover:bg-gray-100 sm:h-9 sm:w-9">
             2
-        </button>
+        </button> -->
 
 
         <!-- Page 3 -->
-        <button type="button"
+        <!-- <button type="button"
             class="h-8 w-8 shrink-0 rounded-lg border border-gray-200 text-sm text-gray-700 hover:bg-gray-100 sm:h-9 sm:w-9">
             3
-        </button>
+        </button> -->
 
 
         <!-- Next -->
-        <button type="button"
+        <button 
+            (click)="nextPage()"
+            [disabled]="pageIndex >= totalPages - 1"
+            type="button"
             class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-gray-200 text-gray-500 hover:bg-gray-100 sm:h-9 sm:w-9">
 
             <mat-icon>
@@ -71,6 +88,16 @@
             </mat-icon>
 
         </button>
+
+        <!-- <mat-paginator
+            (page)="handlePageEvent($event)"
+            [pageSize]="pageSize"
+            [pageIndex]="pageIndex"
+            [pageSizeOptions]="pageSizeOptions"
+            [showFirstLastButtons]="true"
+            [length]="length"
+            aria-label="Select page"
+        ></mat-paginator> -->
 
     </div>
 

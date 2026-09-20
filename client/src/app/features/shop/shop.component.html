@@ -28,7 +28,12 @@
     <main class="min-w-0 flex-1">
       <!--top-pagination-->
       <div class="mb-5 border-b border-gray-100 pb-4">
-        <app-pagination></app-pagination>
+        <app-pagination
+          [length]="products?.count ?? 0"
+          [pageSize]="shopParams.pageSize"
+          [pageIndex]="shopParams.pageIndex -1"
+          (pageChanged)="handleCustomPageEvent($event)">
+        ></app-pagination>
       </div>
       <!--product display-->
       <div class="w-full">

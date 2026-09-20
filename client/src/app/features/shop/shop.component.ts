@@ -43,8 +43,8 @@ export class ShopComponent implements OnInit, OnDestroy {
     { name: ' Price: High to Low', value: 'priceDesc' },
   ]
   shopParams = new ShopParams();
-  pageSizeOptions= [5, 10, 15, 20, 50, 100]
-  
+  pageSizeOptions = [5, 10, 15, 20, 50, 100]
+
   // ngOnInit(): void {
   //   this.getBrands()
   //   this.getCategories();
@@ -171,4 +171,11 @@ export class ShopComponent implements OnInit, OnDestroy {
     this.shopParams.pageSize = event.pageSize;
     this.getProducts();
   }
+
+  //
+  handleCustomPageEvent(pageIndex: number) {
+    this.shopParams.pageIndex = pageIndex + 1
+    this.getProducts();
+  }
+
 }
