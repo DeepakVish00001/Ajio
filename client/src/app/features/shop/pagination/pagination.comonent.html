@@ -31,12 +31,22 @@
     <!-- RIGHT: PAGINATION -->
     <div class="flex items-center gap-1.5">
 
+          <!-- First -->
+            <button
+                type="button"
+                (click)="firstPage()"
+                [disabled]="pageIndex === 0"
+                class="h-8 shrink-0 cursor-pointer rounded-lg border border-gray-200 px-3 text-sm text-gray-700 hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-40 sm:h-9">
+
+                First
+            </button>
+
         <!-- Previous -->
         <button 
              type="button"
             (click)="previousPage()"
             [disabled]="pageIndex === 0"
-            class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-gray-200 text-gray-500 hover:bg-gray-100 sm:h-9 sm:w-9">
+            class="flex h-8 w-8 shrink-0 cursor-pointer items-center justify-center rounded-lg border border-gray-200 text-gray-500 hover:bg-gray-100 sm:h-9 sm:w-9">
 
             <mat-icon>
                 chevron_left
@@ -44,12 +54,12 @@
 
         </button>
 
-        @for(page of pages; track page){
+        @for(page of pages; track $index){
 
         <!-- Page 1 -->
         <button 
             type="button" 
-            class="h-8 w-8 shrink-0 rounded-lg bg-black text-sm font-medium text-white sm:h-9 sm:w-9"
+            class="h-8 w-8 shrink-0  cursor-pointer rounded-lg bg-black text-sm font-medium text-white sm:h-9 sm:w-9"
             (click)="goToPage(page)"
             [class.bg-black]="pageIndex + 1 === page"
             [class.text-white]="pageIndex + 1 === page"
@@ -81,13 +91,26 @@
             (click)="nextPage()"
             [disabled]="pageIndex >= totalPages - 1"
             type="button"
-            class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-gray-200 text-gray-500 hover:bg-gray-100 sm:h-9 sm:w-9">
+            class="flex h-8 w-8 shrink-0 cursor-pointer items-center justify-center rounded-lg border border-gray-200 text-gray-500 hover:bg-gray-100 sm:h-9 sm:w-9">
 
             <mat-icon>
                 chevron_right
             </mat-icon>
 
         </button>
+
+        <!-- Last -->
+  <button
+    type="button"
+    (click)="lastPage()"
+    [disabled]="pageIndex >= totalPages - 1"
+    class="h-8 shrink-0 cursor-pointer rounded-lg border border-gray-200 px-3 text-sm text-gray-700 hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-40 sm:h-9">
+
+    Last
+
+  </button>
+
+
 
         <!-- <mat-paginator
             (page)="handlePageEvent($event)"

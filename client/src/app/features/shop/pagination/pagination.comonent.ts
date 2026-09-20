@@ -35,6 +35,12 @@ export class PaginationComonent {
     );
   }
 
+  firstPage(): void {
+    if (this.pageIndex > 0) {
+      this.pageChanged.emit(0)
+    }
+  }
+
   previousPage(): void {
     if (this.pageIndex > 0) {
       this.pageChanged.emit(this.pageIndex - 1)
@@ -44,6 +50,12 @@ export class PaginationComonent {
   nextPage(): void {
     if (this.pageIndex < this.totalPages - 1) {
       this.pageChanged.emit(this.pageIndex + 1)
+    }
+  }
+
+  lastPage(): void {
+    if (this.pageIndex < this.totalPages - 1) {
+      this.pageChanged.emit(this.totalPages - 1);
     }
   }
 
