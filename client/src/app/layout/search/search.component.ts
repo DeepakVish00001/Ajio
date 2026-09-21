@@ -1,4 +1,4 @@
-import { Component, EventEmitter, inject, Output } from '@angular/core';
+import { Component, inject, OnDestroy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatIcon } from '@angular/material/icon';
 import { SearchServices } from '../../core/services/search.services';
@@ -13,9 +13,10 @@ import { debounceTime, distinctUntilChanged, Subject, takeUntil } from 'rxjs';
   templateUrl: './search.component.html',
   styleUrl: './search.component.css',
 })
-export class SearchComponent {
+export class SearchComponent implements OnDestroy {
 
   searchText = '';
+  
   private searchService = inject(SearchServices);
 
   private searchSubject = new Subject<string>();
