@@ -1,4 +1,4 @@
-import { Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { Product } from '../../shared/models/product';
 import { ShopServices } from '../../core/services/shop.services';
 import { ProductItemComponent } from './product-item/product-item.component';
@@ -7,7 +7,6 @@ import { Brands } from '../../shared/models/brands';
 import { ShopParams } from '../../shared/models/shopParams';
 import { Pagination } from '../../shared/models/pagination';
 import { FormsModule } from '@angular/forms';
-import { Subject, debounceTime, distinctUntilChanged, switchMap, takeUntil } from 'rxjs';
 import { PageEvent } from '@angular/material/paginator';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { PaginationComonent } from './pagination/pagination.comonent';
@@ -28,11 +27,11 @@ import { PaginationTwoComonent } from './pagination-two/pagination-two.comonent'
   templateUrl: './shop.component.html',
   styleUrl: './shop.component.css',
 })
-export class ShopComponent implements OnInit, OnDestroy {
+export class ShopComponent implements OnInit {
   private shopServices = inject(ShopServices);
 
-  private searchSubject = new Subject<string>();
-  private destroy$ = new Subject<void>();
+
+
   products?: Pagination<Product>;
   categories: Category[] = [];
   brands: Brands[] = [];
@@ -45,44 +44,13 @@ export class ShopComponent implements OnInit, OnDestroy {
   shopParams = new ShopParams();
   pageSizeOptions = [5, 10, 15, 20, 50, 100]
 
-  // ngOnInit(): void {
-  //   this.getBrands()
-  //   this.getCategories();
-  //   this.getProducts();
-  // }
-
   ngOnInit(): void {
-
-    this.getBrands();
+    this.getBrands()
     this.getCategories();
     this.getProducts();
-
-    this.searchSubject.pipe(
-      debounceTime(400),
-      distinctUntilChanged(),
-      switchMap(search => {
-
-        this.shopParams.search = search;
-        this.shopParams.pageIndex = 1;
-
-        return this.shopServices.getProducts(this.shopParams);
-
-      }),
-      takeUntil(this.destroy$)
-    ).subscribe({
-      next: response => {
-        this.products = response;
-      },
-      error: error => {
-        console.log(error);
-      }
-    });
   }
-  onSearchInput(search: string) {
 
-    this.searchSubject.next(search.trim());
 
-  }
 
   getProducts() {
     this.shopServices.getProducts(this.shopParams).subscribe({
@@ -104,36 +72,6 @@ export class ShopComponent implements OnInit, OnDestroy {
     })
   }
 
-  // onSearchChange() {
-  //   this.shopParams.search=this.shopParams.search.trim();
-  //   this.shopParams.pageIndex = 1;
-  //   this.getProducts();
-  // }
-  onSearchChange() {
-
-    this.shopParams.search =
-      this.shopParams.search.trim();
-
-    this.shopParams.pageIndex = 1;
-
-    this.getProducts();
-
-  }
-
-  clearSearch() {
-
-    this.shopParams.search = '';
-    this.shopParams.pageIndex = 1;
-
-    this.getProducts();
-
-  }
-  ngOnDestroy(): void {
-
-    this.destroy$.next();
-    this.destroy$.complete();
-
-  }
 
   /*--- Brands Filter---*/
   onBrandSelected(brandId: number) {
@@ -172,7 +110,7 @@ export class ShopComponent implements OnInit, OnDestroy {
     this.getProducts();
   }
 
-  //
+  /*--- Custome Pagination ---*/
   handleCustomPageEvent(pageIndex: number) {
     this.shopParams.pageIndex = pageIndex + 1
     this.getProducts();
