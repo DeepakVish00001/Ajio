@@ -1,3 +1,5 @@
+@if(products)
+{
 <div class="mx-auto w-full max-w-screen-2xl px-3 py-4 sm:px-4 lg:px-6">
 
   <!-- MOBILE FILTER BUTTON -->
@@ -31,7 +33,7 @@
       <!--top-pagination-->
       <div class="mb-5 border-b border-gray-100 pb-4">
         <app-pagination
-          [length]="products?.count ?? 0"
+          [length]="products.count"
           [pageSize]="shopParams.pageSize"
           [pageIndex]="shopParams.pageIndex -1"
           (pageChanged)="handleCustomPageEvent($event)">
@@ -49,7 +51,7 @@
       <!--footer-pagination-two-->
       <div class="mt-8 flex items-center justify-center">
           <app-pagination-two
-            [length]="products?.count ?? 0"
+            [length]="products.count"
             [pageSize]="shopParams.pageSize"
             [pageIndex]="shopParams.pageIndex - 1"
             [pageSizeOptions]="pageSizeOptions"
@@ -62,3 +64,4 @@
   </div>
 
 </div>
+}
