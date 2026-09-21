@@ -9,7 +9,7 @@
             <!-- LOGO -->
             <a class="shrink-0 cursor-pointer">
 
-                <img src="/images/logo.png" alt="App Logo" class="h-11 w-auto object-contain sm:h-14">
+                <img routerLink="/"  src="/images/logo.png" alt="App Logo" class="h-11 w-auto object-contain sm:h-14">
 
             </a>
 
@@ -17,11 +17,15 @@
             <!-- DESKTOP NAVIGATION -->
             <nav class="hidden shrink-0 items-center gap-5 uppercase lg:flex xl:gap-7">
 
-                <a class="cursor-pointer text-sm font-medium text-gray-700 transition hover:text-black">
+                <a 
+                    routerLink="/" 
+                    routerLinkActive="active" 
+                    [routerLinkActiveOptions]="{exact:true}"
+                    class="cursor-pointer text-sm font-medium text-gray-700 transition hover:text-black">
                     Home
                 </a>
 
-                <a class="cursor-pointer text-sm font-medium text-gray-700 transition hover:text-black">
+                <a routerLink="/shop" routerLinkActive="active" class="cursor-pointer text-sm font-medium text-gray-700 transition hover:text-black">
                     Shop
                 </a>
 

@@ -14,3 +14,8 @@
     font-size: 14px;
     font-weight: bold;
 }
+a{
+    &.active{
+        color:#7d00fa;
+    }
+}
