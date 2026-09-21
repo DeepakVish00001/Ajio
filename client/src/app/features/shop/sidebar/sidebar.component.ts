@@ -26,7 +26,7 @@ export class SidebarComponent implements OnInit {
     { name: ' Price: High to Low', value: 'priceDesc' },
   ]
 
-  selectedRating=0;
+  selectedRating = 0;
 
   ratingOptions = [
     { value: 5, label: '5★ & above' },
@@ -41,6 +41,7 @@ export class SidebarComponent implements OnInit {
   @Output() brandSelected = new EventEmitter<number>();
 
   @Output() ratingSelected = new EventEmitter<number>();
+  @Output() clearAll = new EventEmitter<void>();
 
   minPrice = 0;
   maxPrice = 50000;
@@ -116,10 +117,19 @@ export class SidebarComponent implements OnInit {
     });
   }
 
-  onRatingSelected(rating: number):void {
+  onRatingSelected(rating: number): void {
 
-    this.selectedRating=rating
+    this.selectedRating = rating
     this.ratingSelected.emit(rating);
   }
+  onClearAll(): void {
 
+    // Rating reset 
+    this.selectedRating = 0; 
+    // Price reset 
+    this.minPrice = 0; 
+    this.maxPrice = 50000; 
+    // Parent ko notify
+    this.clearAll.emit()
+  }
 }

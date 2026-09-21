@@ -130,13 +130,20 @@ export class ShopComponent implements OnInit {
     this.shopParams.pageIndex = pageIndex + 1
     this.getProducts();
   }
-  
+
   onRatingSelected(rating: number) {
 
-  this.shopParams.minRating = rating;
+    this.shopParams.minRating = rating;
 
-  this.shopParams.pageIndex = 1;
+    this.shopParams.pageIndex = 1;
 
-  this.getProducts();
-}
+    this.getProducts();
+  }
+  onClearAll():void{
+    this.shopParams= new ShopParams();
+
+    this.searchService.clearSearch();
+
+    this.getProducts();
+  }
 }
