@@ -200,25 +200,12 @@
                     </div>
 
                     <!-- Min -->
-                    <input 
-                        type="range" 
-                        min="0" 
-                        max="50000" 
-                        step="100" 
-                        [(ngModel)]="minPrice" 
-                        [max]="maxPrice"
-                        (input)="onMaxPriceChange()"
-                        class="range-slider">
+                    <input type="range" min="0" max="50000" step="100" [(ngModel)]="minPrice" [max]="maxPrice"
+                        (input)="onMaxPriceChange()" class="range-slider">
 
                     <!-- Max -->
-                    <input 
-                        type="range" 
-                        min="0" 
-                        max="50000" 
-                        step="100" 
-                        [(ngModel)]="maxPrice"
-                        (input)="onMinPriceChange()"
-                        [min]="minPrice" class="range-slider">
+                    <input type="range" min="0" max="50000" step="100" [(ngModel)]="maxPrice"
+                        (input)="onMinPriceChange()" [min]="minPrice" class="range-slider">
 
                 </div>
             </div>
@@ -255,30 +242,37 @@
                 </div>
 
 
+
                 <div class="space-y-3 px-4 pb-5 sm:px-5">
 
+                    @for(rating of ratingOptions; track rating.value){
 
                     <label class="flex cursor-pointer items-center gap-3">
 
-                        <input type="radio" name="rating" class="h-4 w-4 shrink-0 accent-black">
+                        <input type="radio" name="rating" [value]="rating.value"
+                            [checked]="selectedRating===rating.value" (change)="onRatingSelected(rating.value)"
+                            class="h-4 w-4 shrink-0 accent-black">
 
                         <div class="flex min-w-0 items-center">
-
-                            <span class="whitespace-nowrap text-yellow-400">
-                                ★★★★★
+                            @for(star of [1,2,3,4,5];track star ){
+                            <span class="whitespace-nowrap text-lg font-bold leading-none"
+                                [class.text-yellow-500]="star <= rating.value"
+                                [class.text-gray-300]="star > rating.value">
+                                ★
                             </span>
-
+                            }
                             <span class="ml-2 text-xs text-gray-500">
-                                & above
+                                {{rating.label}}
                             </span>
 
                         </div>
 
                     </label>
 
+                    }
 
 
-                    <label class="flex cursor-pointer items-center gap-3">
+                    <!-- <label class="flex cursor-pointer items-center gap-3">
 
                         <input type="radio" name="rating" class="h-4 w-4 shrink-0 accent-black">
 
@@ -345,10 +339,9 @@
 
                         </div>
 
-                    </label>
+                    </label> -->
 
                 </div>
-
             </div>
 
 

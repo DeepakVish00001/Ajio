@@ -26,9 +26,21 @@ export class SidebarComponent implements OnInit {
     { name: ' Price: High to Low', value: 'priceDesc' },
   ]
 
+  selectedRating=0;
+
+  ratingOptions = [
+    { value: 5, label: '5★ & above' },
+    { value: 4, label: '4★ & above' },
+    { value: 3, label: '3★ & above' },
+    { value: 2, label: '2★ & above' },
+    { value: 1, label: '1★ & above' }
+  ]
+
   @Output() sortSelected = new EventEmitter<string>();
   @Output() categorySelected = new EventEmitter<number>();
   @Output() brandSelected = new EventEmitter<number>();
+
+  @Output() ratingSelected = new EventEmitter<number>();
 
   minPrice = 0;
   maxPrice = 50000;
@@ -102,6 +114,12 @@ export class SidebarComponent implements OnInit {
       minPrice: this.minPrice,
       maxPrice: this.maxPrice
     });
+  }
+
+  onRatingSelected(rating: number):void {
+
+    this.selectedRating=rating
+    this.ratingSelected.emit(rating);
   }
 
 }

@@ -28,6 +28,10 @@ export class ShopServices {
       params = params.append('maxPrice', shopParams.maxPrice);
     }
 
+    if (shopParams.minRating > 0) {
+      params = params.append('minRating', shopParams.minRating);
+    }
+
     if (shopParams.search) {
       params = params.append('search', shopParams.search);
     }

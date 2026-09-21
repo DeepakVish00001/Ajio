@@ -10,7 +10,9 @@ public class ProductSpecification : BaseSpecification<Product>
         (!specPrams.BrandId.HasValue || x.ProductBrandId == specPrams.BrandId) &&
         (!specPrams.CategoryId.HasValue || x.ProductBrand!.ProductCategoryId == specPrams.CategoryId) &&
         (!specPrams.MinPrice.HasValue || x.Price >= specPrams.MinPrice.Value) &&
-        (!specPrams.MaxPrice.HasValue || x.Price <= specPrams.MaxPrice.Value)
+        (!specPrams.MaxPrice.HasValue || x.Price <= specPrams.MaxPrice.Value)&&
+        (!specPrams.MinRating.HasValue || x.ProductComments.Any(c=>
+            c.Rating.HasValue && c.Rating.Value >= specPrams.MinRating.Value))
     )
     {
         AddInclude(p => p.ProductBrand!);

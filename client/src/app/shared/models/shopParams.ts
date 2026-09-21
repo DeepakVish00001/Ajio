@@ -11,4 +11,6 @@ export class ShopParams {
 
     pageIndex = 1;
     pageSize = 5;
+
+    minRating = 0;
 }

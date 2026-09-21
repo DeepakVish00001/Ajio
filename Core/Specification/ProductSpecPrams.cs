@@ -25,4 +25,6 @@ public class ProductSpecPrams
     public string? Sort { get; set; }
     public decimal? MinPrice { get; set; }
     public decimal? MaxPrice { get; set; }
+
+    public int? MinRating { get; set; }
 }
