@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { Product } from '../../shared/models/product';
 import { ShopServices } from '../../core/services/shop.services';
 import { ProductItemComponent } from './product-item/product-item.component';
@@ -12,6 +12,8 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { PaginationComonent } from './pagination/pagination.comonent';
 import { MatIcon } from '@angular/material/icon';
 import { PaginationTwoComonent } from './pagination-two/pagination-two.comonent';
+import { SearchServices } from '../../core/services/search.services';
+import { skip, Subject, takeUntil } from 'rxjs';
 
 
 @Component({
@@ -22,13 +24,18 @@ import { PaginationTwoComonent } from './pagination-two/pagination-two.comonent'
     PaginationComonent,
     PaginationTwoComonent,
     MatIcon,
-    FormsModule,
+    FormsModule
   ],
   templateUrl: './shop.component.html',
   styleUrl: './shop.component.css',
 })
 export class ShopComponent implements OnInit {
+
   private shopServices = inject(ShopServices);
+
+  private searchService = inject(SearchServices);
+
+  private destroy$ = new Subject<void>()
 
 
 
@@ -48,9 +55,17 @@ export class ShopComponent implements OnInit {
     this.getBrands()
     this.getCategories();
     this.getProducts();
+
+    this.searchService.search$.pipe(
+      skip(1),
+      takeUntil(this.destroy$)
+    )
+      .subscribe(search => {
+        this.shopParams.search = search;
+        this.shopParams.pageIndex = 1;
+        this.getProducts();
+      });
   }
-
-
 
   getProducts() {
     this.shopServices.getProducts(this.shopParams).subscribe({

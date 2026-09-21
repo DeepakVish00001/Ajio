@@ -5,7 +5,12 @@
         search
     </mat-icon>
 
-    <input type="search" name="search" placeholder="Search products..."
-        class="ml-2 min-w-0 w-full bg-transparent text-sm text-gray-700 outline-none placeholder:text-gray-400" />
+    <input 
+        class="ml-2 min-w-0 w-full bg-transparent text-sm text-gray-700 outline-none placeholder:text-gray-400"
+        type="search" 
+        name="search" 
+        [(ngModel)]="searchText"
+        (input)="onSearch()"
+        placeholder="Search products..."/>
 
 </div>
