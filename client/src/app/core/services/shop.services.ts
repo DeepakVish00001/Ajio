@@ -43,6 +43,10 @@ export class ShopServices {
     return this.http.get<Pagination<Product>>(this.baseUrl + 'product', { params })
   }
 
+  getProduct(id: number) {
+    return this.http.get<Product>(this.baseUrl + 'product/' + id)
+  }
+
   getCategories() {
     return this.http.get<Category[]>(this.baseUrl + 'product/category')
   }
