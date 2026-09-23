@@ -2,10 +2,14 @@ import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Product } from '../../../shared/models/product';
 import { ShopServices } from '../../../core/services/shop.services';
+import { CurrencyPipe, DecimalPipe } from '@angular/common';
 
 @Component({
   selector: 'app-product-details',
-  imports: [],
+  imports: [
+    CurrencyPipe,
+    DecimalPipe
+  ],
   templateUrl: './product-details.component.html',
   styleUrl: './product-details.component.css',
 })
@@ -17,7 +21,7 @@ export class ProductDetailsComponent implements OnInit {
 
   product?: Product;
   // Main image
-  selectedImage = '';
+  selectedImageIndex = 0;
 
   ngOnInit(): void {
     this.loadProduct();
@@ -29,14 +33,47 @@ export class ProductDetailsComponent implements OnInit {
     this.shopService.getProduct(+id).subscribe({
       next: product => {
         this.product = product;
-           // First image as main image
-        this.selectedImage = product.picture?.[0] ?? '';
+        // First image as main image
+        this.selectedImageIndex = 0;
       },
       error: error => console.log(error)
     })
   }
 
-  selectImage(image:string){
-    this.selectedImage= image;
+  selectImage(index: number) {
+    this.selectedImageIndex = index;
+  }
+
+  //th
+  previousImage() {
+    if (!this.product?.picture?.length) return;
+
+    if (this.selectedImageIndex === 0) {
+      this.selectedImageIndex = this.product.picture.length - 1;
+    } else {
+      this.selectedImageIndex--;
+    }
+  }
+
+  nextImage() {
+    if (!this.product?.picture?.length) return;
+    if (this.selectedImageIndex === this.product.picture.length - 1) {
+      this.selectedImageIndex = 0;
+    } else {
+      this.selectedImageIndex++;
+    }
+  }
+
+  onMainImageClick(event: MouseEvent) {
+    const element = event.currentTarget as HTMLElement;
+
+    const width = element.offsetWidth;
+    const clickPosition = event.offsetX
+
+    if (clickPosition < width / 2) {
+      this.previousImage();
+    } else {
+      this.nextImage();
+    }
   }
 }

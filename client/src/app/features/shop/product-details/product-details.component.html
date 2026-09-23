@@ -30,42 +30,28 @@
                 <!-- Thumbnail -->
 
                 <div class="flex flex-col gap-3">
-                    @for (image of product.picture; track image) {
-                    <button class="rounded border-2 border-blue-600 p-1">
+                    @for (image of product.picture; track image; let i=$index) {
+                    <button
+                        type="button"
+                        (click)="selectImage(i)" 
+                        [class.border-blue-600]="selectedImageIndex === i"
+                        [class.border-gray-200]="selectedImageIndex !== i"
+                        class="rounded border-2 border-blue-600 p-1">
 
-                        <img src="{{image}}"  alt="Product" style="height: 70px;" class="h-full w-full object-contain">
+                        <img [src]="image"  [alt]="product.name" style="height: 70px;" class="h-full w-full object-contain">
 
                     </button>
                 }
-
-                    <!-- <button class="rounded border border-gray-300 p-1 hover:border-blue-500">
-
-                        <img src="/images/product-2.jpg" alt="Product" class="h-full w-full object-contain">
-
-                    </button> -->
-
-
-                    <!-- <button class=" rounded border border-gray-300 p-1 hover:border-blue-500">
-
-                        <img src="/images/product-3.jpg" alt="Product" class="h-full w-full object-contain">
-
-                    </button> -->
-
-<!-- 
-                    <button class=" rounded border border-gray-300 p-1 hover:border-blue-500">
-
-                        <img src="/images/product-4.jpg" alt="Product" class="h-full w-full object-contain">
-
-                    </button> -->
 
                 </div>
 
 
                 <!-- Main Image -->
 
-                <div class="relative flex  flex-1 items-center justify-center">
+                <div class="relative flex flex-1 items-center justify-center">
 
                     <button
+                        type="button"
                         class="absolute right-2 top-2 flex h-10 w-10 items-center justify-center rounded-full border border-gray-200 bg-white text-xl text-gray-600 shadow-sm hover:text-red-500">
 
                         ♡
@@ -74,6 +60,8 @@
 
 
                     <button
+                        type="button"
+                        (click)="previousImage()"
                         class="absolute left-0 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-r bg-white text-2xl text-gray-600 shadow">
 
                         ‹
@@ -81,10 +69,15 @@
                     </button>
 
 
-                    <img [src]="selectedImage" alt="Men's Premium T-Shirt" class="max-w-full object-contain">
+                    <img 
+                        [src]="product.picture[selectedImageIndex]"
+                        [alt]="product.name"
+                        class="max-w-full object-contain">
 
 
                     <button
+                        type="button"
+                        (click)="nextImage()"
                         class="absolute right-0 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-l bg-white text-2xl text-gray-600 shadow">
 
                         ›
@@ -105,7 +98,7 @@
                 <!-- Brand -->
 
                 <p class="text-sm text-gray-500">
-                    {{product?.productBrand}}
+                    {{product.productBrand}}
                 </p>
 
 
@@ -141,17 +134,17 @@
                 <div class="mt-5">
 
                     <span class="text-3xl font-semibold text-gray-900">
-                        {{product.price}}
+                        {{product.price | currency:'INR':'symbol':'1.0-0'}}
                     </span>
 
 
                     <span class="ml-3 text-sm text-gray-500 line-through">
-                        {{product.originalPrice}}
+                        {{product.originalPrice | currency:'INR':'symbol':'1.0-0'}}
                     </span>
 
 
                     <span class="ml-3 text-sm font-semibold text-green-600">
-                        {{product.discountPercentage}}% off
+                        {{product.discountPercentage | number:'1.0-0'}}% off
                     </span>
 
                 </div>
