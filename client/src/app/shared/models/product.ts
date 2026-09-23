@@ -2,7 +2,7 @@ export type Product = {
 
     id: number;
     name: string;
-    description:string,
+    description: string;
     originalPrice: number;
     price: number;
     discountPercentage: number;
@@ -13,10 +13,21 @@ export type Product = {
     productCategory: string;
     productBrand: string;
     imageUrl: string;
+    stockStatus: string;
 
     picture: string[];
 
-    ratingBreakdown:{
-        [key:number]:number
+    ratingBreakdown: {
+        [key: number]: number
     }
+
+    comment:ProductComment[];
+}
+
+export interface ProductComment {
+  id: number;
+  comment: string;
+  rating: number;
+  userId: string;
+  createAt: string;
 }

@@ -2,13 +2,14 @@ import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Product } from '../../../shared/models/product';
 import { ShopServices } from '../../../core/services/shop.services';
-import { CurrencyPipe, DecimalPipe } from '@angular/common';
+import { CurrencyPipe, DatePipe, DecimalPipe } from '@angular/common';
 
 @Component({
   selector: 'app-product-details',
   imports: [
     CurrencyPipe,
-    DecimalPipe
+    DecimalPipe,
+    DatePipe
   ],
   templateUrl: './product-details.component.html',
   styleUrl: './product-details.component.css',
