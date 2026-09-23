@@ -76,4 +76,13 @@ export class ProductDetailsComponent implements OnInit {
       this.nextImage();
     }
   }
+
+  getRatingPercentage(star: number): number {
+    if (!this.product?.totalReviews) {
+      return 0;
+    }
+
+    const count = this.product.ratingBreakdown?.[star] ?? 0;
+    return (count / this.product.totalReviews) * 100
+  }
 }

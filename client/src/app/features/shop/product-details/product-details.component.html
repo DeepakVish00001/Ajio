@@ -31,17 +31,14 @@
 
                 <div class="flex flex-col gap-3">
                     @for (image of product.picture; track image; let i=$index) {
-                    <button
-                        type="button"
-                        (click)="selectImage(i)" 
-                        [class.border-blue-600]="selectedImageIndex === i"
-                        [class.border-gray-200]="selectedImageIndex !== i"
-                        class="rounded border-2 border-blue-600 p-1">
+                    <button type="button" (click)="selectImage(i)" [class.border-blue-600]="selectedImageIndex === i"
+                        [class.border-gray-200]="selectedImageIndex !== i" class="rounded border-2 border-blue-600 p-1">
 
-                        <img [src]="image"  [alt]="product.name" style="height: 70px;" class="h-full w-full object-contain">
+                        <img [src]="image" [alt]="product.name" style="height: 70px;"
+                            class="h-full w-full object-contain">
 
                     </button>
-                }
+                    }
 
                 </div>
 
@@ -50,8 +47,7 @@
 
                 <div class="relative flex flex-1 items-center justify-center">
 
-                    <button
-                        type="button"
+                    <button type="button"
                         class="absolute right-2 top-2 flex h-10 w-10 items-center justify-center rounded-full border border-gray-200 bg-white text-xl text-gray-600 shadow-sm hover:text-red-500">
 
                         ♡
@@ -59,9 +55,7 @@
                     </button>
 
 
-                    <button
-                        type="button"
-                        (click)="previousImage()"
+                    <button type="button" (click)="previousImage()"
                         class="absolute left-0 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-r bg-white text-2xl text-gray-600 shadow">
 
                         ‹
@@ -69,15 +63,11 @@
                     </button>
 
 
-                    <img 
-                        [src]="product.picture[selectedImageIndex]"
-                        [alt]="product.name"
+                    <img [src]="product.picture[selectedImageIndex]" [alt]="product.name"
                         class="max-w-full object-contain">
 
 
-                    <button
-                        type="button"
-                        (click)="nextImage()"
+                    <button type="button" (click)="nextImage()"
                         class="absolute right-0 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-l bg-white text-2xl text-gray-600 shadow">
 
                         ›
@@ -134,12 +124,12 @@
                 <div class="mt-5">
 
                     <span class="text-3xl font-semibold text-gray-900">
-                        {{product.price | currency:'INR':'symbol':'1.0-0'}}
+                        {{product.price | currency:'INR':'symbol':'1.0-0'}} MRP
                     </span>
 
 
                     <span class="ml-3 text-sm text-gray-500 line-through">
-                        {{product.originalPrice | currency:'INR':'symbol':'1.0-0'}}
+                        {{product.originalPrice | currency:'INR':'symbol':'1.0-0'}} MRP
                     </span>
 
 
@@ -370,7 +360,7 @@
 
                 <p class="mt-3 text-sm leading-7 text-gray-600">
 
-                    {{product.discountPercentage}}
+                    {{product.description}}
 
                 </p>
 
@@ -453,7 +443,7 @@
     <!-- ================================================= -->
     <!-- RATINGS -->
     <!-- ================================================= -->
-
+    @if (product.rating !== null && product.totalReviews > 0) {
     <div class="mt-5 rounded-sm border border-gray-200 bg-white">
 
 
@@ -479,13 +469,17 @@
                 </span>
 
 
+
                 <span class="mt-2 text-lg tracking-wide text-yellow-400">
-                    ★★★★★
+                    {{ product.rating === 1 ? '★☆☆☆☆' :
+                    product.rating === 2 ? '★★☆☆☆' :
+                    product.rating === 3 ? '★★★☆☆' :
+                    product.rating === 4 ? '★★★★☆' :
+                    '★★★★★' }}
                 </span>
 
-
                 <span class="mt-1 text-xs text-gray-500">
-                    1,245 Ratings
+                    {{product.totalReviews | number}} Ratings
                 </span>
 
             </div>
@@ -495,106 +489,37 @@
 
             <div class="p-6">
 
-
+                @for (star of [5,4,3,2,1]; track star) {
                 <div class="mb-3 flex items-center gap-3">
 
                     <span class="w-10 text-xs">
-                        5 ★
+                        {{star}} ★
                     </span>
+
 
                     <div class="h-2 flex-1 rounded-full bg-gray-200">
 
-                        <div class="h-2 w-[75%] rounded-full bg-green-500"></div>
+                        <div class="h-2 rounded-full bg-green-500" [style.width.%]="getRatingPercentage(star)"></div>
 
                     </div>
 
                     <span class="w-10 text-xs text-gray-500">
-                        75%
+
+                        {{ getRatingPercentage(star) | number:'1.0-0' }}%
+
                     </span>
 
                 </div>
+                }
 
-
-                <div class="mb-3 flex items-center gap-3">
-
-                    <span class="w-10 text-xs">
-                        4 ★
-                    </span>
-
-                    <div class="h-2 flex-1 rounded-full bg-gray-200">
-
-                        <div class="h-2 w-[15%] rounded-full bg-green-500"></div>
-
-                    </div>
-
-                    <span class="w-10 text-xs text-gray-500">
-                        15%
-                    </span>
-
-                </div>
-
-
-                <div class="mb-3 flex items-center gap-3">
-
-                    <span class="w-10 text-xs">
-                        3 ★
-                    </span>
-
-                    <div class="h-2 flex-1 rounded-full bg-gray-200">
-
-                        <div class="h-2 w-[6%] rounded-full bg-green-500"></div>
-
-                    </div>
-
-                    <span class="w-10 text-xs text-gray-500">
-                        6%
-                    </span>
-
-                </div>
-
-
-                <div class="mb-3 flex items-center gap-3">
-
-                    <span class="w-10 text-xs">
-                        2 ★
-                    </span>
-
-                    <div class="h-2 flex-1 rounded-full bg-gray-200">
-
-                        <div class="h-2 w-[3%] rounded-full bg-green-500"></div>
-
-                    </div>
-
-                    <span class="w-10 text-xs text-gray-500">
-                        3%
-                    </span>
-
-                </div>
-
-
-                <div class="flex items-center gap-3">
-
-                    <span class="w-10 text-xs">
-                        1 ★
-                    </span>
-
-                    <div class="h-2 flex-1 rounded-full bg-gray-200">
-
-                        <div class="h-2 w-[1%] rounded-full bg-green-500"></div>
-
-                    </div>
-
-                    <span class="w-10 text-xs text-gray-500">
-                        1%
-                    </span>
-
-                </div>
 
             </div>
 
         </div>
 
     </div>
+    }
+
 
 
 

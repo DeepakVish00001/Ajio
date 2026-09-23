@@ -2,6 +2,7 @@ export type Product = {
 
     id: number;
     name: string;
+    description:string,
     originalPrice: number;
     price: number;
     discountPercentage: number;
@@ -14,4 +15,8 @@ export type Product = {
     imageUrl: string;
 
     picture: string[];
+
+    ratingBreakdown:{
+        [key:number]:number
+    }
 }
