@@ -1,4 +1,803 @@
 @if(product){
-<h1 class="text-2xl">{{product.name}}</h1>
+<div class="mx-auto max-w-7xl px-4 py-6">
 
+    <!-- Breadcrumb -->
+    <div class="mb-4 text-sm text-gray-500">
+        Home
+        <span class="mx-2">›</span>
+        Shop
+        <span class="mx-2">›</span>
+        Men's Clothing
+        <span class="mx-2">›</span>
+        T-Shirt
+    </div>
+
+
+    <!-- ================================================= -->
+    <!-- PRODUCT -->
+    <!-- ================================================= -->
+
+    <div class="rounded-sm border border-gray-200 bg-white">
+
+        <div class="grid grid-cols-1 lg:grid-cols-[52%_48%]">
+
+
+            <!-- ================= LEFT ================= -->
+
+            <div class="flex gap-4 p-5">
+
+
+                <!-- Thumbnail -->
+
+                <div class="flex flex-col gap-3">
+                    @for (image of product.picture; track image) {
+                    <button class="rounded border-2 border-blue-600 p-1">
+
+                        <img src="{{image}}"  alt="Product" style="height: 70px;" class="h-full w-full object-contain">
+
+                    </button>
+                }
+
+                    <!-- <button class="rounded border border-gray-300 p-1 hover:border-blue-500">
+
+                        <img src="/images/product-2.jpg" alt="Product" class="h-full w-full object-contain">
+
+                    </button> -->
+
+
+                    <!-- <button class=" rounded border border-gray-300 p-1 hover:border-blue-500">
+
+                        <img src="/images/product-3.jpg" alt="Product" class="h-full w-full object-contain">
+
+                    </button> -->
+
+<!-- 
+                    <button class=" rounded border border-gray-300 p-1 hover:border-blue-500">
+
+                        <img src="/images/product-4.jpg" alt="Product" class="h-full w-full object-contain">
+
+                    </button> -->
+
+                </div>
+
+
+                <!-- Main Image -->
+
+                <div class="relative flex  flex-1 items-center justify-center">
+
+                    <button
+                        class="absolute right-2 top-2 flex h-10 w-10 items-center justify-center rounded-full border border-gray-200 bg-white text-xl text-gray-600 shadow-sm hover:text-red-500">
+
+                        ♡
+
+                    </button>
+
+
+                    <button
+                        class="absolute left-0 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-r bg-white text-2xl text-gray-600 shadow">
+
+                        ‹
+
+                    </button>
+
+
+                    <img [src]="selectedImage" alt="Men's Premium T-Shirt" class="max-w-full object-contain">
+
+
+                    <button
+                        class="absolute right-0 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-l bg-white text-2xl text-gray-600 shadow">
+
+                        ›
+
+                    </button>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- ================= RIGHT ================= -->
+
+            <div class="border-l border-gray-200 p-6">
+
+
+                <!-- Brand -->
+
+                <p class="text-sm text-gray-500">
+                    {{product?.productBrand}}
+                </p>
+
+
+                <!-- Name -->
+
+                <h1 class="mt-1 text-2xl font-medium leading-8 text-gray-900">
+
+                    {{product.name}}
+
+                </h1>
+
+
+                <!-- Rating -->
+
+                <div class="mt-3 flex items-center gap-2">
+
+                    <span class="rounded bg-green-600 px-2 py-1 text-sm font-semibold text-white">
+
+                        {{product.rating}} ★
+
+                    </span>
+
+
+                    <span class="text-sm text-gray-500">
+                        {{product.rating}} Ratings & {{product.totalReviews}} Reviews
+                    </span>
+
+                </div>
+
+
+                <!-- Price -->
+
+                <div class="mt-5">
+
+                    <span class="text-3xl font-semibold text-gray-900">
+                        {{product.price}}
+                    </span>
+
+
+                    <span class="ml-3 text-sm text-gray-500 line-through">
+                        {{product.originalPrice}}
+                    </span>
+
+
+                    <span class="ml-3 text-sm font-semibold text-green-600">
+                        {{product.discountPercentage}}% off
+                    </span>
+
+                </div>
+
+
+                <p class="mt-1 text-xs text-gray-500">
+                    Inclusive of all taxes
+                </p>
+
+
+                <!-- Offers -->
+
+                <div class="mt-6">
+
+                    <h2 class="text-base font-semibold text-gray-900">
+                        Available Offers
+                    </h2>
+
+
+                    <div class="mt-3 space-y-3">
+
+                        <div class="flex gap-2 text-sm text-gray-700">
+
+                            <span class="font-bold text-green-600">
+                                ✓
+                            </span>
+
+                            <span>
+                                Bank Offer: 10% instant discount on selected cards
+                            </span>
+
+                        </div>
+
+
+                        <div class="flex gap-2 text-sm text-gray-700">
+
+                            <span class="font-bold text-green-600">
+                                ✓
+                            </span>
+
+                            <span>
+                                Special Price available on this product
+                            </span>
+
+                        </div>
+
+
+                        <div class="flex gap-2 text-sm text-gray-700">
+
+                            <span class="font-bold text-green-600">
+                                ✓
+                            </span>
+
+                            <span>
+                                Free delivery available
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Delivery -->
+
+                <div class="mt-6 border-t border-gray-200 pt-5">
+
+                    <div class="flex items-center gap-3">
+
+                        <span class="text-xl">
+                            🚚
+                        </span>
+
+                        <div>
+
+                            <p class="text-sm font-semibold text-gray-900">
+                                Delivery
+                            </p>
+
+                            <p class="text-sm text-gray-500">
+                                Free delivery available
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Stock -->
+
+                <div class="mt-5">
+
+                    <span class="text-sm font-semibold text-green-600">
+                        ✓ In Stock
+                    </span>
+
+                    <span class="ml-2 text-sm text-gray-500">
+                        20 items available
+                    </span>
+
+                </div>
+
+
+                <!-- Quantity -->
+
+                <div class="mt-5 flex items-center gap-4">
+
+                    <span class="text-sm font-medium">
+                        Quantity
+                    </span>
+
+
+                    <div class="flex h-9 overflow-hidden rounded border border-gray-300">
+
+                        <button class="w-9 hover:bg-gray-100">
+                            −
+                        </button>
+
+
+                        <span class="flex w-10 items-center justify-center border-x border-gray-300 text-sm">
+
+                            1
+
+                        </span>
+
+
+                        <button class="w-9 hover:bg-gray-100">
+                            +
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Buttons -->
+
+                <div class="mt-6 flex gap-3">
+
+
+                    <button
+                        class="flex h-12 flex-1 items-center justify-center gap-2 rounded-sm bg-orange-500 font-semibold text-white hover:bg-orange-600">
+
+                        <span>
+                            🛒
+                        </span>
+
+                        ADD TO CART
+
+                    </button>
+
+
+                    <button
+                        class="flex h-12 flex-1 items-center justify-center gap-2 rounded-sm bg-yellow-500 font-semibold text-white hover:bg-yellow-600">
+
+                        <span>
+                            ⚡
+                        </span>
+
+                        BUY NOW
+
+                    </button>
+
+                </div>
+
+
+                <!-- Secure -->
+
+                <div class="mt-5 flex gap-5 border-t border-gray-200 pt-5 text-xs text-gray-500">
+
+                    <span>
+                        ✓ Secure Payment
+                    </span>
+
+                    <span>
+                        ✓ 7 Days Return
+                    </span>
+
+                    <span>
+                        ✓ Genuine Product
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ================================================= -->
+    <!-- PRODUCT DETAILS -->
+    <!-- ================================================= -->
+
+    <div class="mt-5 rounded-sm border border-gray-200 bg-white">
+
+
+        <div class="border-b border-gray-200 px-6 py-4">
+
+            <h2 class="text-xl font-semibold text-gray-900">
+                Product Details
+            </h2>
+
+        </div>
+
+
+        <div class="grid grid-cols-1 gap-10 p-6 md:grid-cols-2">
+
+
+            <!-- Description -->
+
+            <div>
+
+                <h3 class="text-base font-semibold">
+                    Description
+                </h3>
+
+
+                <p class="mt-3 text-sm leading-7 text-gray-600">
+
+                    {{product.discountPercentage}}
+
+                </p>
+
+            </div>
+
+
+            <!-- Specifications -->
+
+            <div>
+
+                <h3 class="text-base font-semibold">
+                    Specifications
+                </h3>
+
+
+                <div class="mt-3 overflow-hidden rounded border border-gray-200">
+
+
+                    <div class="flex border-b border-gray-200">
+
+                        <span class="w-1/2 bg-gray-50 px-4 py-3 text-sm text-gray-500">
+                            Brand
+                        </span>
+
+                        <span class="w-1/2 px-4 py-3 text-sm">
+                            {{product.productBrand}}
+                        </span>
+
+                    </div>
+
+
+                    <div class="flex border-b border-gray-200">
+
+                        <span class="w-1/2 bg-gray-50 px-4 py-3 text-sm text-gray-500">
+                            Category
+                        </span>
+
+                        <span class="w-1/2 px-4 py-3 text-sm">
+                            {{product.productCategory}}
+                        </span>
+
+                    </div>
+
+
+                    <div class="flex border-b border-gray-200">
+
+                        <span class="w-1/2 bg-gray-50 px-4 py-3 text-sm text-gray-500">
+                            Material
+                        </span>
+
+                        <span class="w-1/2 px-4 py-3 text-sm">
+                            Cotton
+                        </span>
+
+                    </div>
+
+
+                    <div class="flex">
+
+                        <span class="w-1/2 bg-gray-50 px-4 py-3 text-sm text-gray-500">
+                            Fit
+                        </span>
+
+                        <span class="w-1/2 px-4 py-3 text-sm">
+                            Regular Fit
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ================================================= -->
+    <!-- RATINGS -->
+    <!-- ================================================= -->
+
+    <div class="mt-5 rounded-sm border border-gray-200 bg-white">
+
+
+        <div class="border-b border-gray-200 px-6 py-4">
+
+            <h2 class="text-xl font-semibold">
+                Ratings & Reviews
+            </h2>
+
+        </div>
+
+
+        <div class="grid grid-cols-1 md:grid-cols-[220px_1fr]">
+
+
+            <!-- Rating -->
+
+            <div
+                class="flex flex-col items-center justify-center border-b border-gray-200 p-6 md:border-b-0 md:border-r">
+
+                <span class="text-4xl font-semibold">
+                    {{product.rating}}
+                </span>
+
+
+                <span class="mt-2 text-lg tracking-wide text-yellow-400">
+                    ★★★★★
+                </span>
+
+
+                <span class="mt-1 text-xs text-gray-500">
+                    1,245 Ratings
+                </span>
+
+            </div>
+
+
+            <!-- Rating Bars -->
+
+            <div class="p-6">
+
+
+                <div class="mb-3 flex items-center gap-3">
+
+                    <span class="w-10 text-xs">
+                        5 ★
+                    </span>
+
+                    <div class="h-2 flex-1 rounded-full bg-gray-200">
+
+                        <div class="h-2 w-[75%] rounded-full bg-green-500"></div>
+
+                    </div>
+
+                    <span class="w-10 text-xs text-gray-500">
+                        75%
+                    </span>
+
+                </div>
+
+
+                <div class="mb-3 flex items-center gap-3">
+
+                    <span class="w-10 text-xs">
+                        4 ★
+                    </span>
+
+                    <div class="h-2 flex-1 rounded-full bg-gray-200">
+
+                        <div class="h-2 w-[15%] rounded-full bg-green-500"></div>
+
+                    </div>
+
+                    <span class="w-10 text-xs text-gray-500">
+                        15%
+                    </span>
+
+                </div>
+
+
+                <div class="mb-3 flex items-center gap-3">
+
+                    <span class="w-10 text-xs">
+                        3 ★
+                    </span>
+
+                    <div class="h-2 flex-1 rounded-full bg-gray-200">
+
+                        <div class="h-2 w-[6%] rounded-full bg-green-500"></div>
+
+                    </div>
+
+                    <span class="w-10 text-xs text-gray-500">
+                        6%
+                    </span>
+
+                </div>
+
+
+                <div class="mb-3 flex items-center gap-3">
+
+                    <span class="w-10 text-xs">
+                        2 ★
+                    </span>
+
+                    <div class="h-2 flex-1 rounded-full bg-gray-200">
+
+                        <div class="h-2 w-[3%] rounded-full bg-green-500"></div>
+
+                    </div>
+
+                    <span class="w-10 text-xs text-gray-500">
+                        3%
+                    </span>
+
+                </div>
+
+
+                <div class="flex items-center gap-3">
+
+                    <span class="w-10 text-xs">
+                        1 ★
+                    </span>
+
+                    <div class="h-2 flex-1 rounded-full bg-gray-200">
+
+                        <div class="h-2 w-[1%] rounded-full bg-green-500"></div>
+
+                    </div>
+
+                    <span class="w-10 text-xs text-gray-500">
+                        1%
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ================================================= -->
+    <!-- CUSTOMER REVIEWS -->
+    <!-- ================================================= -->
+
+    <div class="mt-5 rounded-sm border border-gray-200 bg-white">
+
+
+        <div class="border-b border-gray-200 px-6 py-4">
+
+            <h2 class="text-xl font-semibold">
+                Customer Reviews
+            </h2>
+
+        </div>
+
+
+        <div class="border-b border-gray-200 p-6">
+
+            <div class="text-sm text-yellow-400">
+                ★★★★★
+            </div>
+
+            <h3 class="mt-2 text-sm font-semibold">
+                Excellent Product
+            </h3>
+
+            <p class="mt-2 text-sm leading-6 text-gray-600">
+                Very good quality product. Material and fitting are excellent.
+            </p>
+
+            <p class="mt-3 text-xs text-gray-400">
+                Rahul · Verified Purchase · 2 days ago
+            </p>
+
+        </div>
+
+
+        <div class="p-6">
+
+            <div class="text-sm text-yellow-400">
+                ★★★★☆
+            </div>
+
+            <h3 class="mt-2 text-sm font-semibold">
+                Good Product
+            </h3>
+
+            <p class="mt-2 text-sm leading-6 text-gray-600">
+                Good quality and value for money.
+            </p>
+
+            <p class="mt-3 text-xs text-gray-400">
+                Amit · Verified Purchase · 5 days ago
+            </p>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ================================================= -->
+    <!-- SIMILAR PRODUCTS -->
+    <!-- ================================================= -->
+
+    <div class="mt-5">
+
+        <h2 class="mb-4 text-xl font-semibold text-gray-900">
+            Similar Products
+        </h2>
+
+
+        <div class="grid grid-cols-2 gap-4 md:grid-cols-4">
+
+
+            <!-- Product -->
+
+            <div class="rounded-sm border border-gray-200 bg-white p-3">
+
+                <div class="h-56 bg-gray-50">
+
+                    <img src="/images/product-1.jpg" alt="Product" class="h-full w-full object-contain">
+
+                </div>
+
+                <h3 class="mt-3 text-sm font-medium">
+                    Premium T-Shirt
+                </h3>
+
+                <div class="mt-2">
+
+                    <span class="font-semibold">
+                        ₹799
+                    </span>
+
+                    <span class="ml-2 text-xs text-gray-400 line-through">
+                        ₹1,499
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <!-- Product -->
+
+            <div class="rounded-sm border border-gray-200 bg-white p-3">
+
+                <div class="h-56 bg-gray-50">
+
+                    <img src="/images/product-2.jpg" alt="Product" class="h-full w-full object-contain">
+
+                </div>
+
+                <h3 class="mt-3 text-sm font-medium">
+                    Casual Shirt
+                </h3>
+
+                <div class="mt-2">
+
+                    <span class="font-semibold">
+                        ₹999
+                    </span>
+
+                    <span class="ml-2 text-xs text-gray-400 line-through">
+                        ₹1,499
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <!-- Product -->
+
+            <div class="rounded-sm border border-gray-200 bg-white p-3">
+
+                <div class="h-56 bg-gray-50">
+
+                    <img src="/images/product-3.jpg" alt="Product" class="h-full w-full object-contain">
+
+                </div>
+
+                <h3 class="mt-3 text-sm font-medium">
+                    Regular Fit Shirt
+                </h3>
+
+                <div class="mt-2">
+
+                    <span class="font-semibold">
+                        ₹699
+                    </span>
+
+                    <span class="ml-2 text-xs text-gray-400 line-through">
+                        ₹999
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <!-- Product -->
+
+            <div class="rounded-sm border border-gray-200 bg-white p-3">
+
+                <div class="h-56 bg-gray-50">
+
+                    <img src="/images/product-4.jpg" alt="Product" class="h-full w-full object-contain">
+
+                </div>
+
+                <h3 class="mt-3 text-sm font-medium">
+                    Cotton Hoodie
+                </h3>
+
+                <div class="mt-2">
+
+                    <span class="font-semibold">
+                        ₹1,299
+                    </span>
+
+                    <span class="ml-2 text-xs text-gray-400 line-through">
+                        ₹1,799
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
 }

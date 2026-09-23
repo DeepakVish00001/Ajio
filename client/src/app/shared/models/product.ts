@@ -12,4 +12,6 @@ export type Product = {
     productCategory: string;
     productBrand: string;
     imageUrl: string;
+
+    picture: string[];
 }

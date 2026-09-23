@@ -16,6 +16,8 @@ export class ProductDetailsComponent implements OnInit {
   private activatedRoute = inject(ActivatedRoute);
 
   product?: Product;
+  // Main image
+  selectedImage = '';
 
   ngOnInit(): void {
     this.loadProduct();
@@ -25,8 +27,16 @@ export class ProductDetailsComponent implements OnInit {
     const id = this.activatedRoute.snapshot.paramMap.get('id');
     if (!id) return;
     this.shopService.getProduct(+id).subscribe({
-      next: product => this.product = product,
+      next: product => {
+        this.product = product;
+           // First image as main image
+        this.selectedImage = product.picture?.[0] ?? '';
+      },
       error: error => console.log(error)
     })
+  }
+
+  selectImage(image:string){
+    this.selectedImage= image;
   }
 }
