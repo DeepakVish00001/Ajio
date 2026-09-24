@@ -59,8 +59,10 @@
         </div>
 
     </mat-card-content>
-    <mat-card-actions>
-        <button mat-stroked-button class="w-full button">
+    <mat-card-actions (click)="$event.stopPropagation()">
+        <button mat-stroked-button class="w-full button"
+            (click)="cartServices.addItemToCart(product)"
+            >
             <mat-icon>add_shopping_cart</mat-icon>
             Add to cart
         </button>

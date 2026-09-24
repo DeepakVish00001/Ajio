@@ -1,7 +1,8 @@
 import { inject, Injectable, signal } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
-import { Cart } from '../../shared/models/cart';
+import { Cart, CartItems } from '../../shared/models/cart';
+import { Product } from '../../shared/models/product';
 
 @Injectable({
   providedIn: 'root',
@@ -23,5 +24,48 @@ export class CartServices {
       next: cart => this.cart.set(cart)
     })
   }
+
+  addItemToCart(item: CartItems | Product, quantity = 1) {
+    const cart = this.cart() ?? this.createCart()
+    if (this.isProduct(item)) {
+      item = this.mapProductToCartItem(item)
+    }
+    cart.items = this.addOrUpdateCartItem(cart.items, item, quantity);
+    this.setCart(cart)
+  }
+  addOrUpdateCartItem(items: CartItems[], item: CartItems, quantity: number): CartItems[] {
+    const index = items.findIndex(x => x.productId === item.productId)
+    if (index === -1) {
+      item.quantity = quantity;
+      items.push(item);
+    } else {
+      items[index].quantity += quantity;
+    }
+    return items;
+  }
+
+  private mapProductToCartItem(item: Product): CartItems {
+    return {
+      productId: item.id,
+      productName: item.name,
+      imageUrl: item.imageUrl,
+      price: item.price,
+     // originalPrice: item.originalPrice,
+      quantity: 0,
+      brand: item.productBrand,
+      category: item.productCategory
+    }
+  }
+
+  private isProduct(item: CartItems | Product): item is Product {
+    return (item as Product).id !== undefined;
+  }
+  private createCart(): Cart {
+    const cart = new Cart();
+    localStorage.setItem('cart_id', cart.id)
+    return cart;
+  }
+
+
 
 }
