@@ -1,6 +1,6 @@
 <section class="container">
     <div class="max-auto max-w-screen">
-        <div class="flex w-full items-start gap-6 mt-32">
+        <div class="flex w-full items-start gap-6 mt-2">
             <div class="w-3/4">
                 @for (item of cartServices.cart()?.items; track item.productId) {
                 <app-cart-item [item]="item"></app-cart-item>
