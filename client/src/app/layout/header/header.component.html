@@ -50,7 +50,9 @@
                 <!-- CART -->
                 <a routerLink="/cart" routerLinkActive="active">
 
-                    <mat-icon matBadge="5" matBadgeSize="small">
+                    <mat-icon 
+                        matBadge="{{cartServices.itemCount()}}" 
+                        matBadgeSize="small">
                         shopping_cart
                     </mat-icon>
 
