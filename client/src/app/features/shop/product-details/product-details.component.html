@@ -264,19 +264,25 @@
 
                     <div class="flex h-9 overflow-hidden rounded border border-gray-300">
 
-                        <button class="w-9 hover:bg-gray-100">
+                        <button (click)="decrementQuantity()" class="w-9 hover:bg-gray-100">
                             −
                         </button>
 
 
-                        <span class="flex w-10 items-center justify-center border-x border-gray-300 text-sm">
+                        <input 
+                             matInput 
+                             type="text"
+                             min="0"
+                             [(ngModel)]="quantity"
+                            class="flex w-10 items-center text-center justify-center border-x border-gray-300 text-sm">
 
-                            1
-
-                        </span>
 
 
-                        <button class="w-9 hover:bg-gray-100">
+
+                        <button mat-button 
+                        (click)="incrementQuantity()"
+                        [disabled]="quantity >= (product?.quantityInStock ?? 0)"
+                         class="w-9 hover:bg-gray-100">
                             +
                         </button>
 
@@ -289,17 +295,34 @@
 
                 <div class="mt-6 flex gap-3">
 
-
-                    <button
-                        class="flex h-12 flex-1 items-center justify-center gap-2 rounded-sm bg-orange-500 font-semibold text-white hover:bg-orange-600">
+                   @if(!isAddedToCart){
+                    <button 
+                       
+                        (click)="updateCart()"
+                        class="flex h-12 flex-1 items-center cursor-pointer justify-center gap-2 rounded-sm bg-orange-500 font-semibold text-white hover:bg-orange-600">
 
                         <span>
                             🛒
                         </span>
 
-                        ADD TO CART
+                        {{getUpdateCartButton()}} 
 
                     </button>
+                    }@else {
+                    <button
+                        type="button"
+                        routerLink="/cart"
+                        class="flex h-12 flex-1 items-center cursor-pointer justify-center gap-2 rounded-sm bg-orange-500 font-semibold text-white hover:bg-orange-600">
+
+                        <span>
+                            🛒
+                        </span>
+
+                        GO TO CART
+
+                    </button>
+                    }
+
 
 
                     <button
@@ -456,7 +479,7 @@
 
 
                 <span class="mt-2 text-lg tracking-wide text-yellow-400">
-                    {{ 
+                    {{
                     product.rating === 1 ? '★☆☆☆☆' :
                     product.rating === 2 ? '★★☆☆☆' :
                     product.rating === 3 ? '★★★☆☆' :
