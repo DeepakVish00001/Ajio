@@ -30,27 +30,29 @@ builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepositor
 
 builder.Services.AddSingleton<ICartService,CartService>();
 
-builder.Services.AddAuthorization();
 builder.Services.AddIdentityApiEndpoints<AppUser>()
         .AddEntityFrameworkStores<StoreContext>();
+builder.Services.AddAuthorization();
+
 
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy("AllowAngular", policy =>
-    {
-        policy
-            .AllowAnyHeader()
-            .AllowAnyMethod()
-            .AllowCredentials()
-            .WithOrigins("http://localhost:4200");
-    });
-});
+// builder.Services.AddCors(options =>
+// {
+//     options.AddPolicy("AllowAngular", policy =>
+//     {
+//         policy
+//             .WithOrigins("http://localhost:4200")
+//             .AllowAnyHeader()
+//             .AllowAnyMethod()
+//             .AllowCredentials();
+//     });
+// });
 var app = builder.Build();
-
-app.UseCors("AllowAngular");
+app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().AllowCredentials()
+    .WithOrigins("http://localhost:4200","https://localhost:4200"));
+    
 app.UseStaticFiles();
 app.UseAuthentication();
 app.UseAuthorization();

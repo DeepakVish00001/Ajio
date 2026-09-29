@@ -44,7 +44,6 @@ namespace API.Controllers
             return NoContent();
         }
 
-        //[Authorize]
         [HttpGet("user-info")]
         public async Task<ActionResult> GetUserInfo()
         {
