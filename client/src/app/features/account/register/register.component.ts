@@ -27,6 +27,8 @@ export class RegisterComponent {
   private accountService = inject(AccountServices);
   private router = inject(Router);
 
+  validationErrors?:string[];
+
 
   registerForm = this.fb.group({
     firstName: [''],
@@ -39,7 +41,12 @@ export class RegisterComponent {
     this.accountService.register(this.registerForm.value).subscribe({
       next: () => {
         this.router.navigateByUrl('/account/login');
+      },
+      error:errors=>{
+        console.log(errors);
+        this.validationErrors=errors;
       }
+      
     })
   }
 }
