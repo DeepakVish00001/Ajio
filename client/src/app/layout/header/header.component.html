@@ -9,7 +9,7 @@
             <!-- LOGO -->
             <a class="shrink-0 cursor-pointer">
 
-                <img routerLink="/"  src="/images/logo.png" alt="App Logo" class="h-11 w-auto object-contain sm:h-14">
+                <img routerLink="/" src="/images/logo.png" alt="App Logo" class="h-11 w-auto object-contain sm:h-14">
 
             </a>
 
@@ -17,15 +17,13 @@
             <!-- DESKTOP NAVIGATION -->
             <nav class="hidden shrink-0 items-center gap-5 uppercase lg:flex xl:gap-7">
 
-                <a 
-                    routerLink="/" 
-                    routerLinkActive="active" 
-                    [routerLinkActiveOptions]="{exact:true}"
+                <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
                     class="cursor-pointer text-sm font-medium text-gray-700 transition hover:text-black">
                     Home
                 </a>
 
-                <a routerLink="/shop" routerLinkActive="active" class="cursor-pointer text-sm font-medium text-gray-700 transition hover:text-black">
+                <a routerLink="/shop" routerLinkActive="active"
+                    class="cursor-pointer text-sm font-medium text-gray-700 transition hover:text-black">
                     Shop
                 </a>
 
@@ -38,9 +36,7 @@
 
             <!-- DESKTOP SEARCH -->
             <div class="mx-2 hidden max-w-lg flex-1 items-center lg:flex xl:mx-6">
-                <app-search 
-                    class="block w-full"
-                    ></app-search>
+                <app-search class="block w-full"></app-search>
             </div>
 
 
@@ -50,14 +46,15 @@
                 <!-- CART -->
                 <a routerLink="/cart" routerLinkActive="active">
 
-                    <mat-icon 
-                        matBadge="{{cartServices.itemCount()}}" 
-                        matBadgeSize="small">
+                    <mat-icon matBadge="{{cartServices.itemCount()}}" matBadgeSize="small">
                         shopping_cart
                     </mat-icon>
 
                 </a>
 
+                @if(accountService.currentUser()) {
+                <button mat-flat-button (click)="logout()">Logout</button>
+                }@else{
 
                 <!-- LOGIN -->
                 <button routerLink="/account/login" mat-stroked-button>
@@ -69,6 +66,7 @@
                 <button routerLink="/account/register" mat-flat-button>
                     Register
                 </button>
+                }
 
 
                 <!-- MOBILE MENU -->

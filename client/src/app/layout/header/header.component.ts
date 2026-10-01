@@ -3,8 +3,9 @@ import { MatBadge } from '@angular/material/badge';
 import { MatButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { SearchComponent } from '../search/search.component';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { CartServices } from '../../core/services/cart.services';
+import { AccountServices } from '../../core/services/account.services';
 
 
 @Component({
@@ -16,12 +17,24 @@ import { CartServices } from '../../core/services/cart.services';
     MatBadge,
     RouterLink,
     RouterLinkActive
-],
+  ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
 })
 export class HeaderComponent {
   cartServices = inject(CartServices)
+  accountService = inject(AccountServices)
+  private router = inject(Router)
+
+  logout() {
+    this.accountService.logout().subscribe({
+      next: () => {
+        this.accountService.currentUser.set(null);
+        this.router.navigateByUrl('/shop')
+
+      }
+    });
+  }
 
 
 }
