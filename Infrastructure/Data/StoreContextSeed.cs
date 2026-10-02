@@ -65,5 +65,13 @@ public class StoreContextSeed
             await context.ProductWishlists.AddRangeAsync(wishlists);
             await context.SaveChangesAsync();
         }
+        if (!context.DeliveryMethods.Any())
+        {
+            var deliveryData = await File.ReadAllTextAsync("../Infrastructure/Data/StoreSeed/delivery.json");
+            var deliveryMethods = JsonSerializer.Deserialize<List<DeliveryMethod>>(deliveryData);
+            if (deliveryMethods == null || deliveryMethods.Count == 0) return;
+            await context.DeliveryMethods.AddRangeAsync(deliveryMethods);
+            await context.SaveChangesAsync();
+        }
     }
 }
