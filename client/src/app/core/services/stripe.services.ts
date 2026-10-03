@@ -26,7 +26,7 @@ export class StripeServices {
     return this.stripePromise;
   }
 
-  async initializaElements() {
+   async initializeElements() {
     if (!this.elements) {
       const stripe = await this.getStripeInstance();
       if (stripe) {
@@ -42,7 +42,7 @@ export class StripeServices {
 
   async createAddressElements() {
     if (!this.addressElements) {
-      const elements = await this.initializaElements();
+      const elements = await this.initializeElements();
       if (elements) {
         const options: StripeAddressElementOptions = {
           mode: 'shipping'
@@ -57,9 +57,10 @@ export class StripeServices {
 
   createOrUpdatePaymentIntent() {
     const cart = this.cartServices.cart();
+    // console.log(cart)
     if (!cart) throw new Error('Problem with cart data');
 
-    return this.http.post<Cart>(this.baseUrl + 'payments', cart.id, {}).pipe(
+    return this.http.post<Cart>(this.baseUrl + 'payments/'+cart.id, {}).pipe(
       map(cart => {
         this.cartServices.cart.set(cart);
         return cart;
