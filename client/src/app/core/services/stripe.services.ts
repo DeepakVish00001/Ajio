@@ -5,6 +5,7 @@ import { CartServices } from './cart.services';
 import { Cart } from '../../shared/models/cart';
 import { firstValueFrom, map } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { AccountServices } from './account.services';
 
 @Injectable({
   providedIn: 'root',
@@ -12,11 +13,12 @@ import { HttpClient } from '@angular/common/http';
 export class StripeServices {
   baseUrl = environment.apiUrl;
   private cartServices = inject(CartServices);
+  private accountService = inject(AccountServices);
   private http = inject(HttpClient);
   private stripePromise: Promise<Stripe | null>;
 
   private elements?: StripeElements;
-  private addressElements?:StripeAddressElement;
+  private addressElements?: StripeAddressElement;
 
   constructor() {
     this.stripePromise = loadStripe(environment.stripePublicableKey);
@@ -26,7 +28,7 @@ export class StripeServices {
     return this.stripePromise;
   }
 
-   async initializeElements() {
+  async initializeElements() {
     if (!this.elements) {
       const stripe = await this.getStripeInstance();
       if (stripe) {
@@ -42,13 +44,33 @@ export class StripeServices {
 
   async createAddressElements() {
     if (!this.addressElements) {
+      const user = this.accountService.currentUser();
+      let defaultValues: StripeAddressElementOptions['defaultValues'] = {};
+
+      if (user) {
+        defaultValues.name = user.firstName + '' + user.lastName
+      }
+      if (user?.address) {
+        defaultValues.address = {
+          line1: user.address.line1,
+          line2: user.address.line2,
+          city: user.address.city,
+          state: user.address.state,
+          country: user.address.country,
+          postal_code: user.address.postalCode
+
+        }
+      }
+
+
       const elements = await this.initializeElements();
       if (elements) {
         const options: StripeAddressElementOptions = {
-          mode: 'shipping'
+          mode: 'shipping',
+          defaultValues
         };
-        this.addressElements=elements.create('address',options)
-      }else{
+        this.addressElements = elements.create('address', options)
+      } else {
         throw new Error('Elements instance has not been loaded');
       }
     }
@@ -60,11 +82,16 @@ export class StripeServices {
     // console.log(cart)
     if (!cart) throw new Error('Problem with cart data');
 
-    return this.http.post<Cart>(this.baseUrl + 'payments/'+cart.id, {}).pipe(
+    return this.http.post<Cart>(this.baseUrl + 'payments/' + cart.id, {}).pipe(
       map(cart => {
         this.cartServices.cart.set(cart);
         return cart;
       })
     );
+  }
+
+  disposeElements(){
+    this.elements=undefined;
+    this.addressElements=undefined;
   }
 }
