@@ -57,6 +57,9 @@ export class CheckoutComponent implements OnInit, OnDestroy {
         address && firstValueFrom( this.accountServices.updateAddress(address));
       }
     }
+    if(event.selectedIndex===2){
+      await firstValueFrom(this.stripeServices.createOrUpdatePaymentIntent());
+    }
   }
 
   private async getAddressFromStripeAddress():Promise<Address | null> {
