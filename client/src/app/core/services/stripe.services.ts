@@ -48,7 +48,7 @@ export class StripeServices {
       let defaultValues: StripeAddressElementOptions['defaultValues'] = {};
 
       if (user) {
-        defaultValues.name = user.firstName + '' + user.lastName
+        defaultValues.name = user.firstName  +  ''  +  user.lastName
       }
       if (user?.address) {
         defaultValues.address = {
