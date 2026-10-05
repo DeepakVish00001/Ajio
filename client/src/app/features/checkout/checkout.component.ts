@@ -6,7 +6,7 @@ import { RouterLink } from '@angular/router';
 import { MatAnchor, MatButton } from '@angular/material/button';
 import { MatCheckboxChange, MatCheckboxModule } from '@angular/material/checkbox';
 import { StripeServices } from '../../core/services/stripe.services';
-import { StripeAddressElement } from '@stripe/stripe-js';
+import { StripeAddressElement, StripePaymentElement } from '@stripe/stripe-js';
 import { Address } from '../../shared/models/user';
 import { firstValueFrom } from 'rxjs';
 import { AccountServices } from '../../core/services/account.services';
@@ -31,13 +31,17 @@ export class CheckoutComponent implements OnInit, OnDestroy {
   private stripeServices = inject(StripeServices);
   private accountServices= inject(AccountServices)
   addressElements?: StripeAddressElement;
+  paymentElement?:StripePaymentElement;
 
   saveAddress = false;
 
   async ngOnInit() {
     try {
       this.addressElements = await this.stripeServices.createAddressElements();
-      this.addressElements.mount('#address-element')
+      this.addressElements.mount('#address-element');
+
+      this.paymentElement=await this.stripeServices.createPaymentElement();
+      this.paymentElement.mount('#payment-element');
     } catch (error: any) {
       console.log(error.message);
     }
