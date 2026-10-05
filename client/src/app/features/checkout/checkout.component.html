@@ -1,8 +1,9 @@
 <div class="flex mt-5 gap-6">
   <div class="w-3/4">
-    <mat-stepper (selectionChange)="onStepChange($event)" #stepper class="bg-white! border border-gray-200! shadow-sm">
+    <mat-stepper [linear]="true" (selectionChange)="onStepChange($event)" #stepper
+      class="bg-white! border border-gray-200! shadow-sm">
 
-      <mat-step label="Address">
+      <mat-step label="Address" [completed]="completionStatus().address">
         <div id="address-element"></div>
         <div class="flex justify-end mt-1">
           <mat-checkbox [checked]="saveAddress" (change)="onSaveAddressCheckBoxChange($event)">
@@ -11,21 +12,24 @@
         </div>
         <div class="flex justify-between mt-6">
           <button class="z-0" routerLink="/shop" mat-stroked-button>Continue shopping </button>
-          <button class="z-0" matStepperNext mat-flat-button class="bg-blue-800! text-white!">Next</button>
+          <button [disabled]="!completionStatus().address" class="z-0" matStepperNext mat-flat-button
+            class="bg-blue-800! text-white!">Next</button>
         </div>
       </mat-step>
-      <mat-step label="Shipping">
+      <mat-step label="Shipping" [completed]="completionStatus().delivery">
         <app-checkout-delivery (deliveryComplete)="handleDeliveryChange($event)"></app-checkout-delivery>
         <div class="flex justify-between mt-6">
           <button matStepperPrevious mat-stroked-button>Back </button>
-          <button matStepperNext mat-flat-button class="bg-blue-800! text-white!">Next</button>
+          <button [disabled]="!completionStatus().delivery" matStepperNext mat-flat-button
+            class="bg-blue-800! text-white!">Next</button>
         </div>
       </mat-step>
-      <mat-step label="Payment">
+      <mat-step label="Payment" [completed]="completionStatus().card">
         <div id="payment-element"></div>
-         <div class="flex justify-between mt-6">
+        <div class="flex justify-between mt-6">
           <button matStepperPrevious mat-stroked-button>Back </button>
-          <button matStepperNext mat-flat-button class="bg-blue-800! text-white!">Next</button>
+          <button [disabled]="!completionStatus().card" matStepperNext mat-flat-button
+            class="bg-blue-800! text-white!">Next</button>
         </div>
       </mat-step>
       <mat-step label="Confirmation">
@@ -37,9 +41,9 @@
         </div>
       </mat-step>
     </mat-stepper>
-    <pre>
+    <!-- <pre>
       {{completionStatus() | json}}
-    </pre>
+    </pre> -->
   </div>
   <div class="w-1/4">
     <app-order-summary></app-order-summary>
