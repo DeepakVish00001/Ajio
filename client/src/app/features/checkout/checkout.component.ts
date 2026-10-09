@@ -6,14 +6,14 @@ import { RouterLink } from '@angular/router';
 import { MatAnchor, MatButton } from '@angular/material/button';
 import { MatCheckboxChange, MatCheckboxModule } from '@angular/material/checkbox';
 import { StripeServices } from '../../core/services/stripe.services';
-import { StripeAddressElement, StripeAddressElementChangeEvent, StripePaymentElement, StripePaymentElementChangeEvent } from '@stripe/stripe-js';
+import { ConfirmationToken, StripeAddressElement, StripeAddressElementChangeEvent, StripePaymentElement, StripePaymentElementChangeEvent } from '@stripe/stripe-js';
 import { Address } from '../../shared/models/user';
 import { firstValueFrom } from 'rxjs';
 import { AccountServices } from '../../core/services/account.services';
 import { CheckoutDelivery } from './checkout-delivery/checkout-delivery';
 import { CheckoutReviewComponent } from './checkout-review/checkout-review.component';
 import { CartServices } from '../../core/services/cart.services';
-import { CurrencyPipe, JsonPipe } from '@angular/common';
+import { CurrencyPipe } from '@angular/common';
 
 @Component({
   selector: 'app-checkout',
@@ -26,8 +26,7 @@ import { CurrencyPipe, JsonPipe } from '@angular/common';
     MatCheckboxModule,
     CheckoutDelivery,
     CheckoutReviewComponent,
-    CurrencyPipe,
-    JsonPipe
+    CurrencyPipe
   ],
   templateUrl: './checkout.component.html',
   styleUrl: './checkout.component.css',
@@ -40,6 +39,8 @@ export class CheckoutComponent implements OnInit, OnDestroy {
   addressElements?: StripeAddressElement;
   paymentElement?: StripePaymentElement;
 
+
+
   saveAddress = false;
 
   completionStatus = signal<{ address: boolean, card: boolean, delivery: boolean }>(
@@ -49,6 +50,8 @@ export class CheckoutComponent implements OnInit, OnDestroy {
   // constructor(){
   //   this.handleAddressChange=this.handleAddressChange.bind(this)
   // }
+
+  confirmationToken?: ConfirmationToken;
 
   async ngOnInit() {
     try {
@@ -92,6 +95,21 @@ export class CheckoutComponent implements OnInit, OnDestroy {
     this.saveAddress = event.checked;
   }
 
+
+  async getConfirmationToken() {
+    try {
+      if (Object.values(this.completionStatus()).every(status => status === true)) {
+        const result = await this.stripeServices.createConfirmationToken();
+        if(result.error) throw new Error(result.error.message);
+        this.confirmationToken = result.confirmationToken;
+        console.log(this.confirmationToken)
+      }
+    } catch (error: any) {
+      console.log(error.message)
+    }
+
+  }
+
   async onStepChange(event: StepperSelectionEvent) {
     if (event.selectedIndex === 1) {
       if (this.saveAddress) {
@@ -101,6 +119,9 @@ export class CheckoutComponent implements OnInit, OnDestroy {
     }
     if (event.selectedIndex === 2) {
       await firstValueFrom(this.stripeServices.createOrUpdatePaymentIntent());
+    }
+    if(event.selectedIndex===3){
+      await this.getConfirmationToken();
     }
   }
 
