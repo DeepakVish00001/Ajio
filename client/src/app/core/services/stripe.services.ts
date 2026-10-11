@@ -1,5 +1,5 @@
 import { inject, Injectable } from '@angular/core';
-import { loadStripe, StripeAddressElement, StripeAddressElementOptions, StripeElements, StripePaymentElement, type Stripe } from '@stripe/stripe-js';
+import { ConfirmationToken, loadStripe, StripeAddressElement, StripeAddressElementOptions, StripeElements, StripePaymentElement, type Stripe } from '@stripe/stripe-js';
 import { environment } from '../../../environments/environment';
 import { CartServices } from './cart.services';
 import { Cart } from '../../shared/models/cart';
@@ -101,6 +101,53 @@ export class StripeServices {
       throw new Error('stripe not available');
     }
   }
+
+  // async confirmPayment(confirmationToken: ConfirmationToken) {
+  //   const stripe = await this.getStripeInstance();
+  //   const elements = await this.initializeElements();
+  //   const result = await elements.submit();
+  //   if (result.error) throw new Error(result.error.message);
+  //   console.log(result.error)
+
+  //   const clientSecret = this.cartServices.cart()?.clientSecret;
+  //   if (stripe && clientSecret) {
+  //     return await stripe.confirmPayment({
+  //       clientSecret: clientSecret,
+  //       confirmParams: {
+  //         confirmation_token: confirmationToken.id
+  //       },
+  //       redirect: 'if_required'
+  //     })
+  //   }else{
+  //     throw new Error('unable to load stripe')
+  //   }
+  // }
+
+
+  async confirmPayment(confirmationToken: ConfirmationToken) {
+    const stripe = await this.getStripeInstance();
+    const elements = await this.initializeElements();
+    const result = await elements.submit();
+    if (result.error) throw new Error(result.error.message);
+
+    const clientSecret = this.cartServices.cart()?.clientSecret;
+    if (stripe && clientSecret) {
+      return await stripe.confirmPayment({
+        clientSecret: clientSecret,
+        confirmParams: {
+          confirmation_token: confirmationToken.id
+        },
+        redirect: 'if_required'
+      })
+    } else {
+      throw new Error('Unable to load stripe');
+    }
+  }
+
+
+
+
+
 
   createOrUpdatePaymentIntent() {
     const cart = this.cartServices.cart();

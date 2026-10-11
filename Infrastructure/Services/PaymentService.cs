@@ -47,7 +47,8 @@ public class PaymentService(IConfiguration config,
                 Amount = (long)cart.Items.Sum(x => x.Quantity * (x.Price * 100))
                     + (long)shippingPrice * 100,
                 Currency = "INR",
-                AllowedPaymentMethodTypes = ["card"]
+                AllowedPaymentMethodTypes = ["card"],
+                Description = $"Shopping order payment for cart {cart.Id}"
             };
             intent = await service.CreateAsync(options);
             cart.PaymentIntentId = intent.Id;
@@ -58,7 +59,10 @@ public class PaymentService(IConfiguration config,
             var options = new PaymentIntentUpdateOptions
             {
                 Amount = (long)cart.Items.Sum(x => x.Quantity * (x.Price * 100))
-                    + (long)shippingPrice * 100
+                    + (long)shippingPrice * 100,
+                    //  Currency = "INR",
+                    //  AllowedPaymentMethodTypes = ["card"],
+                    //  Description = $"Shopping order payment for cart {cart.Id}"
             };
             intent = await service.UpdateAsync(cart.PaymentIntentId, options);
         }

@@ -1,8 +1,8 @@
 import { Component, inject, OnDestroy, OnInit, signal } from '@angular/core';
 import { StepperSelectionEvent } from '@angular/cdk/stepper';
-import { MatStepperModule } from '@angular/material/stepper';
+import { MatStepper, MatStepperModule } from '@angular/material/stepper';
 import { OrderSummaryComponent } from '../../shared/components/order-summary/order-summary.component';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { MatAnchor, MatButton } from '@angular/material/button';
 import { MatCheckboxChange, MatCheckboxModule } from '@angular/material/checkbox';
 import { StripeServices } from '../../core/services/stripe.services';
@@ -35,9 +35,11 @@ export class CheckoutComponent implements OnInit, OnDestroy {
 
   private stripeServices = inject(StripeServices);
   private accountServices = inject(AccountServices);
+  private router = inject(Router);
   cartService = inject(CartServices);
   addressElements?: StripeAddressElement;
   paymentElement?: StripePaymentElement;
+
 
 
 
@@ -100,7 +102,7 @@ export class CheckoutComponent implements OnInit, OnDestroy {
     try {
       if (Object.values(this.completionStatus()).every(status => status === true)) {
         const result = await this.stripeServices.createConfirmationToken();
-        if(result.error) throw new Error(result.error.message);
+        if (result.error) throw new Error(result.error.message);
         this.confirmationToken = result.confirmationToken;
         console.log(this.confirmationToken)
       }
@@ -120,8 +122,29 @@ export class CheckoutComponent implements OnInit, OnDestroy {
     if (event.selectedIndex === 2) {
       await firstValueFrom(this.stripeServices.createOrUpdatePaymentIntent());
     }
-    if(event.selectedIndex===3){
+    if (event.selectedIndex === 3) {
       await this.getConfirmationToken();
+    }
+  }
+
+  async confirmPayment(stepper: MatStepper) {
+    console.log(this.confirmationToken)
+    try {
+      if (this.confirmationToken) {
+        const result = await this.stripeServices.confirmPayment(this.confirmationToken);
+        if (result.error) {
+          throw new Error(result.error.message)
+
+        } else {
+          this.cartService.deleteCart();
+          this.cartService.selectedDelivery.set(null);
+          this.router.navigateByUrl('/checkout/success');
+        }
+      }
+    } catch (error: any) {
+      console.log(error.message)
+      ///stepper.previous()
+      console.error('Payment abhi successful nahi hua hai.');
     }
   }
 
