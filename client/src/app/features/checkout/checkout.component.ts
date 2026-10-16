@@ -14,6 +14,7 @@ import { CheckoutDelivery } from './checkout-delivery/checkout-delivery';
 import { CheckoutReviewComponent } from './checkout-review/checkout-review.component';
 import { CartServices } from '../../core/services/cart.services';
 import { CurrencyPipe } from '@angular/common';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-checkout',
@@ -26,7 +27,8 @@ import { CurrencyPipe } from '@angular/common';
     MatCheckboxModule,
     CheckoutDelivery,
     CheckoutReviewComponent,
-    CurrencyPipe
+    CurrencyPipe,
+    MatProgressSpinnerModule
   ],
   templateUrl: './checkout.component.html',
   styleUrl: './checkout.component.css',
@@ -54,6 +56,7 @@ export class CheckoutComponent implements OnInit, OnDestroy {
   // }
 
   confirmationToken?: ConfirmationToken;
+  loading=false;
 
   async ngOnInit() {
     try {
@@ -128,6 +131,7 @@ export class CheckoutComponent implements OnInit, OnDestroy {
   }
 
   async confirmPayment(stepper: MatStepper) {
+    this.loading=true;
     console.log(this.confirmationToken)
     try {
       if (this.confirmationToken) {
@@ -143,8 +147,10 @@ export class CheckoutComponent implements OnInit, OnDestroy {
       }
     } catch (error: any) {
       console.log(error.message)
-      ///stepper.previous()
+      stepper.previous()
       console.error('Payment abhi successful nahi hua hai.');
+    }finally{
+      this.loading=false;
     }
   }
 
