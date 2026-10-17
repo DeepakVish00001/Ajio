@@ -5,9 +5,10 @@ using Stripe;
 
 namespace Infrastructure.Services;
 
-public class PaymentService(IConfiguration config,
-    ICartService cartService, IGenericRepository<Core.Entities.Product> proRepo,
-    IGenericRepository<DeliveryMethod> dmRepo) : IPaymentService
+public class PaymentService(
+    IUnitOfWork unit,
+    IConfiguration config,
+    ICartService cartService) : IPaymentService
 {
     public async Task<ShoppingCart?> CreateOrUpdatePaymentIntent(string cartId)
     {
@@ -20,18 +21,18 @@ public class PaymentService(IConfiguration config,
 
         if (cart.DeliveryMethodId.HasValue)
         {
-            var deliveryMethod = await dmRepo.GetByIdAynce((int)cart.DeliveryMethodId);
+            var deliveryMethod = await unit.Repository<DeliveryMethod>().GetByIdAynce((int)cart.DeliveryMethodId);
             if (deliveryMethod == null) return null;
             shippingPrice = deliveryMethod.Price;
         }
 
-        foreach(var item in cart.Items)
+        foreach (var item in cart.Items)
         {
-            var productItem = await proRepo.GetByIdAynce(item.ProductId);
+            var productItem = await unit.Repository<Core.Entities.Product>().GetByIdAynce(item.ProductId);
 
             if (productItem == null) return null;
 
-            if(item.Price!=productItem.Price)
+            if (item.Price != productItem.Price)
             {
                 item.Price = productItem.Price;
             }
@@ -60,9 +61,9 @@ public class PaymentService(IConfiguration config,
             {
                 Amount = (long)cart.Items.Sum(x => x.Quantity * (x.Price * 100))
                     + (long)shippingPrice * 100,
-                    //  Currency = "INR",
-                    //  AllowedPaymentMethodTypes = ["card"],
-                    //  Description = $"Shopping order payment for cart {cart.Id}"
+                //  Currency = "INR",
+                //  AllowedPaymentMethodTypes = ["card"],
+                //  Description = $"Shopping order payment for cart {cart.Id}"
             };
             intent = await service.UpdateAsync(cart.PaymentIntentId, options);
         }
