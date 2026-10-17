@@ -589,7 +589,7 @@ namespace Infrastructure.Migrations
                             b1.Property<int>("ExpMonth")
                                 .HasColumnType("int");
 
-                            b1.Property<int>("Year")
+                            b1.Property<int>("ExpYear")
                                 .HasColumnType("int");
 
                             b1.Property<int>("last4")

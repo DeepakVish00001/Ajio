@@ -38,5 +38,8 @@ public class GenericRepository<T>(StoreContext context) : IGenericRepository<T> 
         return SpecificationEvaluator<T>.GetQuery(context.Set<T>().AsQueryable(), spec);
     }
 
-
+    public void Add(T entity)
+    {
+        context.Set<T>().Add(entity);
+    }
 }

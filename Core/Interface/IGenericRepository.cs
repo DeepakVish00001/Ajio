@@ -1,8 +1,9 @@
-﻿using Core.Specification;
+﻿using Core.Entities;
+using Core.Specification;
 
 namespace Core.Interface;
 
-public interface IGenericRepository<T>
+public interface IGenericRepository<T> where T: BaseEntity
 {
     Task<IReadOnlyList<T>> GetListAynce();
     Task<T?> GetByIdAynce(int id);
@@ -11,4 +12,6 @@ public interface IGenericRepository<T>
     Task<T?> GetEntityWithSpec(ISpecification<T> spec);
 
     Task<int> CountAsync(ISpecification<T> spec);
+
+    void Add(T entity);
 }
