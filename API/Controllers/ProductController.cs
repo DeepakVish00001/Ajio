@@ -10,7 +10,8 @@ using Microsoft.AspNetCore.Mvc;
 namespace API.Controllers
 {
 
-    public class ProductController(IGenericRepository<Product> repo, IGenericRepository<ProductCategory> repoCate, IGenericRepository<ProductBrand> repoBrands, IMapper mapper) : BaseApiController
+    public class ProductController(
+        IUnitOfWork unit, IMapper mapper) : BaseApiController
     {
         [HttpGet]
         public async Task<ActionResult<Pagination<ProductToReturnDto>>> GetProducts(
@@ -20,9 +21,9 @@ namespace API.Controllers
             var countSpec = new ProductFilterWithBrandCateSpec(specPrams);
 
 
-            var totalItems = await repo.CountAsync(countSpec);
+            var totalItems = await unit.Repository<Product>().CountAsync(countSpec);
 
-            var products = await repo.ListAsync(spec);
+            var products = await unit.Repository<Product>().ListAsync(spec);
             var data = mapper.Map<IReadOnlyList<Product>, IReadOnlyList<ProductToReturnDto>>(products);
             return Ok(new Pagination<ProductToReturnDto>(specPrams.PageIndex, specPrams.PageSize, totalItems, data));
         }
@@ -31,7 +32,7 @@ namespace API.Controllers
         {
             var spec = new ProductSpecification(id);
 
-            var product = await repo.GetEntityWithSpec(spec);
+            var product = await unit.Repository<Product>().GetEntityWithSpec(spec);
             if (product == null) return NotFound("Sorry this product is not found");
             return mapper.Map<Product, ProductDetailDto>(product);
         }
@@ -39,7 +40,7 @@ namespace API.Controllers
         [HttpGet("category")]
         public async Task<ActionResult<IReadOnlyList<ProductCategoryDto>>> GetCategory()
         {
-            var category = await repoCate.GetListAynce();
+            var category = await unit.Repository<ProductCategory>().GetListAynce();
             var result = category.Select(x => new ProductCategoryDto
             {
                 Id = x.Id,
@@ -51,7 +52,7 @@ namespace API.Controllers
         [HttpGet("brands")]
         public async Task<ActionResult<IReadOnlyList<ProductBrandDto>>> GetBrands()
         {
-            var brands = await repoBrands.GetListAynce();
+            var brands = await unit.Repository<ProductBrand>().GetListAynce();
             var result = brands.Select(x => new ProductBrandDto
             {
                 Id = x.Id,

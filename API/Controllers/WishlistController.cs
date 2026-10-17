@@ -9,14 +9,14 @@ using Microsoft.AspNetCore.Mvc;
 namespace API.Controllers
 {
 
-    public class WishlistController(IGenericRepository<ProductWishlist> repo,IMapper mapper) : BaseApiController
+    public class WishlistController(IUnitOfWork unit, IMapper mapper) : BaseApiController
     {
         [HttpGet("{userId}")]
         public async Task<ActionResult<IReadOnlyList<WishlistDto>>> GetWishLists(string userId)
         {
             var spec = new WishlistSpecification(userId);
 
-            var wishlists = await repo.ListAsync(spec);
+            var wishlists = await unit.Repository<ProductWishlist>().ListAsync(spec);
 
             return Ok(mapper.Map<IReadOnlyList<WishlistDto>>(wishlists));
         }
