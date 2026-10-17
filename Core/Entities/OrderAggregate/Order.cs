@@ -9,6 +9,6 @@ public class Order : BaseEntity
     public PaymentSummary PaymentSummary { get; set; } = null!;
     public IReadOnlyList<OrderItem> OrderItems { get; set; } = [];
     public decimal Subtotal { get; set; }
-    public OrderStatus OrderStatus { get; set; } = OrderStatus.Pending;
+    public OrderStatus Status { get; set; } = OrderStatus.Pending;
     public required string PaymentIntentId { get; set; }
 }
