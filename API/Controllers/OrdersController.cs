@@ -71,25 +71,28 @@ namespace API.Controllers
 
 
         [HttpGet]
-        public async Task<ActionResult<IReadOnlyList<Order>>> GetOrderForUser()
+        public async Task<ActionResult<IReadOnlyList<OrderDto>>> GetOrderForUser()
         {
             var spec = new OrderSpecification(User.GetEmail());
 
             var orders = await unit.Repository<Order>().ListAsync(spec);
 
-            return Ok(orders);
+            var orderToRecturn = orders.Select(o => o.ToDto()).ToList();
+
+            return Ok(orderToRecturn);
         }
 
         [HttpGet("{id:int}")]
-        public async Task<ActionResult<Order>> GetOrderById(int id)
+        public async Task<ActionResult<OrderDto>> GetOrderById(int id)
         {
             var spec = new OrderSpecification(User.GetEmail(), id);
 
             var order = await unit.Repository<Order>().GetEntityWithSpec(spec);
 
+
             if (order == null) return NotFound();
 
-            return Ok(order);
+            return Ok(order.ToDto());
         }
     }
 }
