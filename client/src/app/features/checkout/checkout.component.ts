@@ -15,6 +15,8 @@ import { CheckoutReviewComponent } from './checkout-review/checkout-review.compo
 import { CartServices } from '../../core/services/cart.services';
 import { CurrencyPipe } from '@angular/common';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { OrderToCreate, ShippingAddress } from '../../shared/models/order';
+import { OrderServices } from '../../core/services/order.services';
 
 @Component({
   selector: 'app-checkout',
@@ -37,6 +39,7 @@ export class CheckoutComponent implements OnInit, OnDestroy {
 
   private stripeServices = inject(StripeServices);
   private accountServices = inject(AccountServices);
+  private orderServices = inject(OrderServices);
   private router = inject(Router);
   cartService = inject(CartServices);
   addressElements?: StripeAddressElement;
@@ -56,7 +59,7 @@ export class CheckoutComponent implements OnInit, OnDestroy {
   // }
 
   confirmationToken?: ConfirmationToken;
-  loading=false;
+  loading = false;
 
   async ngOnInit() {
     try {
@@ -118,7 +121,7 @@ export class CheckoutComponent implements OnInit, OnDestroy {
   async onStepChange(event: StepperSelectionEvent) {
     if (event.selectedIndex === 1) {
       if (this.saveAddress) {
-        const address = await this.getAddressFromStripeAddress();
+        const address = await this.getAddressFromStripeAddress() as Address;
         address && firstValueFrom(this.accountServices.updateAddress(address));
       }
     }
@@ -131,35 +134,66 @@ export class CheckoutComponent implements OnInit, OnDestroy {
   }
 
   async confirmPayment(stepper: MatStepper) {
-    this.loading=true;
-    console.log(this.confirmationToken)
+    this.loading = true;
     try {
       if (this.confirmationToken) {
         const result = await this.stripeServices.confirmPayment(this.confirmationToken);
-        if (result.error) {
-          throw new Error(result.error.message)
 
+        if (result.paymentIntent?.status === 'succeeded') {
+          const order = await this.createOrderModel();
+          const orderResult = await firstValueFrom(this.orderServices.createOrder(order))
+          if (orderResult) {
+            this.cartService.deleteCart();
+            this.cartService.selectedDelivery.set(null);
+            this.router.navigateByUrl('/checkout/success');
+          } else {
+            throw new Error('Order creation failed');
+          }
+        } else if (result.error) {
+          throw new Error(result.error.message);
         } else {
-          this.cartService.deleteCart();
-          this.cartService.selectedDelivery.set(null);
-          this.router.navigateByUrl('/checkout/success');
+          throw new Error('Somthing went worng');
         }
       }
     } catch (error: any) {
-      console.log(error.message)
       stepper.previous()
-      console.error('Payment abhi successful nahi hua hai.');
-    }finally{
-      this.loading=false;
+    } finally {
+      this.loading = false;
     }
   }
 
-  private async getAddressFromStripeAddress(): Promise<Address | null> {
+
+  private async createOrderModel(): Promise<OrderToCreate> {
+    const cart = this.cartService.cart();
+    const shippingAddress = await this.getAddressFromStripeAddress() as ShippingAddress;
+
+    const card = this.confirmationToken?.payment_method_preview.card;
+
+    if (!cart?.id || !cart.deliveryMethodId || !card || !shippingAddress) {
+      throw new Error('Problem creating order');
+    }
+
+    return {
+      cartId: cart.id,
+      paymentSummary: {
+        last4: +card.last4,
+        brand: card.brand,
+        expMonth: card.exp_month,
+        expYear: card.exp_year
+      },
+      deliveryMethodId: cart.deliveryMethodId,
+      shippingAddress
+
+    }
+  }
+
+  private async getAddressFromStripeAddress(): Promise<Address | ShippingAddress | null> {
     const retsult = await this.addressElements?.getValue();
     const address = retsult?.value.address;
 
     if (address) {
       return {
+        name: retsult.value.name,
         line1: address.line1,
         line2: address.line2 || undefined,
         city: address.city,
