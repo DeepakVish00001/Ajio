@@ -38,8 +38,13 @@
                         <tr>
                             <td class="py-4">
                                 <div class="flex items-center gap-4">
-                                    <img src="{{item.imageUrl}}" alt="" class="w-10 h-10">
-                                    <span>{{item.productName}}</span>
+                                    <a routerLink="/shop/{{item.productId}}">
+                                        <img src="{{item.imageUrl}}" alt="" class="w-10 h-10">
+                                    </a>
+                                    <a routerLink="/shop/{{item.productId}}" class="hover:text-green-500">
+
+                                        <span>{{item.productName}}</span>
+                                    </a>
                                 </div>
                             </td>
                             <td class="p-4">x{{item.quantity}}</td>
