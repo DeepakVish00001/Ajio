@@ -5,6 +5,8 @@ import { Order } from '../../../shared/models/order';
 import { MatCardModule } from '@angular/material/card';
 import { MatButton } from '@angular/material/button';
 import { CurrencyPipe, DatePipe } from '@angular/common';
+import { PaymentCardPipe } from '../../../shared/pipes/payment-card-pipe';
+import { AddressPipe } from '../../../shared/pipes/address-pipe';
 
 @Component({
   selector: 'app-order-detailed',
@@ -13,7 +15,9 @@ import { CurrencyPipe, DatePipe } from '@angular/common';
     MatButton,
     DatePipe,
     CurrencyPipe,
-    RouterLink
+    RouterLink,
+    AddressPipe,
+    PaymentCardPipe
 ],
   templateUrl: './order-detailed.component.html',
   styleUrl: './order-detailed.component.css',
