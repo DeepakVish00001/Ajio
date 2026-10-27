@@ -6,6 +6,7 @@ using Infrastructure.Data;
 using Infrastructure.Implementation;
 using Infrastructure.Services;
 using Infrastructure.UnitOfWork;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using StackExchange.Redis;
 
@@ -37,6 +38,7 @@ builder.Services.AddScoped<IPaymentService, PaymentService>();
 builder.Services.AddSignalR();
 
 builder.Services.AddIdentityApiEndpoints<AppUser>()
+        .AddRoles<IdentityRole>()
         .AddEntityFrameworkStores<StoreContext>();
 builder.Services.AddAuthorization();
 
@@ -69,8 +71,9 @@ try
     var scope = app.Services.CreateScope();
     var services = scope.ServiceProvider;
     var context = services.GetRequiredService<StoreContext>();
+    var userManager= services.GetRequiredService<UserManager<AppUser>>();
     await context.Database.MigrateAsync();
-    await StoreContextSeed.SeedAsync(context);
+    await StoreContextSeed.SeedAsync(context,userManager);
 
 }
 catch (Exception ex)
