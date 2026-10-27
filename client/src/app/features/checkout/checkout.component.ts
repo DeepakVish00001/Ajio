@@ -54,9 +54,7 @@ export class CheckoutComponent implements OnInit, OnDestroy {
     { address: false, card: false, delivery: false }
   )
 
-  // constructor(){
-  //   this.handleAddressChange=this.handleAddressChange.bind(this)
-  // }
+
 
   confirmationToken?: ConfirmationToken;
   loading = false;
@@ -133,34 +131,58 @@ export class CheckoutComponent implements OnInit, OnDestroy {
     }
   }
 
+
   async confirmPayment(stepper: MatStepper) {
     this.loading = true;
-    try {
-      if (this.confirmationToken) {
-        const result = await this.stripeServices.confirmPayment(this.confirmationToken);
 
-        if (result.paymentIntent?.status === 'succeeded') {
-          const order = await this.createOrderModel();
-          const orderResult = await firstValueFrom(this.orderServices.createOrder(order))
-          if (orderResult) {
-            this.cartService.deleteCart();
-            this.cartService.selectedDelivery.set(null);
-            this.router.navigateByUrl('/checkout/success');
-          } else {
-            throw new Error('Order creation failed');
-          }
-        } else if (result.error) {
-          throw new Error(result.error.message);
-        } else {
-          throw new Error('Somthing went worng');
-        }
+    try {
+      if (!this.confirmationToken) {
+        throw new Error('Please complete payment details first.');
+      }
+
+      // 1. Create the order model before confirming payment
+      const order = await this.createOrderModel();
+
+      // 2. Save the order in the database first
+      const orderResult = await firstValueFrom(
+        this.orderServices.createOrder(order)
+      );
+
+      if (!orderResult) {
+        throw new Error('Order creation failed.');
+      }
+
+      console.log('Order created:', orderResult.id);
+
+      // 3. Now confirm the Stripe payment
+      const result = await this.stripeServices.confirmPayment(
+        this.confirmationToken
+      );
+
+      if (result.error) {
+        throw new Error(result.error.message);
+      }
+
+      if (result.paymentIntent?.status === 'succeeded') {
+        // 4. Webhook will update the order status
+        this.cartService.deleteCart();
+        this.cartService.selectedDelivery.set(null);
+
+        this.router.navigateByUrl('/checkout/success');
+      } else {
+        throw new Error(
+          'Payment is not completed. Please check your payment status.'
+        );
       }
     } catch (error: any) {
+      console.error('Checkout error:', error);
       stepper.previous()
+      alert(error.message || 'Something went wrong during checkout.');
     } finally {
       this.loading = false;
     }
   }
+
 
 
   private async createOrderModel(): Promise<OrderToCreate> {

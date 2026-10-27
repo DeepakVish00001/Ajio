@@ -10,7 +10,9 @@ using Microsoft.AspNetCore.Mvc;
 namespace API.Controllers
 {
     [Authorize]
-    public class OrdersController(ICartService cartService, IUnitOfWork unit) : BaseApiController
+    public class OrdersController(ICartService cartService,
+    IUnitOfWork unit,
+     ILogger<OrdersController> logger) : BaseApiController
     {
         [HttpPost]
         public async Task<ActionResult<Order>> CreateOrder(CreateOrderDto dto)
@@ -61,13 +63,24 @@ namespace API.Controllers
 
             unit.Repository<Order>().Add(order);
 
+            logger.LogInformation(
+     "Creating order for PaymentIntent: {PaymentIntentId}",
+     order.PaymentIntentId
+ );
+
             if (await unit.Complete())
             {
+                logger.LogInformation(
+                    "Order {OrderId} saved successfully for PaymentIntent {PaymentIntentId}",
+                    order.Id,
+                    order.PaymentIntentId
+                );
+
                 return order;
             }
-
             return BadRequest("Problem creating order");
         }
+
 
 
         [HttpGet]
