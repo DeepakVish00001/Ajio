@@ -1,4 +1,5 @@
 using API.Middeware;
+using API.SignalR;
 using Core.Entities;
 using Core.Interface;
 using Infrastructure.Data;
@@ -28,10 +29,12 @@ builder.Services.AddSingleton<IConnectionMultiplexer>(config =>
 });
 
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
-builder.Services.AddScoped<IUnitOfWork,UnitOfWork>();
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
-builder.Services.AddSingleton<ICartService,CartService>();
+builder.Services.AddSingleton<ICartService, CartService>();
 builder.Services.AddScoped<IPaymentService, PaymentService>();
+
+builder.Services.AddSignalR();
 
 builder.Services.AddIdentityApiEndpoints<AppUser>()
         .AddEntityFrameworkStores<StoreContext>();
@@ -41,21 +44,10 @@ builder.Services.AddAuthorization();
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
-// builder.Services.AddCors(options =>
-// {
-//     options.AddPolicy("AllowAngular", policy =>
-//     {
-//         policy
-//             .WithOrigins("http://localhost:4200")
-//             .AllowAnyHeader()
-//             .AllowAnyMethod()
-//             .AllowCredentials();
-//     });
-// });
 var app = builder.Build();
 app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().AllowCredentials()
-    .WithOrigins("http://localhost:4200","https://localhost:4200"));
-    
+    .WithOrigins("http://localhost:4200", "https://localhost:4200"));
+
 app.UseStaticFiles();
 app.UseAuthentication();
 app.UseAuthorization();
@@ -66,7 +58,11 @@ app.UseAuthorization();
 app.UseMiddleware<ExceptionMiddleware>();
 app.MapControllers();
 
+
+
 app.MapGroup("api").MapIdentityApi<AppUser>();
+
+app.MapHub<NotificationHub>("/hub/notifications");
 
 try
 {
