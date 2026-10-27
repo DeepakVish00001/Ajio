@@ -10,7 +10,7 @@ export class ShopParams {
     maxPrice = 50000;
 
     pageIndex = 1;
-    pageSize = 5;
+    pageSize = 12;
 
     minRating = 0;
 }
