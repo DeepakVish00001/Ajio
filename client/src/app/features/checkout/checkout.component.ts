@@ -165,10 +165,11 @@ export class CheckoutComponent implements OnInit, OnDestroy {
 
       if (result.paymentIntent?.status === 'succeeded') {
         // 4. Webhook will update the order status
+        this.orderServices.orderComplete=true;
         this.cartService.deleteCart();
         this.cartService.selectedDelivery.set(null);
 
-        this.router.navigateByUrl('/checkout/success');
+        this.router.navigateByUrl('/checkout/success'); 
       } else {
         throw new Error(
           'Payment is not completed. Please check your payment status.'
