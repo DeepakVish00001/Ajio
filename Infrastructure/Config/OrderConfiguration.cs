@@ -19,7 +19,7 @@ public class OrderConfiguration : IEntityTypeConfiguration<Order>
         builder.HasMany(x => x.OrderItems).WithOne().OnDelete(DeleteBehavior.Cascade);
         builder.HasMany(x => x.StatusHistory)
                         .WithOne(x => x.Order)
-                        .HasForeignKey(x => x.Id)
+                        .HasForeignKey(x => x.OrderId)
                         .OnDelete(DeleteBehavior.Cascade);
 
         builder.Property(x => x.OrderDate).HasConversion(

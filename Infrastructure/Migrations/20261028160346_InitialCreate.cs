@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class FixRoleSeedData : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -294,6 +294,27 @@ namespace Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "OrderStatusHistories",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    OrderId = table.Column<int>(type: "int", nullable: false),
+                    Status = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_OrderStatusHistories", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_OrderStatusHistories_Orders_OrderId",
+                        column: x => x.OrderId,
+                        principalTable: "Orders",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Products",
                 columns: table => new
                 {
@@ -408,8 +429,8 @@ namespace Infrastructure.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "11111111-1111-1111-1111-111111111111", "13d6e6a5-d344-4a7e-be45-253b00badb99", "Admin", "ADMIN" },
-                    { "22222222-2222-2222-2222-222222222222", "9fd0ba14-73f0-4f57-b94b-ab3d5269188d", "Customer", "CUSTOMER" }
+                    { "admin-id", "70cfa281-8b02-4a3a-b439-0609eb26bc37", "Admin", "ADMIN" },
+                    { "customer-id", "b51384ad-2f23-485c-aef4-b07cc8c2cc3b", "Customer", "CUSTOMER" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -465,6 +486,11 @@ namespace Infrastructure.Migrations
                 name: "IX_Orders_DeliveryMethodId",
                 table: "Orders",
                 column: "DeliveryMethodId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_OrderStatusHistories_OrderId",
+                table: "OrderStatusHistories",
+                column: "OrderId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ProductBrands_ProductCategoryId",
@@ -523,6 +549,9 @@ namespace Infrastructure.Migrations
 
             migrationBuilder.DropTable(
                 name: "OrderItems");
+
+            migrationBuilder.DropTable(
+                name: "OrderStatusHistories");
 
             migrationBuilder.DropTable(
                 name: "ProductComments");

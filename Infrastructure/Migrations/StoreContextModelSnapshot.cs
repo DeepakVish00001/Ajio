@@ -277,16 +277,24 @@ namespace Infrastructure.Migrations
             modelBuilder.Entity("Core.Entities.OrderAggregate.OrderStatusHistory", b =>
                 {
                     b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
+
+                    b.Property<int>("OrderId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Status")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("OrderId");
 
                     b.ToTable("OrderStatusHistories");
                 });
@@ -724,7 +732,7 @@ namespace Infrastructure.Migrations
                 {
                     b.HasOne("Core.Entities.OrderAggregate.Order", "Order")
                         .WithMany("StatusHistory")
-                        .HasForeignKey("Id")
+                        .HasForeignKey("OrderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
