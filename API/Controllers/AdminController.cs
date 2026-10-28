@@ -11,7 +11,7 @@ namespace API.Controllers
 {
 
     [Authorize(Roles = "Admin")]
-    public class AdminController(IUnitOfWork unit) : BaseApiController
+    public class AdminController(IUnitOfWork unit, IPaymentService paymentService) : BaseApiController
     {
         [HttpGet("orders")]
         public async Task<ActionResult<IReadOnlyList<OrderDto>>> GetOrders([FromQuery] OrderSpecParams specParams)
@@ -31,6 +31,30 @@ namespace API.Controllers
             if (order == null) return BadRequest("No order with the id");
 
             return order.ToDto();
+        }
+
+        [HttpPost("orders/refund/{id:int}")]
+        public async Task<ActionResult<OrderDto>> RefundOrder(int id)
+        {
+            var spec = new OrderSpecification(id);
+
+            var order = await unit.Repository<Order>().GetEntityWithSpec(spec);
+            if (order == null) return BadRequest("No order with the id");
+
+            if (order.Status == OrderStatus.Pending)
+                return BadRequest("Payment not received for this order");
+
+            var result = await paymentService.RefundPayment(order.PaymentIntentId);
+            if (result == "succeeded")
+            {
+                order.Status = OrderStatus.Refunded;
+
+                await unit.Complete();
+
+                return order.ToDto();
+            }
+
+            return BadRequest("Problem refunding order");
         }
     }
 }
