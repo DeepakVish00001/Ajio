@@ -1,4 +1,5 @@
 
+using System.Security.Claims;
 using API.Dtos;
 using API.Extensions;
 using Core.Entities;
@@ -41,6 +42,7 @@ namespace API.Controllers
             return NoContent();
         }
 
+
         [HttpGet("user-info")]
         public async Task<ActionResult> GetUserInfo()
         {
@@ -53,7 +55,8 @@ namespace API.Controllers
                 user.FirstName,
                 user.LastName,
                 user.Email,
-                Address=user.Address?.ToDto()
+                Address=user.Address?.ToDto(),
+                Roles=User.FindFirstValue(ClaimTypes.Role)
             });
         }
 
