@@ -1,3 +1,7 @@
+using API.Helpers;
+using Core.Entities;
+using Core.Interface;
+using Core.Specification;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -6,5 +10,14 @@ namespace API.Controllers
     [ApiController]
     public class BaseApiController : ControllerBase
     {
+        protected async Task<ActionResult> CreatePagedResult<T>(IGenericRepository<T> repo,
+        ISpecification<T> spec, int pageIndex, int pageSize) where T : BaseEntity
+        {
+            var items = await repo.ListAsync(spec);
+            var count = await repo.CountAsync(spec);
+
+            var pagination = new Pagination<T>(pageIndex, pageSize, count, items);
+            return Ok(pagination);
+        }
     }
 }
