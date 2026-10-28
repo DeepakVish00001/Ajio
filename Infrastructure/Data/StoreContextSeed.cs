@@ -9,16 +9,15 @@ public class StoreContextSeed
 {
     public static async Task SeedAsync(StoreContext context, UserManager<AppUser> userManager)
     {
-        if (!userManager.Users.Any(x => x.UserName == "admin@admin.com"))
+        if (!userManager.Users.Any(x => x.UserName == "admin@test.com"))
         {
             var user = new AppUser
             {
-                FirstName = "Admin",
-                LastName = "Admin",
-                UserName = "admin@admin.com",
-                Email = "admin@admin.com"
+                UserName = "admin@test.com",
+                Email = "admin@test.com"
             };
-            await userManager.CreateAsync(user, "Admin@97");
+
+            await userManager.CreateAsync(user, "Deepak@97");
             await userManager.AddToRoleAsync(user, "Admin");
         }
         if (!context.ProductCategories.Any())
