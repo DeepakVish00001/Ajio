@@ -15,12 +15,16 @@ public class OrderConfiguration : IEntityTypeConfiguration<Order>
             o => (OrderStatus)Enum.Parse(typeof(OrderStatus), o)
         );
 
-        builder.Property(x=>x.Subtotal).HasColumnType("decimal(18,2)");
-        builder.HasMany(x=>x.OrderItems).WithOne().OnDelete(DeleteBehavior.Cascade);
+        builder.Property(x => x.Subtotal).HasColumnType("decimal(18,2)");
+        builder.HasMany(x => x.OrderItems).WithOne().OnDelete(DeleteBehavior.Cascade);
+        builder.HasMany(x => x.StatusHistory)
+                        .WithOne(x => x.Order)
+                        .HasForeignKey(x => x.Id)
+                        .OnDelete(DeleteBehavior.Cascade);
 
-        builder.Property(x=>x.OrderDate).HasConversion(
-            d=>d.ToUniversalTime(),
-            d=>DateTime.SpecifyKind(d,DateTimeKind.Utc)
+        builder.Property(x => x.OrderDate).HasConversion(
+            d => d.ToUniversalTime(),
+            d => DateTime.SpecifyKind(d, DateTimeKind.Utc)
         );
     }
 }

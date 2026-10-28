@@ -12,6 +12,7 @@ public class Order : BaseEntity, IDtoConvertible
     public List<OrderItem> OrderItems { get; set; } = [];
     public decimal Subtotal { get; set; }
     public OrderStatus Status { get; set; } = OrderStatus.Pending;
+    public List<OrderStatusHistory> StatusHistory { get; set; } = [];
     public required string PaymentIntentId { get; set; }
 
     public decimal GetTotal()
