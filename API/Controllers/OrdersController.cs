@@ -11,7 +11,7 @@ namespace API.Controllers
 {
     [Authorize]
     public class OrdersController(ICartService cartService,
-    IUnitOfWork unit,
+    IUnitOfWork unit, IPaymentService paymentService,
      ILogger<OrdersController> logger) : BaseApiController
     {
         [HttpPost]
@@ -106,6 +106,39 @@ namespace API.Controllers
             if (order == null) return NotFound();
 
             return Ok(order.ToDto());
+        }
+
+        [HttpPost("orders/cancel/{id:int}")]
+        public async Task<ActionResult<OrderDto>> CancledOrder(int id)
+        {
+            var spec = new OrderSpecification(User.GetEmail(), id);
+
+            var order = await unit.Repository<Order>().GetEntityWithSpec(spec);
+            if (order == null)
+                return BadRequest("No order with the id");
+
+
+            if (order.Status == OrderStatus.Cancelled)
+                return BadRequest("Order is alredy cancelled");
+
+            if (order.Status == OrderStatus.Refunded)
+                return BadRequest("Order is alredy refunded");
+
+            if (order.Status == OrderStatus.Pending)
+            {
+                order.Status = OrderStatus.Cancelled;
+            }
+            else
+            {
+                var result = await paymentService.RefundPayment(order.PaymentIntentId);
+                if (result != "succeeded")
+                    return BadRequest("Problem refunding order");
+
+                order.Status = OrderStatus.Refunded;
+            }
+            await unit.Complete();
+            return Ok(order.ToDto());
+
         }
     }
 }
