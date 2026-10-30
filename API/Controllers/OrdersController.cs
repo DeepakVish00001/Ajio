@@ -31,6 +31,15 @@ namespace API.Controllers
 
                 if (productItem == null) return BadRequest("Problem with the order");
 
+
+                // Check available stock
+                if (productItem.QuantityInStock <= 0)
+                    return BadRequest($"{productItem.Name} is out of stock");
+
+                if (productItem.QuantityInStock < item.Quantity)
+                    return BadRequest(
+                        $"Only {productItem.QuantityInStock} quantity available for {productItem.Name}"
+                    );
                 var itemOrderd = new ProductItemOrdered
                 {
                     ProductId = item.ProductId,
@@ -44,8 +53,12 @@ namespace API.Controllers
                     Price = productItem.Price,
                     Quantity = item.Quantity
                 };
+                // Reduce stock
+                productItem.QuantityInStock -= item.Quantity;
+
                 items.Add(orderItem);
             }
+
 
             var deliveryMethods = await unit.Repository<DeliveryMethod>().GetByIdAynce(dto.DeliveryMethodId);
             if (deliveryMethods == null) return BadRequest("No delivery method selected");
@@ -60,25 +73,25 @@ namespace API.Controllers
                 PaymentIntentId = cart.PaymentIntentId,
                 BuyerEmail = email,
 
-                
-            };
 
+
+            };
+            order.StatusHistory.Add(new OrderStatusHistory
+            {
+                OrderId = order.Id,
+                Status = OrderStatus.Pending,
+                CreatedAt = DateTime.UtcNow
+            });
             unit.Repository<Order>().Add(order);
 
-            logger.LogInformation(
-     "Creating order for PaymentIntent: {PaymentIntentId}",
-     order.PaymentIntentId
- );
 
             if (await unit.Complete())
             {
-                logger.LogInformation(
-                    "Order {OrderId} saved successfully for PaymentIntent {PaymentIntentId}",
-                    order.Id,
-                    order.PaymentIntentId
+                return CreatedAtAction(
+                    "GetOrderById",
+                    new { id = order.Id },
+                    order.ToDto()
                 );
-
-                return order;
             }
             return BadRequest("Problem creating order");
         }
@@ -92,9 +105,9 @@ namespace API.Controllers
 
             var orders = await unit.Repository<Order>().ListAsync(spec);
 
-            var orderToRecturn = orders.Select(o => o.ToDto()).ToList();
+            var orderToReturn = orders.Select(o => o.ToDto()).ToList();
 
-            return Ok(orderToRecturn);
+            return Ok(orderToReturn);
         }
 
         [HttpGet("{id:int}")]

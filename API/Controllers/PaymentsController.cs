@@ -128,6 +128,11 @@ public class PaymentsController(IUnitOfWork unit,
         if (expectedAmount != intent.AmountReceived)
         {
             order.Status = OrderStatus.PaymentMismatch;
+            order.StatusHistory.Add(new OrderStatusHistory
+            {
+                Status = OrderStatus.PaymentMismatch,
+                CreatedAt = DateTime.UtcNow
+            });
 
             logger.LogWarning(
                 "Amount mismatch. Expected: {Expected}, Received: {Received}",
@@ -137,7 +142,12 @@ public class PaymentsController(IUnitOfWork unit,
         }
         else
         {
-            order.Status = OrderStatus.PaymentReceived;
+            order.StatusHistory.Add(new OrderStatusHistory
+            {
+                Status = OrderStatus.PaymentReceived,
+                CreatedAt = DateTime.UtcNow
+            });
+          //  order.Status = OrderStatus.PaymentReceived;
         }
 
         logger.LogInformation(
@@ -149,11 +159,11 @@ public class PaymentsController(IUnitOfWork unit,
         await unit.Complete();
 
 
-        var connectionId=NotificationHub.GetConnectionIdByEmail(order.BuyerEmail);
+        var connectionId = NotificationHub.GetConnectionIdByEmail(order.BuyerEmail);
         if (!string.IsNullOrEmpty(connectionId))
         {
             await hubContext.Clients.Client(connectionId)
-                .SendAsync("OrderCompleteNotification",order.ToDto());
+                .SendAsync("OrderCompleteNotification", order.ToDto());
         }
         logger.LogInformation(
             "Order {OrderId} successfully updated to {Status}",

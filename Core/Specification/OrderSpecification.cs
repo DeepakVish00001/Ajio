@@ -7,6 +7,7 @@ public class OrderSpecification : BaseSpecification<Order>
     public OrderSpecification(string email) : base(x => x.BuyerEmail == email)
     {
         AddInclude(x => x.OrderItems);
+        AddInclude(x=>x.StatusHistory);
         AddInclude(x => x.DeliveryMethod);
         AddOrderByDescending(x => x.OrderDate);
     }
@@ -14,12 +15,14 @@ public class OrderSpecification : BaseSpecification<Order>
     public OrderSpecification(string email, int id) : base(x => x.BuyerEmail == email && x.Id == id)
     {
         AddInclude(x => x.OrderItems);
+        AddInclude(x=>x.StatusHistory);
         AddInclude(x => x.DeliveryMethod);
     }
 
     public OrderSpecification(string paymentIntentId, bool isPaymentIntent) : base(x => x.PaymentIntentId == paymentIntentId)
     {
         AddInclude(x => x.OrderItems);
+        AddInclude(x=>x.StatusHistory);
         AddInclude(x => x.DeliveryMethod);
     }
 
@@ -29,6 +32,7 @@ public class OrderSpecification : BaseSpecification<Order>
     {
         AddInclude(x => x.OrderItems);
         AddInclude(x => x.DeliveryMethod);
+        AddInclude(x=>x.StatusHistory);
         ApplyPaging(specParams.PageSize * (specParams.PageIndex - 1), specParams.PageSize);
         AddOrderByDescending(x => x.OrderDate);
     }
@@ -36,6 +40,7 @@ public class OrderSpecification : BaseSpecification<Order>
     public OrderSpecification(int id) : base(x => x.Id == id)
     {
         AddInclude(x => x.OrderItems);
+        AddInclude(x=>x.StatusHistory);
         AddInclude(x => x.DeliveryMethod);
     }
 
